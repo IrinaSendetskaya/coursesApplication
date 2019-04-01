@@ -3,6 +3,9 @@
   "rulesDirectory": [
     "codelyzer"
   ],
+  "devServer": {
+    "historyApiFallback": true
+  },
   "rules": {
     "array-type": false,
     "arrow-parens": false,

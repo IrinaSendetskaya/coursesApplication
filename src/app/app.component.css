@@ -1,10 +1,10 @@
-.header__navbar{
+.header__navbar nav{
     display: flex;
     justify-content: space-around;
     flex-direction: row;
     box-sizing: content-box;
 }
-.header__navbar a.header__navbar_item {
+.header__navbar nav a.header__navbar_item {
     align-self: center;
     justify-self: center;
     padding-left: 40px;
@@ -13,5 +13,9 @@
     font-size: 16px;
     text-decoration: none;
     box-sizing: content-box;
-    
+    display:flex; 
+    flex-direction: column;
+}
+.header__navbar nav a.header__navbar_item.active {
+    color: rgb(95, 194, 240);
 }

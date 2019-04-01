@@ -1,0 +1,22 @@
+input.ng-touched.ng-invalid {
+  border: solid red 2px;
+}
+
+input.ng-touched.ng-valid {
+  border: solid green 2px;
+}
+
+.alert-danger {
+  color: red;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
+}
+
+.form-group:nth-child() {
+  padding: 5px 5px 5px 5px;
+}

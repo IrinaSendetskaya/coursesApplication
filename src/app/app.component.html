@@ -1,16 +1,21 @@
 <div class="header__navbar">
-  <a class="header__navbar_item" href="">
-    <app-courses></app-courses>
-  </a>
-  <a class="header__navbar_item" href="">
+  <nav>
+    <a class="header__navbar_item" routerLink="/courses" routerLinkActive="active"
+      >
+      Курсы
+    </a>
+    <!-- <a class="header__navbar_item" href="">
     <app-add-course></app-add-course>
   </a>
   <a class="header__navbar_item" href="">
     <app-edit-course></app-edit-course>
-  </a>
-  <a class="header__navbar_item" href="">
-    <app-login></app-login>
-  </a>
+  </a> -->
+    <a class="header__navbar_item" routerLink="/login" routerLinkActive="active"
+      >
+      Логин
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
 </div>
 
 <div class="footer"></div>
