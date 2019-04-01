@@ -1,0 +1,17 @@
+.header__navbar{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    box-sizing: content-box;
+}
+.header__navbar a.header__navbar_item {
+    align-self: center;
+    justify-self: center;
+    padding-left: 40px;
+    color: rgb(72, 106, 114);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    box-sizing: content-box;
+    
+}
