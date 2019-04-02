@@ -9,6 +9,9 @@ input.ng-touched.ng-valid {
 .alert-danger {
   color: red;
 }
+.alert-permit{
+  color:green;
+}
 
 .form-group {
   display: flex;

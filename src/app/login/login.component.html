@@ -6,6 +6,9 @@
     <div [hidden]="nameLogin.valid&&pass.valid" class="alert alert-danger">
       Неправильный логин или пароль
     </div>
+    <div [class]="messageClass">
+        {{message}}
+      </div>
   </div>
   <div class="form-group">
     <label for="#nameLogin">Логин </label>

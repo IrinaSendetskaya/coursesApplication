@@ -9,21 +9,21 @@ import { NgModel } from "@angular/forms";
 export class LoginComponent implements OnInit {
   constructor() {}
   user: User = new User();
+  message: string;
+  messageClass: string;
 
   addUser() {
     console.log(this.user);
   }
 
   checkUser() {
+    
     if (this.user.login === "q" && this.user.password === "q") {
-      console.log(
-        "Check user \nlogin: " +
-          this.user.login +
-          " password: " +
-          this.user.password
-      );
+      this.messageClass = "alert alert-permit";
+      this.message = "Вы вошли. Ваш логин: " + this.user.login;
     } else {
-      console.log("Check user:incorrect " + this.user);
+      this.messageClass = "alert alert-danger";
+      this.user.password = "";
     }
   }
 
