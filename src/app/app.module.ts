@@ -1,20 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import { FormsModule }   from '@angular/forms';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { CoursesComponent } from './courses/courses.component';
-import { AddCourseComponent } from './add-course/add-course.component';
-import { EditCourseComponent } from './edit-course/edit-course.component';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 
-const appRoutes: Routes =[
-  { path: 'login', component: LoginComponent},
-  { path: '', redirectTo: 'login', pathMatch:'full'},
-  { path: 'courses', component: CoursesComponent},
-  { path: 'courses/new', component: AddCourseComponent },
-  { path: 'courses/:id', component: EditCourseComponent }
-];
+import { AppComponent } from "./app.component";
+import { LoginComponent } from "./login/login.component";
+import { CoursesComponent } from "./courses/courses.component";
+import { AddCourseComponent } from "./courses/add-course/add-course.component";
+import { EditCourseComponent } from "./courses/edit-course/edit-course.component";
+
+import { LoginService } from "./login/login.service";
+import { APP_ROUTING } from "./app.routing";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,10 +19,8 @@ const appRoutes: Routes =[
     AddCourseComponent,
     EditCourseComponent
   ],
-  imports: [
-    BrowserModule, FormsModule,RouterModule.forRoot(appRoutes)
-  ],
-  providers: [],
+  imports: [BrowserModule, FormsModule, APP_ROUTING],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
