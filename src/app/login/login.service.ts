@@ -24,7 +24,7 @@ export class LoginService {
           return user.login === userLogin && user.password === userPassword;
         }
       );
-      console.log("find user in service " + userObserver);
+     
       if (userObserver === undefined) {
         observer.closed;
       } else {

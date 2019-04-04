@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   constructor(private userCheck:LoginService) {}
   user: User = new User();
   message: string;
   messageClass: string;
 
-  checkUser() {
-    console.log(this.userValidator());
+  checkUserByLoginAndPassword() {
+   
     if (this.userValidator()) {
       this.messageClass = "alert alert-permit";
       this.message = "Вы вошли. Ваш логин: " + this.user.login;
@@ -27,11 +27,10 @@ export class LoginComponent implements OnInit {
 
   userValidator():boolean{
     var isUser=this.userCheck.validateUserByLoginAndPassword(this.user.login,this.user.password).subscribe();
-    console.log(isUser.closed);
+   
     return isUser.closed;
   }
-  
-  ngOnInit() {}
+
 }
 
 export class User implements IUser{
