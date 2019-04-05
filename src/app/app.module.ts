@@ -8,6 +8,7 @@ import { CoursesComponent } from "./courses/courses.component";
 import { AddCourseComponent } from "./courses/add-course/add-course.component";
 import { EditCourseComponent } from "./courses/edit-course/edit-course.component";
 
+import {AuthGuard} from "./auth.guard";
 import { LoginService } from "./login/login.service";
 import { APP_ROUTING } from "./app.routing";
 
@@ -20,7 +21,7 @@ import { APP_ROUTING } from "./app.routing";
     EditCourseComponent
   ],
   imports: [BrowserModule, FormsModule, APP_ROUTING],
-  providers: [LoginService],
+  providers: [LoginService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

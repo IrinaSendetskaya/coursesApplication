@@ -6,12 +6,14 @@ import { User } from "./login.component";
 @Injectable({
   providedIn: "root"
 })
-
 export class LoginService {
-  private users: Array<User>;
+  returnUser = {login:"",password:""};
+  private users = new Array();
+  isAuthorizedUser:boolean=false;
 
   constructor() {
-    this.users = [{ login: "q", password: "q" }];
+    this.returnUser = JSON.parse(localStorage.getItem("user"));
+    this.users.push(this.returnUser);
   }
 
   validateUserByLoginAndPassword(
@@ -19,18 +21,25 @@ export class LoginService {
     userPassword: string
   ): Observable<User[]> {
     return new Observable<User[]>(observer => {
-      const userObserver = this.users.find(
-        (user: User) => {
-          return user.login === userLogin && user.password === userPassword;
-        }
-      );
-     
+
+      const userObserver = this.users.find(user => {
+        return (
+          this.returnUser.login === userLogin &&
+          this.returnUser.password === userPassword
+        );
+      });console.log(userObserver); console.log(this.returnUser);
       if (userObserver === undefined) {
+        this.isAuthorizedUser=false;
         observer.closed;
       } else {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ login: userLogin, password: userPassword })
+        );
+        this.isAuthorizedUser=true;
         observer.next();
         observer.complete();
-      }
+      } 
     });
   }
 }

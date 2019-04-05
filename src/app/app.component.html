@@ -1,11 +1,12 @@
 <div class="header__navbar">
   <nav>
-    <a class="header__navbar_item" routerLink="/courses" routerLinkActive="active">
+    <a class="header__navbar_item" routerLink="courses" routerLinkActive="active">
       Курсы
     </a>
-    <a class="header__navbar_item" routerLink="/login" routerLinkActive="active">
+    <a class="header__navbar_item" routerLink="login" routerLinkActive="active">
       Логин
     </a>
+    <!-- <div [hidden]="nameLogin.valid&&pass.valid">Hello,  </div> -->
   </nav>
   <router-outlet></router-outlet>
 </div>
