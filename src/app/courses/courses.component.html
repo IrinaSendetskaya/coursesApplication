@@ -5,7 +5,11 @@
 <div *ngIf="isValidate" class="content__list__courses" method="GET">
   <div class="options__courses">
     <div class="search__courses">
-      <input type="text" class="search__input" placeholder="фрагмент названия или дата">
+      <input
+        type="text"
+        class="search__input"
+        placeholder="фрагмент названия или дата"
+      />
       <button class="button__search">найти</button>
     </div>
     <div class="add__course">
@@ -13,11 +17,25 @@
     </div>
   </div>
   <div class="list__courses" *ngFor="let course of arrCourses">
-    <div class="list__couses__item">{{ course?.name }}</div>
-    <div class="list__couses__item">{{ course?.date }}</div>
-    <div class="list__couses__item">{{ course?.duration }}</div>
-    <div class="list__couses__item">{{ course?.description }}</div>
-    <div class="list__couses__item">{{ course?.authors }}</div>
+    <div class="course__item__description">
+      <div class="course__item__description__header">
+        <div class="course__item__description__header__main">
+          <div class="list__course__item__description">Видеокурс {{ course?.id }}</div>
+          <div class="list__course__item__description">{{ course?.name }}</div>
+          <div class="list__course__item__description">{{ course?.duration }}</div>
+        </div>
+        <div class="course__item__description__header__date">
+          {{ course?.date }}
+        </div>
+      </div>
+      <div clas="course__item__description">
+        {{ course?.description }}
+      </div>
+    </div>
+    <div class="course__item__options">
+      <button class="button__edit__course">Редактировать</button>
+      <button class="button__delete__course">Удалить</button>
+    </div>
   </div>
 </div>
 <div class="messageClass">

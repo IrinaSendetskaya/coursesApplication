@@ -9,17 +9,22 @@ input.ng-touched.ng-valid {
 .alert-danger {
   color: red;
 }
-.alert-permit{
-  color:green;
+.alert-permit {
+  color: green;
 }
 
 .form-group {
   display: flex;
   flex-direction: row;
-  padding: 10px;
-  margin: 10px;
-}
-
-.form-group:nth-child() {
+  justify-content: center;
   padding: 5px;
+  margin: 5px;
+}
+.content__form__login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form-control {
+  margin: 5px;
 }

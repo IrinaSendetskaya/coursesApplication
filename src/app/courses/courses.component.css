@@ -1,5 +1,75 @@
 .content__list__courses {
   display: flex;
-flex-direction: column;
+  flex-direction: column;
+  justify-content: space-around;
   border: 1px solid navy;
+}
+.options__courses {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid navy;
+  margin: 5px;
+  padding: 10px;
+}
+.search__courses {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  padding: 5px;
+}
+.add__course {
+  padding: 5px;
+}
+input,
+button {
+  margin: 5px;
+  padding: 3px;
+}
+.list__courses {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid navy;
+}
+.course__item__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+.course__item__description__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5px;
+  width: 100%;
+}
+.course__item__description__header__date {
+  justify-self: flex-end;
+}
+.course__item__description__header__main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 5px;
+}
+.list__course__item__description {
+  margin-right: 30px;
+  justify-self: stretch;
+}
+.course__item__options {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 5px;
+  margin: 5px;
 }
