@@ -1,16 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
 import { User } from "./../login/login.component";
+import { CoursesService } from "./courses.service";
+import { Courses } from "./courses";
+import { LoginService } from "../login/login.service";
+import { Router } from '@angular/router';
+import { userInfo } from 'os';
 
 @Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.css']
+  selector: "app-courses",
+  templateUrl: "./courses.component.html",
+  styleUrls: ["./courses.component.css"]
 })
-export class CoursesComponent {
-  user:User;
+export class CoursesComponent implements OnInit {
+
+  @Input()
   userName:string;
+  
+  message: string;
+  public arrCourses: Array<Courses>;
+  isValidate: boolean;
 
+  constructor(
+    private coursesService: CoursesService,
+    private loginService: LoginService,
+    private _router: Router
+  ) {}
 
-  constructor() { }
+  getCourses() {
+    this.coursesService.getAllCourses().subscribe(
+      data => this.arrCourses = data[('courses')]
+    );
+}
 
+  ngOnInit() {
+    this.isValidate = this.loginService.isAuthorizedUser;
+    this.userName=this.loginService.returnUser.login;
+    if(this.isValidate){
+    this.getCourses();
+    }else
+    {
+      this.message="Нет курсов";
+      this._router.navigate(["/login"]);
+    }   
+  }
 }

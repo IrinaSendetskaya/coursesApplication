@@ -1,0 +1,54 @@
+{"courses":[{
+    "id":1,
+    "name":"tempus",
+    "date":"22.04.18",
+    "duration":59,
+    "description":"diam. Pellentesque habitant morbi tristique senectus et netus et malesuada",
+    "authors":[
+        {"id":1, "name":"Иванов"},
+        {"id":2, "name":"Петров"}
+    ]
+},
+{
+    "id":2,
+    "name":"dapibus",
+    "date":"20.07.18",
+    "duration":67,
+    "description":"vel, vulputate eu, odio. Phasellus at augue",
+    "authors":[
+        {"id":3, "name":"Сидоров"}
+    ]
+},
+{
+    "id":3,
+    "name":"luctus",
+    "date":"04.10.18",
+    "duration":55,
+    "description":"adipiscing lacus. Ut",
+    "authors":[
+        {"id":1, "name":"Иванов"},
+        {"id":4, "name":"Пупкин"}
+    ]
+},{
+    "id":4,
+    "name":"mauris",
+    "date":"20.04.18",
+    "duration":92,
+    "description":"Quisque imperdiet, erat nonummy ultricies ornare, elit",
+    "authors":[
+        {"id":3, "name":"Сидоров"},
+        {"id":2, "name":"Петров"}
+    ]
+},
+{
+    "id":5,
+    "name":"faucibus",
+    "date":"20.12.18",
+    "duration":125,
+    "description":"tempor bibendum. Donec felis orci, adipiscing non",
+    "authors":[
+        {"id":4, "name":"Пупкин"},
+        {"id":2, "name":"Петров"}
+    ]
+}]
+}

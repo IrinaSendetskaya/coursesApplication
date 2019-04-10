@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { ValidationErrors } from "@angular/forms";
 import { Observable } from "rxjs";
 import { User } from "./login.component";
 

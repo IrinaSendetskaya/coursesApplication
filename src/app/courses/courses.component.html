@@ -2,4 +2,25 @@
   Courses catalog
 </p>
 
-<div>Hello, {{userName}}</div>
+<div *ngIf="isValidate" class="content__list__courses" method="GET">
+  <div class="options__courses">
+    <div class="search__courses">
+      <input type="text" class="search__input" placeholder="фрагмент названия или дата">
+      <button class="button__search">найти</button>
+    </div>
+    <div class="add__course">
+      <button class="button__add__course">Добавить курс</button>
+    </div>
+  </div>
+  <div class="list__courses" *ngFor="let course of arrCourses">
+    <div class="list__couses__item">{{ course?.name }}</div>
+    <div class="list__couses__item">{{ course?.date }}</div>
+    <div class="list__couses__item">{{ course?.duration }}</div>
+    <div class="list__couses__item">{{ course?.description }}</div>
+    <div class="list__couses__item">{{ course?.authors }}</div>
+  </div>
+</div>
+<div class="messageClass">
+  {{ message }}
+</div>
+<div>Hello, {{ userName }}</div>
