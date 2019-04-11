@@ -3,8 +3,7 @@ import { User } from "./../login/login.component";
 import { CoursesService } from "./courses.service";
 import { Courses } from "./courses";
 import { LoginService } from "../login/login.service";
-import { Router } from '@angular/router';
-import { userInfo } from 'os';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-courses",
@@ -12,10 +11,9 @@ import { userInfo } from 'os';
   styleUrls: ["./courses.component.css"]
 })
 export class CoursesComponent implements OnInit {
-
   @Input()
-  userName:string;
-  
+  userName: string;
+
   message: string;
   public arrCourses: Array<Courses>;
   isValidate: boolean;
@@ -26,21 +24,49 @@ export class CoursesComponent implements OnInit {
     private _router: Router
   ) {}
 
-  getCourses() {
-    this.coursesService.getAllCourses().subscribe(
-      data => this.arrCourses = data[('courses')]
-    );
-}
+  findAllCourses() {
+    this.coursesService
+      .getAllCourses()
+      .subscribe(data => (this.arrCourses = data["courses"]));
+  }
+
+  searchCourses(searchInput: string) {
+    console.log(searchInput);
+    this.coursesService.getCoursesByNameOrDate(searchInput).subscribe(data => this.arrCourses = data[('courses')]);
+    this.arrCourses=this.arrCourses.sort(function (a, b) {
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
+    });
+    console.log("array_sort "+this.arrCourses);
+    for(var i=0;i<this.arrCourses.length;i++){
+      console.log("i "+i+"="+this.arrCourses[i].name);
+    }
+    
+  }
+
+  findCourseById(id:number){
+    console.log("find_id "+id);
+    this.coursesService.getCourseById(id).subscribe(data => this.arrCourses = data[('courses')]);
+  }
+
+  removeCourse(id:number){
+    console.log("delete_id "+id);
+    this.coursesService.deleteCourse(id).subscribe(data => this.arrCourses = data[('courses')]);
+  }
 
   ngOnInit() {
     this.isValidate = this.loginService.isAuthorizedUser;
-    this.userName=this.loginService.returnUser.login;
-    if(this.isValidate){
-    this.getCourses();
-    }else
-    {
-      this.message="Нет курсов";
+    this.userName = this.loginService.returnUser.login;
+    if (this.isValidate) {
+      this.findAllCourses();
+    } else {
+      this.message = "Нет курсов";
       this._router.navigate(["/login"]);
-    }   
+    }
   }
 }

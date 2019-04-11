@@ -8,12 +8,11 @@
       <input
         type="text"
         class="search__input"
-        placeholder="фрагмент названия или дата"
-      />
-      <button class="button__search">найти</button>
+        placeholder="фрагмент названия или дата" (keydown.enter)="searchCourses($event.target.value); searchInput.value=''" id="searchInput" #searchInput/>
+      <button class="button__search" (click)="searchCourses(searchInput.value); searchInput.value=''">найти</button>
     </div>
     <div class="add__course">
-      <button class="button__add__course">Добавить курс</button>
+      <button class="button__add__course" routerLink="new" routerLinkActive="active">Добавить курс</button>
     </div>
   </div>
   <div class="list__courses" *ngFor="let course of arrCourses">
@@ -33,8 +32,8 @@
       </div>
     </div>
     <div class="course__item__options">
-      <button class="button__edit__course">Редактировать</button>
-      <button class="button__delete__course">Удалить</button>
+      <button class="button__edit__course" (click)="findCourseById(course.id)" routerLink="['courses', course.id]" routerLinkActive="active">Редактировать</button>
+      <button class="button__delete__course" (click)="removeCourse(course.id)">Удалить</button>
     </div>
   </div>
 </div>
