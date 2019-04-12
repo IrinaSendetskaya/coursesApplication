@@ -26,7 +26,7 @@ export class LoginService {
           this.returnUser.login === userLogin &&
           this.returnUser.password === userPassword
         );
-      });console.log(userObserver); console.log(this.returnUser);
+      });
       if (userObserver === undefined) {
         this.isAuthorizedUser=false;
         observer.closed;

@@ -31,32 +31,21 @@ export class CoursesComponent implements OnInit {
   }
 
   searchCourses(searchInput: string) {
-    console.log(searchInput);
-    this.coursesService.getCoursesByNameOrDate(searchInput).subscribe(data => this.arrCourses = data[('courses')]);
-    this.arrCourses=this.arrCourses.sort(function (a, b) {
-      if (a.name > b.name) {
-        return 1;
-      }
-      if (a.name < b.name) {
-        return -1;
-      }
-      return 0;
-    });
-    console.log("array_sort "+this.arrCourses);
-    for(var i=0;i<this.arrCourses.length;i++){
-      console.log("i "+i+"="+this.arrCourses[i].name);
-    }
-    
+    this.coursesService
+      .getCoursesByNameOrDate(searchInput)
+      .subscribe(data => (this.arrCourses = data["courses"]));
   }
 
-  findCourseById(id:number){
-    console.log("find_id "+id);
-    this.coursesService.getCourseById(id).subscribe(data => this.arrCourses = data[('courses')]);
+  findCourseById(id: number) {
+    console.log("find_id " + id);
+    this.coursesService
+      .getCourseById(id)
+      .subscribe(data => (this.arrCourses = data["courses"]));
   }
 
-  removeCourse(id:number){
-    console.log("delete_id "+id);
-    this.coursesService.deleteCourse(id).subscribe(data => this.arrCourses = data[('courses')]);
+  removeCourse(id: number) {
+    console.log("delete_id " + id);
+    this.coursesService.deleteCourse(id).subscribe();
   }
 
   ngOnInit() {

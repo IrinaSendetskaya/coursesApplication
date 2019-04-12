@@ -1,16 +1,21 @@
+var filter=require("rxjs/operators");
 var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require("fs");
 
 var coursesUrl = "./courses.json";
 var app = express();
-var options = app.params;
+var router = express.Router();
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+
+app.use("/", router);
 var jsonParser = bodyParser.json();
 
 var allowCrossDomain = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS, DELETE");
+  res.header("Access-Control-Allow-Headers", "*");
   next();
 };
 
@@ -20,68 +25,41 @@ app.listen(3000, () => {
   console.log("Server started!");
 });
 
-app.get("/api/courses", function(req, res) {
-
+app.get("/api/courses", function(req, res, next) {
+  var name = null;
   var name = req.query.searchInput;
   var content = fs.readFileSync(coursesUrl, "utf8");
-  var courses = JSON.parse(content);
+  var courses = new Array();
+  var parsedData = JSON.parse(content);
 
-  if (name==='undefined') {
-    res.send(courses);
-  }
-   else {
-    var coursesSearched = new Array();
+  if (!name) {
+    res.send(parsedData);
+  } else {
 
-    for (var i = 0; i < courses.length; i++) {
-      if (courses[i].name == name) {
-        coursesSearched.push(courses[id]);
+    const filterItems = (name) => {
+        return parsedData.courses
+        .filter((el) =>
+          el.name.toLowerCase().indexOf(name.toLowerCase()) > -1
+        );    
       }
-    }
-    if (coursesSearched.length !== 0) {
-      this.coursesSearched = this.coursesSearched.sort(function(a, b) {
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        return 0;
-      });
-      res.send(coursesSearched);
-    } else {
-      res.statusMessage.send("Ничего не найдено!");
+
+    if (!filterItems(name)) {
       res.status(404).send();
+    } else {
+        courses=filterItems(name);
+        courses=courses.sort(function (a, b) {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            return 0;
+          });
+      res.send({"courses":courses});
     }
   }
 });
-
-// app.get("/api/courses", options, function(req, res) {
-//   var name = req.query.searchInput;
-//   var content = fs.readFileSync(coursesUrl, "utf8");
-//   var courses = JSON.parse(content);
-//   var coursesSearched = new Array();
-
-//   for (var i = 0; i < courses.length; i++) {
-//     if (courses[i].name == name) {
-//       coursesSearched.push(courses[id]);
-//     }
-//   }
-//   if (coursesSearched.length !== 0) {
-//     this.coursesSearched = this.coursesSearched.sort(function(a, b) {
-//       if (a.name > b.name) {
-//         return 1;
-//       }
-//       if (a.name < b.name) {
-//         return -1;
-//       }
-//       return 0;
-//     });
-//     res.send(coursesSearched);
-//   } else {
-//     res.statusMessage.send("Ничего не найдено!");
-//     res.status(404).send();
-//   }
-// });
 
 app.get("/api/courses/:id", function(req, res) {
   var id = req.params.id;
@@ -90,8 +68,8 @@ app.get("/api/courses/:id", function(req, res) {
   var course = null;
 
   for (var i = 0; i < courses.length; i++) {
-    if (courses[i] == id) {
-      course = courses[id];
+    if (courses[i].id == id) {
+      course = courses[i];
       break;
     }
   }
@@ -135,8 +113,6 @@ app.post("/api/courses", jsonParser, function(req, res) {
 });
 
 app.delete("/api/courses/:id", function(req, res) {
-  const id = +this.route.snapshot.paramMap.get("id");
-
   var id = req.params.id;
   var data = fs.readFileSync(coursesUrl, "utf8");
   var courses = JSON.parse(data);
@@ -158,7 +134,7 @@ app.delete("/api/courses/:id", function(req, res) {
   }
 });
 
-app.put("/api/courses/${id}", jsonParser, function(req, res) {
+app.put("/api/courses/:id", jsonParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
 
   var courseId = req.params.id;
