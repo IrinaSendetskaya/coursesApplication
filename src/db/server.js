@@ -1,4 +1,4 @@
-var filter=require("rxjs/operators");
+var filter = require("rxjs/operators");
 var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require("fs");
@@ -35,46 +35,43 @@ app.get("/api/courses", function(req, res, next) {
   if (!name) {
     res.send(parsedData);
   } else {
-
-    const filterItems = (name) => {
-        return parsedData.courses
-        .filter((el) =>
-          el.name.toLowerCase().indexOf(name.toLowerCase()) > -1
-        );    
-      }
+    const filterItems = name => {
+      return parsedData.courses.filter(
+        el => el.name.toLowerCase().indexOf(name.toLowerCase()) > -1
+      );
+    };
 
     if (!filterItems(name)) {
       res.status(404).send();
     } else {
-        courses=filterItems(name);
-        courses=courses.sort(function (a, b) {
-            if (a.name > b.name) {
-              return 1;
-            }
-            if (a.name < b.name) {
-              return -1;
-            }
-            return 0;
-          });
-      res.send({"courses":courses});
+      courses = filterItems(name);
+      courses = courses.sort(function(a, b) {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+      res.send({ courses: courses });
     }
   }
 });
 
 app.get("/api/courses/:id", function(req, res) {
-  var id = req.params.id;
+  var idGet = req.params.id;
   var content = fs.readFileSync(coursesUrl, "utf8");
-  var courses = JSON.parse(content);
+  //var courses = JSON.parse(content);
   var course = null;
+  var parsedData = JSON.parse(content);
 
-  for (var i = 0; i < courses.length; i++) {
-    if (courses[i].id == id) {
-      course = courses[i];
-      break;
-    }
-  }
-  if (course) {
-    res.send(course);
+  const filterItems = idGet => {
+    return parsedData.courses.find((el) => el.id === idGet);
+  };
+
+  if (filterItems(idGet)) {
+    res.send({ courses: filterItems(idGet) });
   } else {
     res.status(404).send();
   }
@@ -108,27 +105,34 @@ app.post("/api/courses", jsonParser, function(req, res) {
   course.id = id + 1;
   courses.push(course);
   var data = JSON.stringify(courses);
-  fs.writeFileSync(coursesUrl, "utf8");
-  res.send(course);
+  fs.writeFileSync(coursesUrl, data);
+  res.send({ courses: course });
 });
 
 app.delete("/api/courses/:id", function(req, res) {
-  var id = req.params.id;
+  var idDeleted = req.params.id;
   var data = fs.readFileSync(coursesUrl, "utf8");
-  var courses = JSON.parse(data);
+  // var courses = JSON.parse(data);
   var index = -1;
+  var parsedData = JSON.parse(content);
 
-  for (var i = 0; i < courses.length; i++) {
-    if (courses[i].id == id) {
-      index = i;
-      break;
-    }
-  }
-  if (index > -1) {
-    var course = courses.splice(index, 1)[0];
-    var data = JSON.stringify(courses);
-    fs.writeFileSync(coursesUrl, "utf8");
-    res.send(course);
+  const filterItems = id => {
+    return parsedData.courses.filter(
+      el => (index = el.indexOf(idDeleted)) > -1
+    );
+  };
+
+  //   for (var i = 0; i < courses.length; i++) {
+  //     if (courses[i].id == idDeleted) {
+  //       index = i;
+  //       break;
+  //     }
+  //   }
+  if (filterItems(idDeleted)) {
+    var course = parsedData.splice(index, 1)[0];
+    var data = JSON.stringify(parsedData);
+    fs.writeFileSync(coursesUrl, data);
+    res.send({ courses: course });
   } else {
     res.status(404).send();
   }
@@ -162,7 +166,7 @@ app.put("/api/courses/:id", jsonParser, function(req, res) {
     course.authors = [{ courseAuthors }];
     var data = JSON.stringify(courses);
     fs.writeFileSync(coursesUrl, data);
-    res.send();
+    res.send(); //??
   } else {
     res.status(404).send(course);
   }

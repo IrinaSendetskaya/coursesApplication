@@ -33,7 +33,6 @@ export class CoursesService {
   }
 
   getCourseById(id: number): Observable<Courses[]> {
-    const params = new HttpParams().set("id", id.toString());
     return this.httpClient.get<Courses[]>(this.serverUrl + "courses/" + id);
   }
   deleteCourse(id: number): Observable<any> {

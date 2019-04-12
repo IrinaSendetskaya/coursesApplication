@@ -45,7 +45,7 @@ export class CoursesComponent implements OnInit {
 
   removeCourse(id: number) {
     console.log("delete_id " + id);
-    this.coursesService.deleteCourse(id).subscribe();
+    this.coursesService.deleteCourse(id).subscribe(data => (this.arrCourses = data["courses"]));
   }
 
   ngOnInit() {
