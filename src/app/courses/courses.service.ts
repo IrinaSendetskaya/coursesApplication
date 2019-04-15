@@ -33,7 +33,6 @@ export class CoursesService {
     return this.httpClient.get<Courses[]>(this.serverUrl + "courses/" + id);
   }
   deleteCourse(id: number): Observable<any> {
-    //const req = new HttpRequest("DELETE", this.serverUrl + "courses/" + id);
     return this.httpClient.delete(this.serverUrl + "courses/" + id);
   }
 }

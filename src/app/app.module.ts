@@ -12,9 +12,11 @@ import { AuthGuard } from "./auth.guard";
 import { LoginService } from "./login/login.service";
 import { APP_ROUTING } from "./app.routing";
 import { CoursesService } from "./courses/courses.service";
+import { DurationPipe } from './shared/duration.pipe';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CoursesComponent],
+  declarations: [AppComponent, LoginComponent, CoursesComponent, DurationPipe],
   imports: [
     BrowserModule,
     FormsModule,

@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common';
+import { __param } from 'tslib';
+import { format } from 'util';
 
 export class Courses implements ICourse{
     id:number;
     name: string;
-    date: DatePipe;
+    date: Date;
     duration:number;
     description:string;
     authors:[{}];
@@ -12,7 +14,7 @@ export class Courses implements ICourse{
   interface ICourse {
     id:number;
     name: string;
-    date: DatePipe;
+    date: Date;
     duration:number;
     description:string;
     authors:[{}];

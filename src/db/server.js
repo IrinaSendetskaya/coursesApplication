@@ -119,7 +119,7 @@ app.delete("/api/courses/:id", function(req, res) {
   })
 
   if (index!==-1) {
-    var course = parsedData.courses.splice(index, 1);
+    var courseForDelete = parsedData.courses.splice(index, 1);
     var data = JSON.stringify({ courses: parsedData.courses });
     fs.writeFileSync(coursesUrl, data);
     res.send(data);

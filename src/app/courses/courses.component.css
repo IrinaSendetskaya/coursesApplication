@@ -60,7 +60,7 @@ button {
   padding: 5px;
 }
 .list__course__item__description {
-  margin-right: 30px;
+  margin-right: 20px;
   justify-self: stretch;
 }
 .course__item__description__header__date {

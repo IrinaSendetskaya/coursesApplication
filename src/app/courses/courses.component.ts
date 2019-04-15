@@ -18,6 +18,8 @@ export class CoursesComponent implements OnInit {
   public arrCourses: Array<Courses>;
   isValidate: boolean;
 
+  format: 'dd.MM.yyyy';
+
   constructor(
     private coursesService: CoursesService,
     private loginService: LoginService,
@@ -44,8 +46,10 @@ export class CoursesComponent implements OnInit {
   }
 
   removeCourse(id: number) {
-    console.log("delete_id " + id);
+    var responseUser=confirm("Вы действительно хотите удалить этот курс?");
+    if(responseUser){
     this.coursesService.deleteCourse(id).subscribe(data => (this.arrCourses = data["courses"]));
+    }
   }
 
   ngOnInit() {
