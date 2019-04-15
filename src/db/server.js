@@ -62,16 +62,15 @@ app.get("/api/courses", function(req, res, next) {
 app.get("/api/courses/:id", function(req, res) {
   var idGet = req.params.id;
   var content = fs.readFileSync(coursesUrl, "utf8");
-  //var courses = JSON.parse(content);
-  var course = null;
+  var courses = new Array();
   var parsedData = JSON.parse(content);
 
-  const filterItems = idGet => {
-    return parsedData.courses.find((el) => el.id === idGet);
-  };
+  courses = parsedData.courses.filter(course => {
+    return course.id == idGet;
+  });
 
-  if (filterItems(idGet)) {
-    res.send({ courses: filterItems(idGet) });
+  if (courses.length != 0) {
+    res.send({ courses: courses });
   } else {
     res.status(404).send();
   }
@@ -94,17 +93,17 @@ app.post("/api/courses", jsonParser, function(req, res) {
   };
 
   var data = fs.readFileSync(coursesUrl, "utf8");
-  var courses = JSON.parse(data);
+  var parsedData = JSON.parse(data);
 
   var id = Math.max.apply(
     Math,
-    courses.map(function(o) {
+    parsedData.courses.map(function(o) {
       return o.id;
     })
   );
   course.id = id + 1;
-  courses.push(course);
-  var data = JSON.stringify(courses);
+  parsedData.courses.push(course);
+  var data = JSON.stringify(parsedData);  //parsedData.courses?
   fs.writeFileSync(coursesUrl, data);
   res.send({ courses: course });
 });
@@ -112,27 +111,18 @@ app.post("/api/courses", jsonParser, function(req, res) {
 app.delete("/api/courses/:id", function(req, res) {
   var idDeleted = req.params.id;
   var data = fs.readFileSync(coursesUrl, "utf8");
-  // var courses = JSON.parse(data);
   var index = -1;
-  var parsedData = JSON.parse(content);
+  var parsedData = JSON.parse(data);
 
-  const filterItems = id => {
-    return parsedData.courses.filter(
-      el => (index = el.indexOf(idDeleted)) > -1
-    );
-  };
+  index = parsedData.courses.findIndex(course => {
+    return course.id == idDeleted;
+  })
 
-  //   for (var i = 0; i < courses.length; i++) {
-  //     if (courses[i].id == idDeleted) {
-  //       index = i;
-  //       break;
-  //     }
-  //   }
-  if (filterItems(idDeleted)) {
-    var course = parsedData.splice(index, 1)[0];
-    var data = JSON.stringify(parsedData);
+  if (index!==-1) {
+    var course = parsedData.courses.splice(index, 1);
+    var data = JSON.stringify({ courses: parsedData.courses });
     fs.writeFileSync(coursesUrl, data);
-    res.send({ courses: course });
+    res.send(data);
   } else {
     res.status(404).send();
   }
@@ -149,12 +139,12 @@ app.put("/api/courses/:id", jsonParser, function(req, res) {
   var courseAuthors = req.body.authors;
 
   var data = fs.readFileSync(coursesUrl, "utf8");
-  var courses = JSON.parse(data);
+  var parsedData = JSON.parse(data);
   var course;
 
-  for (var i = 0; i < courses.length; i++) {
-    if (courses[i].id == courseId) {
-      course = courses[i];
+  for (var i = 0; i < parsedData.courses.length; i++) {
+    if (parsedData.courses[i].id == courseId) {
+      course = parsedData.courses[i];
       break;
     }
   }
@@ -164,9 +154,9 @@ app.put("/api/courses/:id", jsonParser, function(req, res) {
     course.duration = courseDuration;
     course.description = courseDescription;
     course.authors = [{ courseAuthors }];
-    var data = JSON.stringify(courses);
+    var data = JSON.stringify({ courses: parsedData.courses });
     fs.writeFileSync(coursesUrl, data);
-    res.send(); //??
+    res.send(course); //??
   } else {
     res.status(404).send(course);
   }

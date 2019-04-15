@@ -26,9 +26,6 @@ export class CoursesService {
     const options = searchInput
       ? { params: new HttpParams().set("searchInput", searchInput) }
       : {};
-
-    console.log("options.params" + options.params.get("searchInput"));
-    console.log("options.req" + this.httpClient.get<Courses[]>(this.serverUrl + "courses", options));
     return this.httpClient.get<Courses[]>(this.serverUrl + "courses", options);
   }
 
