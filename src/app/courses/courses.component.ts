@@ -18,8 +18,6 @@ export class CoursesComponent implements OnInit {
   public arrCourses: Array<Courses>;
   isValidate: boolean;
 
-  format: 'dd.MM.yyyy';
-
   constructor(
     private coursesService: CoursesService,
     private loginService: LoginService,

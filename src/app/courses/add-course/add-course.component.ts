@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Courses } from '../courses';
+import { CoursesService } from '../courses.service';
+import { LoginService } from 'src/app/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'add-course',
@@ -7,6 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCourseComponent {
 
-  constructor() { }
+  messageClass: string;
+  message: string;
+  public arrCourses: Array<Courses>;
+  public course:Courses;
+  isValidate: boolean;
 
+  constructor(
+    private coursesService: CoursesService,
+    private loginService: LoginService,
+    private _router: Router
+  ) {}
+
+  addNewCourse() {
+    this.coursesService
+      .addNewCourses()
+      .subscribe(data => (this.arrCourses = data["courses"]));
+  }
+  
 }

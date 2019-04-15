@@ -35,4 +35,8 @@ export class CoursesService {
   deleteCourse(id: number): Observable<any> {
     return this.httpClient.delete(this.serverUrl + "courses/" + id);
   }
+  addNewCourses(): Observable<any> {
+    const body={};
+    return this.httpClient.post(this.serverUrl + "courses",body);
+  }
 }

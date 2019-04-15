@@ -6,6 +6,6 @@ import {AuthGuard} from "./auth.guard";
 
 export const APP_ROUTING: ModuleWithProviders = RouterModule.forRoot([
   { path: "login", component: LoginComponent },
-  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: "**", redirectTo: "courses", pathMatch: "full" },
   { path: "courses", component: CoursesComponent, canActivate:[AuthGuard] },
 ], {useHash:true});

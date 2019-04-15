@@ -19,7 +19,6 @@ export class LoginComponent {
     if (this.userValidator()) {
       this.messageClass = "alert alert-permit";
       this.message = "Вы вошли. Ваш логин: " + this.user.login;
-      //this.goToLink(this.user.login);
       this._router.navigate(["/courses"]);
     } else {
       this.messageClass = "alert alert-danger";
@@ -32,10 +31,6 @@ export class LoginComponent {
       .validateUserByLoginAndPassword(this.user.login, this.user.password)
       .subscribe();
     return isUser.closed;
-  }
-
-  goToLink(userName: string) {
-    this._router.navigate(["courses", userName]);
   }
 }
 

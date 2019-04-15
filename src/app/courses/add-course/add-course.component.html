@@ -1,3 +1,116 @@
 <p>
-  Add Course
+  New Course
 </p>
+<div class="content__form__new__course">
+  <div class="form-group">
+    <div [class]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="nameCourse">Название </label>
+    <input
+      class="form-control"
+      name="nameCourse"
+      [(ngModel)]="course.name"
+      #nameCourse="ngModel"
+      required
+      pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
+    />
+    <div
+      [hidden]="nameCourse.untouched || nameCourse.valid"
+      class="alert alert-danger alert__nullString"
+    >
+      * введите
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="description">Описание </label>
+    <input
+      class="form-control"
+      type="textarea"
+      name="description"
+      [(ngModel)]="course.description"
+      #description="ngModel"
+      required
+      pattern="[a-zA-ZА-Яа-я0-9,.]{1,20}"
+    />
+    <div
+      [hidden]="description.untouched || description.valid"
+      class="alert alert-danger alert__nullString"
+    >
+      * введите
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="date">Дата </label>
+    <input
+      class="form-control"
+      name="date"
+      type="date"
+      [(ngModel)]="course.date"
+      #date="ngModel"
+      required
+      pattern="[valueAsDate]"
+    />
+    <div
+      [hidden]="date.untouched || date.valid"
+      class="alert alert-danger alert__nullString"
+    >
+      * введите
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="duration">Продолжительность </label>
+    <input
+      class="form-control"
+      name="duration"
+      [(ngModel)]="course.duration"
+      #duration="ngModel"
+      required
+      pattern="[0-9]{1,4}"
+    />
+    <div
+      [hidden]="duration.untouched || duration.valid"
+      class="alert alert-danger alert__nullString"
+    >
+      * введите
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="authors">Список авторов </label>
+    <input
+      class="form-control"
+     
+      name="authors"
+      [(ngModel)]="course.authors"
+      #authors="ngModel"
+      required
+      pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
+    />
+    <div
+      [hidden]="authors.untouched || authors.valid"
+      class="alert alert-danger alert__nullString"
+    >
+      * введите
+    </div>
+  </div>
+  <div class="form-group">
+    <button
+      [disabled]="
+        nameCourse.invalid ||
+        description.invalid ||
+        date.invalid ||
+        duration.invalid ||
+        authors.invalid
+      "
+      class="button buttonSubmit"
+      (click)="addNewCourse()"
+    >
+      Сохранить
+    </button>
+  </div>
+  <div class="form-group">
+    <button class="button buttonCancel">Отмена</button>
+  </div>
+</div>
