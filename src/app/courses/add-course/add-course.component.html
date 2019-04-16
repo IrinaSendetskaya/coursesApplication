@@ -12,7 +12,7 @@
     <input
       class="form-control"
       name="nameCourse"
-      [(ngModel)]="course.name"
+      [(ngModel)]="courseInput.name"
       #nameCourse="ngModel"
       required
       pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
@@ -26,15 +26,15 @@
   </div>
   <div class="form-group">
     <label for="description">Описание </label>
-    <input
+    <textarea
       class="form-control"
-      type="textarea"
       name="description"
-      [(ngModel)]="course.description"
+      [(ngModel)]="courseInput.description"
       #description="ngModel"
       required
       pattern="[a-zA-ZА-Яа-я0-9,.]{1,20}"
-    />
+    >
+    </textarea>
     <div
       [hidden]="description.untouched || description.valid"
       class="alert alert-danger alert__nullString"
@@ -48,10 +48,10 @@
       class="form-control"
       name="date"
       type="date"
-      [(ngModel)]="course.date"
+      [(ngModel)]="courseInput.date"
       #date="ngModel"
       required
-      pattern="[valueAsDate]"
+      pattern=""
     />
     <div
       [hidden]="date.untouched || date.valid"
@@ -65,7 +65,7 @@
     <input
       class="form-control"
       name="duration"
-      [(ngModel)]="course.duration"
+      [(ngModel)]="courseInput.duration"
       #duration="ngModel"
       required
       pattern="[0-9]{1,4}"
@@ -83,7 +83,7 @@
       class="form-control"
      
       name="authors"
-      [(ngModel)]="course.authors"
+      [(ngModel)]="courseInput.authors"
       #authors="ngModel"
       required
       pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
@@ -109,8 +109,7 @@
     >
       Сохранить
     </button>
-  </div>
-  <div class="form-group">
-    <button class="button buttonCancel">Отмена</button>
+  
+    <button class="button buttonCancel" (click)="cancelAddNewCourse()">Отмена</button>
   </div>
 </div>

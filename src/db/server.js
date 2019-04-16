@@ -26,34 +26,21 @@ app.listen(3000, () => {
 });
 
 app.get("/api/courses", function(req, res, next) {
-  var name = null;
-  var name = req.query.searchInput;
+  var searchInput = null;
+  searchInput = req.query.searchInput;
   var content = fs.readFileSync(coursesUrl, "utf8");
   var courses = new Array();
   var parsedData = JSON.parse(content);
 
-  if (!name) {
+  if (!searchInput) {
     res.send(parsedData);
   } else {
-    const filterItems = name => {
-      return parsedData.courses.filter(
-        el => el.name.toLowerCase().indexOf(name.toLowerCase()) > -1
-      );
-    };
-
-    if (!filterItems(name)) {
+    
+    const coursesSearching = filterItemsBySearch(searchInput, parsedData);
+    if (coursesSearching.length==0) {
       res.status(404).send();
     } else {
-      courses = filterItems(name);
-      courses = courses.sort(function(a, b) {
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        return 0;
-      });
+      courses = sortCourses(coursesSearching);
       res.send({ courses: courses });
     }
   }
@@ -103,7 +90,7 @@ app.post("/api/courses", jsonParser, function(req, res) {
   );
   course.id = id + 1;
   parsedData.courses.push(course);
-  var data = JSON.stringify(parsedData);  //parsedData.courses?
+  var data = JSON.stringify(parsedData); //parsedData.courses?
   fs.writeFileSync(coursesUrl, data);
   res.send({ courses: course });
 });
@@ -116,9 +103,9 @@ app.delete("/api/courses/:id", function(req, res) {
 
   index = parsedData.courses.findIndex(course => {
     return course.id == idDeleted;
-  })
+  });
 
-  if (index!==-1) {
+  if (index !== -1) {
     var courseForDelete = parsedData.courses.splice(index, 1);
     var data = JSON.stringify({ courses: parsedData.courses });
     fs.writeFileSync(coursesUrl, data);
@@ -161,3 +148,22 @@ app.put("/api/courses/:id", jsonParser, function(req, res) {
     res.status(404).send(course);
   }
 });
+
+const filterItemsBySearch = (searchInput,parsedData) => {
+  return parsedData.courses.filter(
+    el => el.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
+  );
+};
+
+function sortCourses(courses) {
+  courses.sort(function(a, b) {
+    if (a.name > b.name) {
+      return 1;
+    }
+    if (a.name < b.name) {
+      return -1;
+    }
+    return 0;
+  });
+  return courses;
+}

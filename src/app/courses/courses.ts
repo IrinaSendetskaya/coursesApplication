@@ -1,7 +1,3 @@
-import { DatePipe } from '@angular/common';
-import { __param } from 'tslib';
-import { format } from 'util';
-
 export class Courses implements ICourse{
     id:number;
     name: string;
