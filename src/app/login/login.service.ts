@@ -1,44 +1,38 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { User } from "./login.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class LoginService {
-  returnUser = {login:"",password:""};
-  private users = new Array();
-  isAuthorizedUser:boolean=false;
+  isAuthorizedUser=function getUserInLocalStorage():boolean{
+    const existingUser: User = JSON.parse(localStorage.getItem('user'));
+    if (existingUser) {
+      return true;  
+  }else{
+    return false;
+  } 
+}
 
-  constructor() {
-    this.returnUser = JSON.parse(localStorage.getItem("user"));
-    this.users.push(this.returnUser);
-  }
-
-  validateUserByLoginAndPassword(
+ getUserByLoginAndPassword(
     userLogin: string,
     userPassword: string
-  ): Observable<User[]> {
-    return new Observable<User[]>(observer => {
+  ): Observable<User> {
+    if(userLogin === 'q' && userPassword === 'q') {
+      const userEntity: User = {
+        login: 'q',
+        password: 'q',
+      }
+      localStorage.setItem("user", JSON.stringify(userEntity));
+      return of(userEntity);
+    } else {
+      localStorage.clear();
+      return of(undefined);
+    }
+  }
 
-      const userObserver = this.users.find(user => {
-        return (
-          this.returnUser.login === userLogin &&
-          this.returnUser.password === userPassword
-        );
-      });
-      if (userObserver === undefined) {
-        this.isAuthorizedUser=false;
-        observer.closed;
-      } else {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ login: userLogin, password: userPassword })
-        );
-        this.isAuthorizedUser=true;
-        observer.next();
-        observer.complete();
-      } 
-    });
+  logout(){
+    localStorage.clear();
   }
 }

@@ -15,7 +15,7 @@ export class CoursesComponent implements OnInit {
   userName: string;
 
   message: string;
-  public arrCourses: Array<Courses>;
+  public courses: Array<Courses>;
   isValidate: boolean;
 
   constructor(
@@ -27,32 +27,32 @@ export class CoursesComponent implements OnInit {
   findAllCourses() {
     this.coursesService
       .getAllCourses()
-      .subscribe(data => (this.arrCourses = data["courses"]));
+      .subscribe(data => (this.courses = data["courses"]));
   }
 
   searchCourses(searchInput: string) {
     this.coursesService
       .getCoursesByNameOrDate(searchInput)
-      .subscribe(data => (this.arrCourses = data["courses"]));
+      .subscribe(data => (this.courses = data["courses"]));
   }
 
   findCourseById(id: number) {
     console.log("find_id " + id);
     this.coursesService
       .getCourseById(id)
-      .subscribe(data => (this.arrCourses = data["courses"]));
+      .subscribe(data => (this.courses = data["courses"]));
   }
 
   removeCourse(id: number) {
     var responseUser=confirm("Вы действительно хотите удалить этот курс?");
     if(responseUser){
-    this.coursesService.deleteCourse(id).subscribe(data => (this.arrCourses = data["courses"]));
+    this.coursesService.deleteCourse(id).subscribe(data => (this.courses = data["courses"]));
     }
   }
 
   ngOnInit() {
-    this.isValidate = this.loginService.isAuthorizedUser;
-    this.userName = this.loginService.returnUser.login;
+    this.isValidate = this.loginService.isAuthorizedUser();
+
     if (this.isValidate) {
       this.findAllCourses();
     } else {

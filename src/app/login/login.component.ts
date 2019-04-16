@@ -8,37 +8,39 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent {
-  constructor(private userCheck: LoginService, private _router: Router) {}
 
-  user: User = new User();
+  constructor(private loginService: LoginService, private _router: Router) {}
+
+  userInput: User = {
+    login: "",
+    password: ""
+  };
+
   message: string;
   messageClass: string;
 
   checkUserByLoginAndPassword() {
-    
-    if (this.userValidator()) {
-      this.messageClass = "alert alert-permit";
-      this.message = "Вы вошли. Ваш логин: " + this.user.login;
-      this._router.navigate(["/courses"]);
-    } else {
-      this.messageClass = "alert alert-danger";
-      this.user.password = "";
-    }
+    this.loginService
+    .getUserByLoginAndPassword(this.userInput.login, this.userInput.password)
+    .subscribe(user => {
+      if (user) {
+        this.messageClass = "alert alert-permit";
+        this.message = "Вы вошли. Ваш логин: " + this.userInput.login;
+        this._router.navigate(["/courses"]);
+      } else {
+        this.messageClass = "alert alert-danger";
+        this.userInput.password = "";
+      }
+    });
   }
 
-  userValidator(): boolean {
-    var isUser = this.userCheck
-      .validateUserByLoginAndPassword(this.user.login, this.user.password)
-      .subscribe();
-    return isUser.closed;
+  logoutUser(){
+    this.loginService.logout();
+    this._router.navigate(["/login"]);
   }
 }
 
-export class User implements IUser {
-  login: string;
-  password: string;
-}
-interface IUser {
+export class User {
   login: string;
   password: string;
 }
