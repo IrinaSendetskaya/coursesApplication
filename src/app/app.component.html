@@ -8,16 +8,18 @@
     >
       Курсы
     </a>
-    <a class="header__navbar_item" routerLink="login" routerLinkActive="active">
+    <a class="header__navbar_item" *ngIf="!isValidate" routerLink="login" routerLinkActive="active">
       Вход
     </a>
-    <a class="header__navbar_item" routerLink="signup" routerLinkActive="active">
+    <a class="header__navbar_item" *ngIf="!isValidate" routerLink="signup" routerLinkActive="active">
       Регистрация
     </a>
-    <!-- <a class="header__navbar_item" routerLink="logout" routerLinkActive="active" (click)="logoutUser()">
+    <div class="header__navbar_item" *ngIf="isValidate">user: {{userCurrentName}} </div>
+    <a class="header__navbar_item" *ngIf="isValidate" (click)="logoutUser()">
         Выход
-    </a> -->
-    <!-- <div [hidden]="nameLogin.valid&&pass.valid">Hello,  </div> -->
+    </a>
+  
+    
   </nav>
   <router-outlet></router-outlet>
 </div>

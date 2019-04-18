@@ -15,7 +15,6 @@ import { Authors } from '../courses.component';
 export class AddCourseComponent {
   messageClass: string;
   message: string;
-  public courses: Array<Courses>;
   isValidate = this.loginService.isAuthorizedUser();
   courseInput: Courses = {
     id: 0,

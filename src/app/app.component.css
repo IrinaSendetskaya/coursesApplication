@@ -11,7 +11,8 @@
     width: 150px;
     margin-left: 10px;
 }
-.header__navbar nav a.header__navbar_item {
+.header__navbar nav a.header__navbar_item,
+.header__navbar nav div.header__navbar_item {
     align-self: center;
     justify-self: center;
     padding-left: 40px;

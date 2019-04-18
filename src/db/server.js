@@ -180,7 +180,7 @@ app.post("/api/users", jsonParser, function(req, res) {
     if (!userSearching) {
       res.status(404).send("Нет такого пользователя!");
     } else {
-      res.send({ users: userSearching });
+      res.send(userSearching);
     }
   }
 });
@@ -214,7 +214,7 @@ app.post("/api/user", jsonParser, function(req, res) {
     parsedData.users.push(user);
     var data = JSON.stringify(parsedData);
     fs.writeFileSync(usersUrl, data);
-    res.send({ users: user });
+    res.send(user );
   }
 });
 

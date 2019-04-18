@@ -16,7 +16,7 @@
       [(ngModel)]="userInput.login"
       #nameLogin="ngModel"
       required
-      pattern="(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}"
+      pattern="[a-zA-Z\d]{1,12}"
     />
     <div
       [hidden]="nameLogin.untouched || nameLogin.valid"

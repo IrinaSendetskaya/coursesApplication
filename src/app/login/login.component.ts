@@ -38,11 +38,6 @@ export class LoginComponent {
     );
   }
 
-  logoutUser() {
-    this.loginService.logout();
-    this._router.navigate(["/login"]);
-  }
-
 }
 
 export class User {
