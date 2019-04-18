@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
 import {
   HttpClient,
-  HttpParams,
-  HttpRequest,
-  HttpEvent
+  HttpParams
 } from "@angular/common/http";
 import { Courses } from "./courses";
 import { Observable } from "rxjs";
+import { Authors } from './courses.component';
 
 @Injectable({
   providedIn: "root"
@@ -38,5 +37,9 @@ export class CoursesService {
   }
   addNewCourses(courseInput:Courses): Observable<any> {
     return this.httpClient.post(this.serverUrl + "courses", courseInput);
+  }
+
+  getAllAuthors(): Observable<Authors[]> {
+    return this.httpClient.get<Authors[]>(this.serverUrl + "courses");
   }
 }

@@ -8,7 +8,7 @@ export class DurationPipe implements PipeTransform {
   transform(value: number, args?: any): string {
 
     let result='';
-    if(value<=0) return '';
+    if(value<=0) return ' час  мин';
     if(value<60){
       result=value+" мин";
     } else if(value==60){

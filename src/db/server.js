@@ -4,6 +4,9 @@ var bodyParser = require("body-parser");
 var fs = require("fs");
 
 var coursesUrl = "./courses.json";
+var authorsUrl = "./authors.json";
+var usersUrl = "./users.json";
+
 var app = express();
 var router = express.Router();
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -25,7 +28,7 @@ app.listen(3000, () => {
   console.log("Server started!");
 });
 
-app.get("/api/courses", function(req, res, next) {
+app.get("/api/courses", function(req, res) {
   var searchInput = null;
   searchInput = req.query.searchInput;
   var content = fs.readFileSync(coursesUrl, "utf8");
@@ -35,9 +38,8 @@ app.get("/api/courses", function(req, res, next) {
   if (!searchInput) {
     res.send(parsedData);
   } else {
-    
     const coursesSearching = filterItemsBySearch(searchInput, parsedData);
-    if (coursesSearching.length==0) {
+    if (coursesSearching.length == 0) {
       res.status(404).send();
     } else {
       courses = sortCourses(coursesSearching);
@@ -145,11 +147,78 @@ app.put("/api/courses/:id", jsonParser, function(req, res) {
     fs.writeFileSync(coursesUrl, data);
     res.send(course); //??
   } else {
-    res.status(404).send(course);
+    res.status(404).send("Курс не был изменен");
   }
 });
 
-const filterItemsBySearch = (searchInput,parsedData) => {
+app.get("/api/authors", function(req, res) {
+  var content = fs.readFileSync(authorsUrl, "utf8");
+  var parsedData = JSON.parse(content);
+
+  if (parsedData) {
+    res.send(parsedData);
+  } else {
+    res.status(404).send("Нет авторов!");
+  }
+});
+
+app.post("/api/users", jsonParser, function(req, res) {
+  if (!req.body) return res.sendStatus(400);
+
+  var userLogin = req.body.login;
+  var userPassword = req.body.password;
+
+  var content = fs.readFileSync(usersUrl, "utf8");
+  var parsedData = JSON.parse(content);
+
+  if (!userLogin) {
+    res.send(parsedData);
+  } else {
+    const userSearching = parsedData.users.find(user => {
+      return user.login == userLogin && user.password == userPassword;
+    });
+    if (!userSearching) {
+      res.status(404).send("Нет такого пользователя!");
+    } else {
+      res.send({ users: userSearching });
+    }
+  }
+});
+
+app.post("/api/user", jsonParser, function(req, res) {
+  if (!req.body) return res.sendStatus(400);
+
+  var userLogin = req.body.login;
+  var userPassword = req.body.password;
+  var user = {
+    login: userLogin,
+    password: userPassword
+  };
+
+  var data = fs.readFileSync(usersUrl, "utf8");
+  var parsedData = JSON.parse(data);
+
+  const userSearching = parsedData.users.find(user => {
+    return user.login == userLogin && user.password == userPassword;
+  });
+  if (userSearching) {
+    res.status(404).send("Такой пользователь уже существует!");
+  } else {
+    var id = Math.max.apply(
+      Math,
+      parsedData.users.map(function(o) {
+        return o.id;
+      })
+    );
+    user.id = id + 1;
+    parsedData.users.push(user);
+    var data = JSON.stringify(parsedData);
+    fs.writeFileSync(usersUrl, data);
+    res.send({ users: user });
+  }
+});
+
+const filterItemsBySearch = (searchInput, parsedData) => {
   return parsedData.courses.filter(
     el => el.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
   );

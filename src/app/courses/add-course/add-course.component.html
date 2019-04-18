@@ -1,7 +1,7 @@
 <p>
   New Course
 </p>
-<div class="content__form__new__course">
+<div class="content__form__new__course" *ngIf="isValidate" method="POST">
   <div class="form-group">
     <div [class]="messageClass">
       {{ message }}
@@ -48,10 +48,14 @@
       class="form-control"
       name="date"
       type="date"
+      value='##.##.####'
+      data-mask='##.##.####'
+      maxlength="10"
       [(ngModel)]="courseInput.date"
       #date="ngModel"
       required
-      pattern=""
+      pattern="(\d\d).(\d\d).(\d\d\d\d)"
+      (keypress)="checkFormatDate(date.value)"
     />
     <div
       [hidden]="date.untouched || date.valid"
@@ -70,6 +74,9 @@
       required
       pattern="[0-9]{1,4}"
     />
+    <div class="course__item__duration">
+      {{ courseInput?.duration | duration }}
+    </div>
     <div
       [hidden]="duration.untouched || duration.valid"
       class="alert alert-danger alert__nullString"
@@ -81,13 +88,16 @@
     <label for="authors">Список авторов </label>
     <input
       class="form-control"
-     
       name="authors"
       [(ngModel)]="courseInput.authors"
       #authors="ngModel"
       required
       pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
     />
+
+    <!-- <select size="7" class="form-control" multiple name="authors" *ngFor="let author of authors">
+        <option value="Чебурашка">Чебурашка</option>
+       </select> -->
     <div
       [hidden]="authors.untouched || authors.valid"
       class="alert alert-danger alert__nullString"
@@ -109,7 +119,9 @@
     >
       Сохранить
     </button>
-  
-    <button class="button buttonCancel" (click)="cancelAddNewCourse()">Отмена</button>
+
+    <button class="button buttonCancel" (click)="cancelAddNewCourse()">
+      Отмена
+    </button>
   </div>
 </div>

@@ -10,11 +10,13 @@ import { EditCourseComponent } from "./edit-course/edit-course.component";
 import { AuthGuard } from "../auth.guard";
 import { COURSE_ROUTING } from "./courses.routing";
 import { CoursesService } from "./courses.service";
+import { DurationPipe } from "../shared/duration.pipe";
 
 @NgModule({
-  declarations: [AddCourseComponent, EditCourseComponent],
+  declarations: [AddCourseComponent, EditCourseComponent, DurationPipe],
   imports: [CommonModule, FormsModule, COURSE_ROUTING, HttpClientModule],
   providers: [AuthGuard, CoursesService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [DurationPipe]
 })
 export class CoursesModule {}

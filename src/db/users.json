@@ -1,0 +1,19 @@
+{
+  "users": [{
+    "id": 1,
+    "login": "q",
+    "password": "q"
+  }, {
+    "login": "fg",
+    "password": "qqq",
+    "id": 2
+  }, {
+    "login": "fg",
+    "password": "q",
+    "id": 3
+  }, {
+    "login": "dgfj87Ggdfhj",
+    "password": "hhhhhKhhhh99",
+    "id": 4
+  }]
+}

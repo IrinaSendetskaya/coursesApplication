@@ -3,6 +3,9 @@ import { Courses } from "../courses";
 import { CoursesService } from "../courses.service";
 import { LoginService } from "src/app/login/login.service";
 import { Router } from "@angular/router";
+import { formatDate } from "@angular/common";
+import { HtmlTagDefinition } from '@angular/compiler';
+import { Authors } from '../courses.component';
 
 @Component({
   selector: "add-course",
@@ -13,6 +16,7 @@ export class AddCourseComponent {
   messageClass: string;
   message: string;
   public courses: Array<Courses>;
+  isValidate = this.loginService.isAuthorizedUser();
   courseInput: Courses = {
     id: 0,
     name: "",
@@ -21,6 +25,10 @@ export class AddCourseComponent {
     duration: 0,
     authors: [{}]
   };
+  authorsInput: Authors={
+    id:0,
+    name:""
+  }
 
   constructor(
     private coursesService: CoursesService,
@@ -29,7 +37,7 @@ export class AddCourseComponent {
   ) {}
 
   addNewCourse() {
-    if (this.loginService.isAuthorizedUser()) {
+    if (this.isValidate) {
       this.coursesService.addNewCourses(this.courseInput).subscribe(course => {
         if (course) {
           this.messageClass = "alert alert-permit";
@@ -51,7 +59,28 @@ export class AddCourseComponent {
     }
   }
 
-  cancelAddNewCourse(){
+  cancelAddNewCourse() {
     this._router.navigate(["/courses"]);
+  }
+
+  
+  checkFormatDate(date: string) {
+   
+    // var value = date; 
+    // var stringDate=this.courseInput.date.toString();
+    // var rep = /[^\.\d]/;
+    // if (rep.test(date)) { 
+    //     value = value.replace(rep, ''); 
+    //     date = value; 
+    // } 
+
+    var testText=date;
+    var rep = /[^\.\d]/;
+    if (rep.test(date)) 
+      {
+           date= testText.substring(0, testText.length - 1) 
+            
+          }
+    
   }
 }

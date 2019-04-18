@@ -8,7 +8,7 @@
       <input
         type="text"
         class="search__input"
-        placeholder="фрагмент названия или дата"
+        placeholder="фрагмент названия"
         (keydown.enter)="
           searchCourses($event.target.value); searchInput.value = ''
         "
@@ -41,11 +41,11 @@
           </div>
           <div class="list__course__item__description">{{ course?.name }}</div>
           <div class="list__course__item__description">
-            {{ course?.duration | duration }}
+            {{ course?.duration |duration}}
           </div>
         </div>
         <div class="course__item__description__header__date">
-          {{ course?.date | date: "dd.MM.yyyy" }}
+          {{ course?.date | date: "dd.MM.yyyy":'ru-RU' }}
         </div>
       </div>
       <div clas="course__item__description">

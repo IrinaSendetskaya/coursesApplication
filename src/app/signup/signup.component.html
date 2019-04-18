@@ -1,0 +1,58 @@
+<p>
+  Signup page
+</p>
+<div class="content__form__login">
+  <div class="form-group">
+    <div [hidden]="nameLogin.valid && pass.valid" class="alert alert-danger">
+      Неправильный формат ввода. Логин и пароль должны содержать цифры и буквы,
+      1 символ в верхнем регистре
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="#nameLogin">Логин </label>
+    <input
+      class="form-control"
+      name="nameLogin"
+      [(ngModel)]="userInput.login"
+      #nameLogin="ngModel"
+      required
+      pattern="(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}"
+    />
+    <div
+      [hidden]="nameLogin.untouched || nameLogin.valid"
+      class="alert alert-danger alert__nullString"
+    >
+      * введите
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="#pass">Пароль </label>
+    <input
+      class="form-control"
+      name="pass"
+      [(ngModel)]="userInput.password"
+      #pass="ngModel"
+      required
+      pattern="(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}"
+    />
+    <div
+      [hidden]="pass.untouched || pass.valid"
+      class="alert alert-danger alert__nullString"
+    >
+      * введите
+    </div>
+  </div>
+  <div class="form-group">
+    <button
+      [disabled]="nameLogin.invalid || pass.invalid"
+      class="button buttonLoginSubmit"
+      (click)="addNewUser()"
+    >
+      Зарегистрироваться
+    </button>
+  </div>
+
+  <div [class]="messageClass">
+      {{ message }}
+    </div>
+</div>

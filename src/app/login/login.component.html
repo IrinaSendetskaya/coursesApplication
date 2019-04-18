@@ -13,7 +13,7 @@
   <div class="form-group">
     <label for="#nameLogin">Логин </label>
     <input class="form-control" name="nameLogin" [(ngModel)]="userInput.login" #nameLogin="ngModel" required
-      pattern="[a-zA-Z]{1,10}" />
+      pattern="[a-zA-Z0-9]{1,12}" />
     <div [hidden]="nameLogin.untouched||nameLogin.valid" class="alert alert-danger alert__nullString">
       * введите
     </div>
@@ -21,7 +21,7 @@
   <div class="form-group">
     <label for="#pass">Пароль </label>
     <input class="form-control" name="pass" [(ngModel)]="userInput.password" #pass="ngModel" required
-      pattern="[a-zA-Z0-9]{1,10}" />
+      pattern="[a-zA-Z0-9]{1,12}" />
     <div [hidden]="pass.untouched||pass.valid" class="alert alert-danger alert__nullString">
       * введите
     </div>

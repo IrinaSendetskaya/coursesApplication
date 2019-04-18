@@ -1,12 +1,22 @@
 <div class="header__navbar">
   <nav>
-    <img class="header__navbar_item" src="../assets/images/logo.png">
-    <a class="header__navbar_item" routerLink="courses" routerLinkActive="active">
+    <img class="header__navbar_item" src="../assets/images/logo.png" />
+    <a
+      class="header__navbar_item"
+      routerLink="courses"
+      routerLinkActive="active"
+    >
       Курсы
     </a>
     <a class="header__navbar_item" routerLink="login" routerLinkActive="active">
-      Логин
+      Вход
     </a>
+    <a class="header__navbar_item" routerLink="signup" routerLinkActive="active">
+      Регистрация
+    </a>
+    <!-- <a class="header__navbar_item" routerLink="logout" routerLinkActive="active" (click)="logoutUser()">
+        Выход
+    </a> -->
     <!-- <div [hidden]="nameLogin.valid&&pass.valid">Hello,  </div> -->
   </nav>
   <router-outlet></router-outlet>

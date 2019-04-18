@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { User } from "./../login/login.component";
 import { CoursesService } from "./courses.service";
 import { Courses } from "./courses";
 import { LoginService } from "../login/login.service";
@@ -60,4 +59,9 @@ export class CoursesComponent implements OnInit {
       this._router.navigate(["/login"]);
     }
   }
+}
+
+export class Authors {
+  id: number;
+  name: string;
 }
