@@ -2,6 +2,7 @@ var filter = require("rxjs/operators");
 var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require("fs");
+var md5 = require('md5');
 
 var coursesUrl = "./courses.json";
 var authorsUrl = "./authors.json";
@@ -166,7 +167,8 @@ app.post("/api/users", jsonParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
 
   var userLogin = req.body.login;
-  var userPassword = req.body.password;
+  var userPassword = md5(req.body.password);
+  console.log("shifrPassword"+md5(userPassword));
 
   var content = fs.readFileSync(usersUrl, "utf8");
   var parsedData = JSON.parse(content);
@@ -192,7 +194,7 @@ app.post("/api/user", jsonParser, function(req, res) {
   var userPassword = req.body.password;
   var user = {
     login: userLogin,
-    password: userPassword
+    password: md5(userPassword)
   };
 
   var data = fs.readFileSync(usersUrl, "utf8");
