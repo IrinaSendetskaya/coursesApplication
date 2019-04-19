@@ -10,5 +10,5 @@ export const APP_ROUTING: ModuleWithProviders = RouterModule.forRoot([
   { path: "signup", component: SignupComponent },
   { path: "**", redirectTo: "courses", pathMatch: "full" },
   { path: "", redirectTo: "login", pathMatch: "full" },
-  { path: "courses", component: CoursesComponent, canActivate:[AuthGuard] },
+  { path: "courses", component: CoursesComponent, canActivate:[AuthGuard],data: { breadcrumb: '' }},
 ], {useHash:true});

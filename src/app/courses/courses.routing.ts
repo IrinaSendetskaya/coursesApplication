@@ -5,6 +5,6 @@ import { EditCourseComponent } from "./edit-course/edit-course.component";
 import {AuthGuard} from "../auth.guard";
 
 export const COURSE_ROUTING: ModuleWithProviders = RouterModule.forChild([
-  { path: "courses/new", component: AddCourseComponent, canActivate:[AuthGuard] },
-  { path: "courses/:id", component: EditCourseComponent, canActivate:[AuthGuard] }
+  { path: "courses/new", component: AddCourseComponent, canActivate:[AuthGuard], data: { breadcrumb: 'New' }},
+  { path: "courses/:id", component: EditCourseComponent, canActivate:[AuthGuard], data: { breadcrumb: 'Курс ' } }
 ]);

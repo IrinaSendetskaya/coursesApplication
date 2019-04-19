@@ -6,8 +6,9 @@
       routerLink="courses"
       routerLinkActive="active"
     >
-      Курсы
+      Курсы <app-breadcrumb></app-breadcrumb>
     </a>
+   
     <a class="header__navbar_item" *ngIf="!isValidate" routerLink="login" routerLinkActive="active">
       Вход
     </a>

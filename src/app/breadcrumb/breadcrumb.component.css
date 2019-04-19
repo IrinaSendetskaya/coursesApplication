@@ -1,0 +1,30 @@
+.breadcrumb {
+  background: none;
+  font-size: 0.8em;
+  margin: 0;
+}
+.breadcrumb a {
+  color: darkgrey;
+}
+.breadcrumb a:hover {
+  color: dimgrey;
+  text-decoration: none;
+}
+.breadcrumb li {
+  list-style: none;
+  float: left;
+  margin: 5px;
+}
+.breadcrumb li:last-child {
+  margin-right: 20px;
+}
+.breadcrumb li::after {
+  content: "->";
+  color: darkgrey;
+}
+.breadcrumb li::before {
+  content: "->";
+}
+.breadcrumb li:last-child::after {
+  content: "";
+}
