@@ -3,12 +3,9 @@
     <img class="header__navbar_item" src="../assets/images/logo.png" />
     <a
       class="header__navbar_item"
-      routerLink="courses"
-      routerLinkActive="active"
     >
-      Курсы <app-breadcrumb></app-breadcrumb>
+    <div class="header__navbar_item breadcrumb"> <app-breadcrumb></app-breadcrumb></div>
     </a>
-   
     <a class="header__navbar_item" *ngIf="!isValidate" routerLink="login" routerLinkActive="active">
       Вход
     </a>

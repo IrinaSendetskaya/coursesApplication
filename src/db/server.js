@@ -26,7 +26,7 @@ var allowCrossDomain = function(req, res, next) {
 app.use(express.static(__dirname + "/public"), allowCrossDomain);
 
 app.listen(3000, () => {
-  console.log("Server started!");
+  //console.log("Server started!");
 });
 
 app.get("/api/courses", function(req, res) {
@@ -168,7 +168,7 @@ app.post("/api/users", jsonParser, function(req, res) {
 
   var userLogin = req.body.login;
   var userPassword = md5(req.body.password);
-  console.log("shifrPassword"+md5(userPassword));
+  //console.log("shifrPassword"+md5(userPassword));
 
   var content = fs.readFileSync(usersUrl, "utf8");
   var parsedData = JSON.parse(content);

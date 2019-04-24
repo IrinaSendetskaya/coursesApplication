@@ -40,7 +40,6 @@ export class AddCourseComponent {
       this.coursesService.addNewCourses(this.courseInput).subscribe(course => {
         if (course) {
           this.messageClass = "alert alert-permit";
-          console.log("inputCourse" + this.courseInput.name);
           this._router.navigate(["/courses"]);
         } else {
           this.message = "Вы ввели некорректные данные!";

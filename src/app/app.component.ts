@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.changeHeaderByValidationUser();
-    console.log("init validate "+this.loginService.isAuthorizedUser());
+    //console.log("init validate "+this.loginService.isAuthorizedUser());
   }
 
   // ngOnChanges(){

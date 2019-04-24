@@ -1,10 +1,13 @@
 .breadcrumb {
   background: none;
-  font-size: 0.8em;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 16px;
   margin: 0;
+  text-decoration: none;
 }
 .breadcrumb a {
-  color: darkgrey;
+  color: rgb(95, 194, 240);
+  text-decoration: none;
 }
 .breadcrumb a:hover {
   color: dimgrey;
@@ -20,10 +23,8 @@
 }
 .breadcrumb li::after {
   content: "->";
-  color: darkgrey;
-}
-.breadcrumb li::before {
-  content: "->";
+  color:rgb(95, 194, 240);
+  text-decoration: none;
 }
 .breadcrumb li:last-child::after {
   content: "";

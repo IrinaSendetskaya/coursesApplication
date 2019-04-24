@@ -13,6 +13,7 @@
 }
 .header__navbar nav a.header__navbar_item,
 .header__navbar nav div.header__navbar_item {
+    display:flex;
     align-self: center;
     justify-self: center;
     padding-left: 40px;
@@ -28,3 +29,16 @@
 .header__navbar nav a.header__navbar_item.active {
     color: rgb(95, 194, 240);
 }
+.header__navbar nav a.header__navbar_item:hover {
+    color: dimgrey;
+    text-decoration: none;
+  }
+  .header__navbar_item.breadcrumb{
+    display:flex;
+  }
+  .header__navbar_item.breadcrumb::content{
+    justify-content: space-between;
+    flex-direction: row;
+    align-self: center;
+    justify-self: center;
+  }

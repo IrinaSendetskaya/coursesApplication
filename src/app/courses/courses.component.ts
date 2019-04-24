@@ -36,7 +36,6 @@ export class CoursesComponent implements OnInit {
   }
 
   findCourseById(id: number) {
-    console.log("find_id " + id);
     this.coursesService
       .getCourseById(id)
       .subscribe(data => (this.courses = data["courses"]));
