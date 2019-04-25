@@ -168,7 +168,6 @@ app.post("/api/users", jsonParser, function(req, res) {
 
   var userLogin = req.body.login;
   var userPassword = md5(req.body.password);
-  //console.log("shifrPassword"+md5(userPassword));
 
   var content = fs.readFileSync(usersUrl, "utf8");
   var parsedData = JSON.parse(content);

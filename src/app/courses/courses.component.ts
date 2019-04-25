@@ -10,12 +10,8 @@ import { Router } from "@angular/router";
   styleUrls: ["./courses.component.css"]
 })
 export class CoursesComponent implements OnInit {
-  @Input()
-  userName: string;
-
   message: string;
   public courses: Array<Courses>;
-  isValidate: boolean;
 
   constructor(
     private coursesService: CoursesService,
@@ -42,21 +38,16 @@ export class CoursesComponent implements OnInit {
   }
 
   removeCourse(id: number) {
-    var responseUser=confirm("Вы действительно хотите удалить этот курс?");
-    if(responseUser){
-    this.coursesService.deleteCourse(id).subscribe(data => (this.courses = data["courses"]));
+    var responseUser = confirm("Вы действительно хотите удалить этот курс?");
+    if (responseUser) {
+      this.coursesService
+        .deleteCourse(id)
+        .subscribe(data => (this.courses = data["courses"]));
     }
   }
 
   ngOnInit() {
-    this.isValidate = this.loginService.isAuthorizedUser();
-
-    if (this.isValidate) {
-      this.findAllCourses();
-    } else {
-      this.message = "Нет курсов";
-      this._router.navigate(["/login"]);
-    }
+    this.findAllCourses();
   }
 }
 

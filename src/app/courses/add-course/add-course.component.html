@@ -1,7 +1,7 @@
 <p>
   New Course
 </p>
-<div class="content__form__new__course" *ngIf="isValidate" method="POST">
+<div class="content__form__new__course" method="POST">
   <div class="form-group">
     <div [class]="messageClass">
       {{ message }}
@@ -55,7 +55,7 @@
       #date="ngModel"
       required
       pattern="(\d\d).(\d\d).(\d\d\d\d)"
-      (keypress)="checkFormatDate(date.value)"
+      
     />
     <div
       [hidden]="date.untouched || date.valid"

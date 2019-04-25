@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
 import { LoginService } from "./login.service";
 import { Router } from "@angular/router";
 
@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent {
+  
   constructor(private loginService: LoginService, private _router: Router) {}
 
   userInput: User = {
@@ -17,14 +18,13 @@ export class LoginComponent {
   };
   message: string;
   messageClass: string;
-
+  
   checkUserByLoginAndPassword() {
     this.loginService.getUsersByLoginAndPassword(this.userInput).subscribe(
       user => {
         if (user) {
           this.messageClass = "alert alert-permit";
-          this.message = "Вы вошли. Ваш логин: " + this.userInput.login;
-          localStorage.setItem("user", JSON.stringify(user));
+          this.loginService.setUserInLocalStorage(user);
           this._router.navigate(["/courses"]);
         }
       },
@@ -37,7 +37,6 @@ export class LoginComponent {
       }
     );
   }
-
 }
 
 export class User {
