@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of, Subject, BehaviorSubject } from "rxjs";
 import { User } from "./login.component";
 import { HttpClient, HttpParams } from "@angular/common/http";
+import { share } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root"
@@ -20,7 +21,7 @@ export class LoginService {
   getUserInLocalStorage(): Observable<boolean> {
     const existingUser: User = JSON.parse(localStorage.getItem("user"));
     this.setUserValidationState(!!existingUser);
-    return this.subject.asObservable();
+    return this.subject.asObservable().pipe(share());
   }
 
   setUserInLocalStorage(user: User) {

@@ -1,18 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Courses } from "../courses";
 import { CoursesService } from "../courses.service";
 import { LoginService } from "src/app/login/login.service";
 import { Router } from "@angular/router";
 import { Authors } from "../courses.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "add-course",
   templateUrl: "./add-course.component.html",
   styleUrls: ["./add-course.component.css"]
 })
-export class AddCourseComponent {
+export class AddCourseComponent implements OnDestroy {
   messageClass: string;
   message: string;
+  subscription: Subscription;
 
   courseInput: Courses = {
     id: 0,
@@ -33,8 +35,15 @@ export class AddCourseComponent {
     private _router: Router
   ) {}
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
+  }
+
   addNewCourse() {
-    this.coursesService.addNewCourses(this.courseInput).subscribe(course => {
+    this.subscription = this.coursesService.addNewCourses(this.courseInput).subscribe(course => {
       if (course) {
         this.messageClass = "alert alert-permit";
         this._router.navigate(["/courses"]);
