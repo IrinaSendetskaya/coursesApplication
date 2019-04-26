@@ -44,26 +44,13 @@
   </div>
   <div class="form-group">
     <label for="date">Дата </label>
-    <app-datepicker name="date" [(ngModel)]="courseInput.date"
-    #date="ngModel"
-    required></app-datepicker>
-    <!-- <input
+
+    <app-datepicker
+      [(dateForParent)]="courseInput.date"
+      #dateForParent
       class="form-control"
-      name="date"
-      type="date"
-      value="##.##.####"
-      data-mask="dd.dd.dddd"
-      maxlength="10"
-      [(ngModel)]="courseInput.date"
-      #date="ngModel"
       required
-    />
-    <div
-      [hidden]="date.untouched || date.valid"
-      class="alert alert-danger alert__nullString"
-    >
-      * введите
-    </div> -->
+    ></app-datepicker>
   </div>
   <div class="form-group">
     <label for="duration">Продолжительность </label>
@@ -96,7 +83,6 @@
       pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
     /> -->
 
-   
     <select
       size="7"
       class="form-control"
@@ -118,13 +104,7 @@
   </div>
   <div class="form-group">
     <button
-      [disabled]="
-        nameCourse.invalid ||
-        description.invalid ||
-        date.invalid ||
-        duration.invalid ||
-        authors.invalid
-      "
+      [disabled]="nameCourse.invalid || description.invalid || duration.invalid"
       class="button buttonSubmit"
       (click)="addNewCourse()"
     >
