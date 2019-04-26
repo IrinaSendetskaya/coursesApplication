@@ -19,10 +19,8 @@ export class CoursesService {
     return this.httpClient.get<Courses[]>(this.serverUrl + "courses");
   }
 
-  getCoursesByNameOrDate(searchInput: string): Observable<Courses[]> {
-    
+  getCoursesByNameOrDate(searchInput: string): Observable<Courses[]> {  
     searchInput = searchInput.trim();
-
     const options = searchInput
       ? { params: new HttpParams().set("searchInput", searchInput) }
       : {};
