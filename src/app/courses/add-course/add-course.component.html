@@ -74,11 +74,12 @@
   </div>
   <div class="form-group">
     <label for="authors">Список авторов </label>
-    <app-drag-drop [(authorsConfirmList)]="courseInput.authors"
-    #authors
-    class="form-control"
-    required></app-drag-drop>
-    
+    <app-drag-drop
+      [(authorsConfirmList)]="courseInput.authors"
+      #authors
+      class="form-control"
+      required
+    ></app-drag-drop>
   </div>
   <div class="form-group">
     <button

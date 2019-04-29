@@ -55,7 +55,7 @@
     <div class="course__item__options">
       <button
         class="button__edit__course"
-        (click)="findCourseById(course.id)"
+        (click)="findCourseById(course.name)"
         [routerLink]="['/courses', course?.name]"
         routerLinkActive="active"
       >

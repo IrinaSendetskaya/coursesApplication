@@ -56,7 +56,7 @@ app.get("/api/courses/:id", function(req, res) {
   var parsedData = JSON.parse(content);
 
   courses = parsedData.courses.filter(course => {
-    return course.id == idGet;
+    return course.name == idGet;
   });
 
   if (courses.length != 0) {
@@ -93,10 +93,44 @@ app.post("/api/courses", jsonParser, function(req, res) {
   );
   course.id = id + 1;
   parsedData.courses.push(course);
-  var data = JSON.stringify(parsedData); //parsedData.courses?
+  var data = JSON.stringify(parsedData); 
   fs.writeFileSync(coursesUrl, data);
   res.send({ courses: course });
 });
+
+
+app.put("/api/courses", jsonParser, function(req, res) {
+
+  if (!req.body) return res.sendStatus(400);
+
+  var courseId = req.body.id;
+  var courseName = req.body.name;
+  var courseDate = req.body.date;
+  var courseDuration = req.body.duration;
+  var courseDescription = req.body.description;
+  var courseAuthors = req.body.authors;
+
+  var data = fs.readFileSync(coursesUrl, "utf8");
+  var parsedData = JSON.parse(data);
+
+  const course = parsedData.courses.find(course => {
+    return course.id == courseId;
+  });
+  
+  if (course) {
+    course.name = courseName;
+    course.date = courseDate;
+    course.duration = courseDuration;
+    course.description = courseDescription;
+    course.authors = courseAuthors;
+    var data = JSON.stringify(parsedData);
+    fs.writeFileSync(coursesUrl, data);
+    res.send({ courses: course }); 
+  } else {
+    res.status(404).send("Курс не был изменен");
+  }
+});
+
 
 app.delete("/api/courses/:id", function(req, res) {
   var idDeleted = req.params.id;
@@ -115,40 +149,6 @@ app.delete("/api/courses/:id", function(req, res) {
     res.send(data);
   } else {
     res.status(404).send();
-  }
-});
-
-app.put("/api/courses/:id", jsonParser, function(req, res) {
-  if (!req.body) return res.sendStatus(400);
-
-  var courseId = req.params.id;
-  var courseName = req.body.name;
-  var courseDate = req.body.date;
-  var courseDuration = req.body.duration;
-  var courseDescription = req.body.description;
-  var courseAuthors = req.body.authors;
-
-  var data = fs.readFileSync(coursesUrl, "utf8");
-  var parsedData = JSON.parse(data);
-  var course;
-
-  for (var i = 0; i < parsedData.courses.length; i++) {
-    if (parsedData.courses[i].id == courseId) {
-      course = parsedData.courses[i];
-      break;
-    }
-  }
-  if (course) {
-    course.name = courseName;
-    course.date = courseDate;
-    course.duration = courseDuration;
-    course.description = courseDescription;
-    course.authors = [{ courseAuthors }];
-    var data = JSON.stringify({ courses: parsedData.courses });
-    fs.writeFileSync(coursesUrl, data);
-    res.send(course); //??
-  } else {
-    res.status(404).send("Курс не был изменен");
   }
 });
 

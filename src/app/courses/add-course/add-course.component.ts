@@ -18,7 +18,7 @@ export class AddCourseComponent implements OnDestroy {
     id: 0,
     name: "",
     description: "",
-    date: new Date(),
+    date:new Date(),
     duration: 0,
     authors: [{}]
   };

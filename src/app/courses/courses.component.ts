@@ -34,10 +34,11 @@ export class CoursesComponent implements OnInit,OnDestroy {
       .subscribe(data => (this.courses = data["courses"]));
   }
 
-  findCourseById(id: number) {
+  findCourseById(id: string) {
     this.findByIdSubscription=this.coursesService
       .getCourseById(id)
       .subscribe(data => (this.courses = data["courses"]));
+      
   }
 
   removeCourse(id: number) {

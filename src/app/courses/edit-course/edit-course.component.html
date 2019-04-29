@@ -1,3 +1,96 @@
 <p>
   Edit Course
 </p>
+<div class="content__form__new__course" method="PUT">
+    <div class="form-group">
+      <div [class]="messageClass">
+        {{ message }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="nameCourse">Название </label>
+      <input
+        class="form-control"
+        name="nameCourse"
+        [(ngModel)]="courseInput.name"
+        #nameCourse="ngModel"
+        required
+        pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
+      />
+      <div
+        [hidden]="nameCourse.untouched || nameCourse.valid"
+        class="alert alert-danger alert__nullString"
+      >
+        * введите
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Описание </label>
+      <textarea
+        class="form-control"
+        name="description"
+        [(ngModel)]="courseInput.description"
+        #description="ngModel"
+        required
+        pattern="[a-zA-ZА-Яа-я0-9,.\s]{1,30}"
+      >
+      </textarea>
+      <div
+        [hidden]="description.untouched || description.valid"
+        class="alert alert-danger alert__nullString"
+      >
+        * введите
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="date">Дата </label>
+  
+      <app-datepicker
+        [(dateForParent)]="courseInput.date"
+        #dateForParent
+        class="form-control"
+        required
+      ></app-datepicker>
+    </div>
+    <div class="form-group">
+      <label for="duration">Продолжительность </label>
+      <input
+        class="form-control"
+        name="duration"
+        [(ngModel)]="courseInput.duration"
+        #duration="ngModel"
+        required
+        pattern="[0-9]{1,4}"
+      />
+      <div class="course__item__duration">
+        {{ courseInput?.duration | duration }}
+      </div>
+      <div
+        [hidden]="duration.untouched || duration.valid"
+        class="alert alert-danger alert__nullString"
+      >
+        * введите
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="authors">Список авторов </label>
+      <app-drag-drop [(authorsConfirmList)]="courseInput.authors"
+      #authors
+      class="form-control"
+      required></app-drag-drop>
+      
+    </div>
+    <div class="form-group">
+      <button
+        [disabled]="nameCourse.invalid || description.invalid || duration.invalid"
+        class="button buttonSubmit"
+        (click)="editCourse()"
+      >
+        Сохранить
+      </button>
+  
+      <button class="button buttonCancel" (click)="cancelEditCourse()">
+        Отмена
+      </button>
+    </div>
+  </div>
