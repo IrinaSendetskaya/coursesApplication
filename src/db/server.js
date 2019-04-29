@@ -26,7 +26,7 @@ var allowCrossDomain = function(req, res, next) {
 app.use(express.static(__dirname + "/public"), allowCrossDomain);
 
 app.listen(3000, () => {
-  //console.log("Server started!");
+  console.log("Server started!");
 });
 
 app.get("/api/courses", function(req, res) {
@@ -79,7 +79,7 @@ app.post("/api/courses", jsonParser, function(req, res) {
     date: courseDate,
     duration: courseDuration,
     description: courseDescription,
-    authors: [{ authors: courseAuthors }]
+    authors: courseAuthors
   };
 
   var data = fs.readFileSync(coursesUrl, "utf8");
@@ -156,7 +156,7 @@ app.get("/api/authors", function(req, res) {
   var content = fs.readFileSync(authorsUrl, "utf8");
   var parsedData = JSON.parse(content);
 
-  if (parsedData) {
+  if (parsedData.authors.length!=0) {
     res.send(parsedData);
   } else {
     res.status(404).send("Нет авторов!");

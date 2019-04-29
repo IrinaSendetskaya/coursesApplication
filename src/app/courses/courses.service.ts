@@ -38,6 +38,6 @@ export class CoursesService {
   }
 
   getAllAuthors(): Observable<Authors[]> {
-    return this.httpClient.get<Authors[]>(this.serverUrl + "courses");
+    return this.httpClient.get<Authors[]>(this.serverUrl + "authors");
   }
 }

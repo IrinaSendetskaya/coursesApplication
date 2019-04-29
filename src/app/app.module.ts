@@ -19,6 +19,7 @@ import { APP_ROUTING } from "./app.routing";
 import { CoursesService } from "./courses/courses.service";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,

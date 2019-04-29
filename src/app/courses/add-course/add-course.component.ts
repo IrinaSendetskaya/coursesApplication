@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Courses } from "../courses";
 import { CoursesService } from "../courses.service";
-import { LoginService } from "src/app/login/login.service";
 import { Router } from "@angular/router";
-import { Authors } from "../courses.component";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -15,8 +13,6 @@ export class AddCourseComponent implements OnDestroy {
   messageClass: string;
   message: string;
   addSubscription: Subscription;
-  findAuthorsSubscription: Subscription;
-  outputAuthors: Authors[] = [];
 
   courseInput: Courses = {
     id: 0,
@@ -26,10 +22,6 @@ export class AddCourseComponent implements OnDestroy {
     duration: 0,
     authors: [{}]
   };
-  authorsInput: Authors = {
-    id: 0,
-    name: ""
-  };
 
   constructor(
     private coursesService: CoursesService,
@@ -38,7 +30,6 @@ export class AddCourseComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.unsubscribe(this.addSubscription);
-    this.unsubscribe(this.findAuthorsSubscription);
   }
 
   addNewCourse() {
@@ -58,14 +49,6 @@ export class AddCourseComponent implements OnDestroy {
           this.courseInput.description = "";
           this.courseInput.authors = [{}];
         }
-      });
-  }
-
-  findAllAuthors() {
-    this.findAuthorsSubscription = this.coursesService
-      .getAllAuthors()
-      .subscribe(authors => {
-        return (this.outputAuthors = authors);
       });
   }
 

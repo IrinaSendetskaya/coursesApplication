@@ -27,7 +27,7 @@ export const MY_FORMATS = {
 })
 export class DatepickerComponent implements OnChanges{
 
-  @Input() dateForParent;
+  @Input() dateForParent:Date;
 
   date = new FormControl(moment());
 
