@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Observable, of, Subject, BehaviorSubject } from "rxjs";
-import { User } from "./login.component";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { share } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from "rxjs";
+import { User } from "../models/user";
+import { HttpClient } from "@angular/common/http";
+import { share } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
-export class LoginService {
+export class UserService {
   constructor(private httpClient: HttpClient) {}
   users: User[];
   private subject = new BehaviorSubject<any>(undefined);

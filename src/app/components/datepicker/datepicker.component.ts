@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, SimpleChange } from "@angular/core";
+import { Component, Input} from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { DateAdapter, MAT_DATE_FORMATS } from "@angular/material/core";
@@ -25,13 +25,9 @@ export const MY_FORMATS = {
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
-export class DatepickerComponent implements OnChanges{
+export class DatepickerComponent{
 
   @Input() dateForParent:Date;
 
   date = new FormControl(moment());
-
-ngOnChanges(changes: { [propName: string]: SimpleChange }){
-if(changes['dateForParent'])console.log(changes);
-}
 }

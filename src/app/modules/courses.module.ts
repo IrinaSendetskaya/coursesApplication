@@ -11,18 +11,17 @@ import {
   MatNativeDateModule,
   MatCardModule
 } from "@angular/material";
-import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { AppComponent } from "../app.component";
-import { AddCourseComponent } from "./add-course/add-course.component";
-import { EditCourseComponent } from "./edit-course/edit-course.component";
-import { DatepickerComponent } from "../datepicker/datepicker.component";
-import { DragDropComponent } from '../drag-drop/drag-drop.component';
+import { AddCourseComponent } from "../components/add-course/add-course.component";
+import { EditCourseComponent } from "../components/edit-course/edit-course.component";
+import { DatepickerComponent } from "../components/datepicker/datepicker.component";
+import { DragDropComponent } from "../components/drag-drop/drag-drop.component";
 
-import { AuthGuard } from "../auth.guard";
-import { COURSE_ROUTING } from "./courses.routing";
-import { CoursesService } from "./courses.service";
+import { AuthGuard } from "../services/auth.guard";
+import { COURSE_ROUTING } from "../routings/courses.routing";
+import { CoursesService } from "../services/courses.service";
 import { DurationPipe } from "../shared/duration.pipe";
 
 @NgModule({

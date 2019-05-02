@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Courses } from "../courses";
-import { CoursesService } from "../courses.service";
+import { Component,OnDestroy } from "@angular/core";
+import { Course } from "../../models/course";
+import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
@@ -14,7 +14,7 @@ export class AddCourseComponent implements OnDestroy {
   message: string;
   addSubscription: Subscription;
 
-  courseInput: Courses = {
+  courseInput: Course = {
     id: 0,
     name: "",
     description: "",

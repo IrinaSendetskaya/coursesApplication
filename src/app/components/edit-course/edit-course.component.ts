@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Courses } from '../courses';
+import { Course } from '../../models/course';
 import { Subscription } from 'rxjs';
-import { CoursesService } from '../courses.service';
+import { CoursesService } from '../../services/courses.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class EditCourseComponent implements OnInit,OnDestroy{
   editSubscription: Subscription;
   findByIdSubscription: Subscription;
 
-  courseInput: Courses = {
+  courseInput: Course = {
     id: 0,
     name: "",
     description: "",
@@ -45,7 +45,6 @@ export class EditCourseComponent implements OnInit,OnDestroy{
   }
 
   editCourse() {
-    console.log(this.courseInput);
     this.editSubscription = this.coursesService
       .editCourse(this.courseInput)
       .subscribe(course => {

@@ -1,15 +1,7 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Input,
-  OnChanges,
-  SimpleChange
-} from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { Subscription } from "rxjs";
-import { Authors } from "../courses/courses.component";
-import { Router } from "@angular/router";
-import { CoursesService } from "../courses/courses.service";
+import { Author } from "../../models/author";
+import { CoursesService } from "../../services/courses.service";
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -23,19 +15,16 @@ import {
 })
 export class DragDropComponent implements OnInit, OnDestroy {
   findAuthorsSubscription: Subscription;
-  authorsOutputList: Authors[] = [];
+  authorsOutputList: Author[] = [];
 
-  @Input() authorsConfirmList: Authors[] = [];
+  @Input() authorsConfirmList: Author[] = [];
 
-  constructor(
-    private coursesService: CoursesService
-  ) {}
+  constructor(private coursesService: CoursesService) {}
 
   ngOnInit() {
     this.findAllAuthors();
   }
 
- 
   ngOnDestroy() {
     this.unsubscribe(this.findAuthorsSubscription);
   }

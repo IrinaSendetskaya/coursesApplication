@@ -1,11 +1,9 @@
 import { RouterModule } from "@angular/router";
 import { ModuleWithProviders } from "@angular/core";
-import { LoginComponent } from "./login/login.component";
-import { CoursesComponent } from "./courses/courses.component";
-import { AuthGuard } from "./auth.guard";
-import { SignupComponent } from "./signup/signup.component";
-import { EditCourseComponent } from "./courses/edit-course/edit-course.component";
-import { AddCourseComponent } from "./courses/add-course/add-course.component";
+import { LoginComponent } from "../components/login/login.component";
+import { CoursesComponent } from "../components/courses/courses.component";
+import { AuthGuard } from "../services/auth.guard";
+import { SignupComponent } from "../components/signup/signup.component";
 
 export const APP_ROUTING: ModuleWithProviders = RouterModule.forRoot(
   [

@@ -1,16 +1,8 @@
-import {
-  Component,
-  OnInit,
-  OnChanges,
-  Output,
-  OnDestroy,
-  SimpleChanges,
-  ViewChild
-} from "@angular/core";
-import { LoginService } from "./login/login.service";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { UserService } from "./services/user.service";
 import { Router } from "@angular/router";
-import { User, LoginComponent } from "./login/login.component";
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
+import { User } from "./models/user";
 
 @Component({
   selector: "my-app",
@@ -23,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
   userCurrentName: string = "";
   subscription: Subscription;
 
-  constructor(private loginService: LoginService, private _router: Router) {}
+  constructor(private userService: UserService, private _router: Router) {}
 
   ngOnInit() {
     this.changeHeaderByValidationUser();
@@ -37,15 +29,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logoutUser() {
-    this.loginService.logout();
+    this.userService.logout();
     this.isValidate = false;
     this._router.navigate(["/login"]);
   }
 
   changeHeaderByValidationUser() {
-    this.subscription=this.loginService.getUserInLocalStorage().subscribe(isValidate => {
-      return (this.isValidate = isValidate);
-    });
+    this.subscription = this.userService
+      .getUserInLocalStorage()
+      .subscribe(isValidate => {
+        return (this.isValidate = isValidate);
+      });
 
     if (this.isValidate) {
       const existingUser: User = JSON.parse(localStorage.getItem("user"));

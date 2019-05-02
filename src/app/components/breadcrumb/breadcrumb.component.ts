@@ -1,12 +1,6 @@
-import { Component, OnInit, OnChanges } from "@angular/core";
-import { filter, distinctUntilChanged, map } from "rxjs/operators";
-import {
-  Router,
-  NavigationEnd,
-  ActivatedRoute,
-  Event,
-  ActivationEnd
-} from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { filter, distinctUntilChanged } from "rxjs/operators";
+import { Router, NavigationEnd, ActivatedRoute, Event } from "@angular/router";
 
 @Component({
   selector: "app-breadcrumb",
@@ -42,7 +36,10 @@ export class BreadcrumbComponent implements OnInit {
     const routeParts = path.split("/");
     const lastRoutePart = path.split("/").pop();
 
-    if (lastRoutePart.startsWith(":") && !!route.snapshot||routeParts.length>1) {
+    if (
+      (lastRoutePart.startsWith(":") && !!route.snapshot) ||
+      routeParts.length > 1
+    ) {
       newBreadcrumbs = this.findLabelIFDynamicPathAndReturnBreadcrumb(
         lastRoutePart,
         label,
@@ -113,12 +110,12 @@ export class BreadcrumbComponent implements OnInit {
     breadcrumbs: IBreadCrumb[]
   ): IBreadCrumb[] {
     var paramName = lastRoutePart;
-    if (lastRoutePart.startsWith(":")){
-     paramName = lastRoutePart.substr(1);
-     path = path.replace(lastRoutePart, route.snapshot.params[paramName]);
-     label = "Курс " + route.snapshot.params[paramName];
-    }else{ 
-    label = "Курс " + paramName;
+    if (lastRoutePart.startsWith(":")) {
+      paramName = lastRoutePart.substr(1);
+      path = path.replace(lastRoutePart, route.snapshot.params[paramName]);
+      label = "Курс " + route.snapshot.params[paramName];
+    } else {
+      label = "Курс " + paramName;
     }
     var nextUrl = path ? `/${path}` : url;
     return this.fillBreadcrumbs(label, nextUrl, breadcrumbs);

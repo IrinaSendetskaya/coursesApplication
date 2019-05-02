@@ -2,7 +2,7 @@ var filter = require("rxjs/operators");
 var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require("fs");
-var md5 = require('md5');
+var md5 = require("md5");
 
 var coursesUrl = "./courses.json";
 var authorsUrl = "./authors.json";
@@ -93,14 +93,12 @@ app.post("/api/courses", jsonParser, function(req, res) {
   );
   course.id = id + 1;
   parsedData.courses.push(course);
-  var data = JSON.stringify(parsedData); 
+  var data = JSON.stringify(parsedData);
   fs.writeFileSync(coursesUrl, data);
   res.send({ courses: course });
 });
 
-
 app.put("/api/courses", jsonParser, function(req, res) {
-
   if (!req.body) return res.sendStatus(400);
 
   var courseId = req.body.id;
@@ -116,7 +114,7 @@ app.put("/api/courses", jsonParser, function(req, res) {
   const course = parsedData.courses.find(course => {
     return course.id == courseId;
   });
-  
+
   if (course) {
     course.name = courseName;
     course.date = courseDate;
@@ -125,12 +123,11 @@ app.put("/api/courses", jsonParser, function(req, res) {
     course.authors = courseAuthors;
     var data = JSON.stringify(parsedData);
     fs.writeFileSync(coursesUrl, data);
-    res.send({ courses: course }); 
+    res.send({ courses: course });
   } else {
     res.status(404).send("Курс не был изменен");
   }
 });
-
 
 app.delete("/api/courses/:id", function(req, res) {
   var idDeleted = req.params.id;
@@ -156,7 +153,7 @@ app.get("/api/authors", function(req, res) {
   var content = fs.readFileSync(authorsUrl, "utf8");
   var parsedData = JSON.parse(content);
 
-  if (parsedData.authors.length!=0) {
+  if (parsedData.authors.length != 0) {
     res.send(parsedData);
   } else {
     res.status(404).send("Нет авторов!");
@@ -215,7 +212,7 @@ app.post("/api/user", jsonParser, function(req, res) {
     parsedData.users.push(user);
     var data = JSON.stringify(parsedData);
     fs.writeFileSync(usersUrl, data);
-    res.send(user );
+    res.send(user);
   }
 });
 
