@@ -52,6 +52,10 @@ export class AddCourseComponent implements OnDestroy {
       });
   }
 
+  showDate(date:Date){
+    this.courseInput.date = date;
+  }
+
   cancelAddNewCourse() {
     this._router.navigate(["/courses"]);
   }

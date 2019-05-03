@@ -1,16 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Course } from '../../models/course';
-import { Subscription } from 'rxjs';
-import { CoursesService } from '../../services/courses.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Course } from "../../models/course";
+import { Subscription } from "rxjs";
+import { CoursesService } from "../../services/courses.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'edit-course',
-  templateUrl: './edit-course.component.html',
-  styleUrls: ['./edit-course.component.css']
+  selector: "edit-course",
+  templateUrl: "./edit-course.component.html",
+  styleUrls: ["./edit-course.component.css"]
 })
-export class EditCourseComponent implements OnInit,OnDestroy{
-
+export class EditCourseComponent implements OnInit, OnDestroy {
   messageClass: string;
   message: string;
   editSubscription: Subscription;
@@ -20,18 +19,20 @@ export class EditCourseComponent implements OnInit,OnDestroy{
     id: 0,
     name: "",
     description: "",
-    date:new Date(),
+    date: new Date(),
     duration: 0,
     authors: [{}]
   };
-  
+
   constructor(
     private coursesService: CoursesService,
     private _router: Router
   ) {}
 
   ngOnInit() {
-   this.findCourseById(this._router.routerState.snapshot.root.children[0].params.id);
+    this.findCourseById(
+      this._router.routerState.snapshot.root.children[0].params.id
+    );
   }
   ngOnDestroy() {
     this.unsubscribe(this.editSubscription);
@@ -39,7 +40,7 @@ export class EditCourseComponent implements OnInit,OnDestroy{
   }
 
   findCourseById(id: string) {
-    this.findByIdSubscription = this.findByIdSubscription=this.coursesService
+    this.findByIdSubscription = this.findByIdSubscription = this.coursesService
       .getCourseById(id)
       .subscribe(data => (this.courseInput = data["courses"][0]));
   }
@@ -59,6 +60,10 @@ export class EditCourseComponent implements OnInit,OnDestroy{
       });
   }
 
+  showDate(date: Date) {
+    this.courseInput.date = date;
+  }
+
   cancelEditCourse() {
     this._router.navigate(["/courses"]);
   }
@@ -69,5 +74,4 @@ export class EditCourseComponent implements OnInit,OnDestroy{
       subscription = null;
     }
   }
-
 }

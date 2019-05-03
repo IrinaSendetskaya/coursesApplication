@@ -46,6 +46,7 @@
     <label for="date">Дата </label>
 
     <app-datepicker
+      (dateOut)="showDate($event)"
       [(dateForParent)]="courseInput.date"
       #dateForParent
       class="form-control"
