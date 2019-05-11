@@ -7,6 +7,8 @@ import { CoursesModule } from "./modules/courses.module";
 import { BreadcrumbsModule } from "ng6-breadcrumbs";
 import { MatNativeDateModule } from "@angular/material";
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -18,6 +20,7 @@ import { UserService } from "./services/user.service";
 import { APP_ROUTING } from "./routings/app.routing";
 import { CoursesService } from "./services/courses.service";
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
+import { environment } from 'src/environments/environment.prod';
 
 
 @NgModule({
@@ -38,7 +41,9 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
     HttpClientModule,
     BreadcrumbsModule,
     MatNativeDateModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    //StoreRouterConnectingModule,
+    environment.production?[]:StoreDevtoolsModule.instrument()
   ],
   providers: [UserService, AuthGuard, CoursesService],
   bootstrap: [AppComponent]
