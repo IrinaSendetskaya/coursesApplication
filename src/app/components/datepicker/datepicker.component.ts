@@ -40,7 +40,6 @@ export class DatepickerComponent implements OnChanges {
     this.date.valueChanges.subscribe(data => {
       this.dateForParent = data;
       this.dateOut.emit(this.dateForParent);
-      console.log(data);
     });
   }
 }

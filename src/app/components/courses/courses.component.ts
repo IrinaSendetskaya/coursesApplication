@@ -1,7 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { Course } from "../../models/course";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/store/app.state";
+import { DeleteCourse } from 'src/app/store/actions/courses.action';
 
 @Component({
   selector: "app-courses",
@@ -11,12 +14,16 @@ import { Subscription } from "rxjs";
 export class CoursesComponent implements OnInit, OnDestroy {
   message: string;
   public courses: Array<Course>;
+  public coursesState$: Observable<{}>;
   findSubscription: Subscription;
   searchSubscription: Subscription;
   findByIdSubscription: Subscription;
   removeSubscription: Subscription;
 
-  constructor(private coursesService: CoursesService) {}
+  constructor(
+    private coursesService: CoursesService,
+    private store$: Store<AppState>
+  ) {}
 
   findAllCourses() {
     this.findSubscription = this.coursesService
@@ -27,7 +34,15 @@ export class CoursesComponent implements OnInit, OnDestroy {
   searchCourses(searchInput: string) {
     this.searchSubscription = this.coursesService
       .getCoursesByNameOrDate(searchInput)
-      .subscribe(data => (this.courses = data["courses"]));
+      .subscribe(
+        data => (this.courses = data["courses"]),
+        error => {
+          if (error) {
+            this.courses=[];
+            this.message='По Вашему запросу ничего не найдено'
+          }
+        }
+      );
   }
 
   findCourseById(id: string) {
@@ -42,10 +57,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
       this.removeSubscription = this.coursesService
         .deleteCourse(id)
         .subscribe(data => (this.courses = data["courses"]));
+        this.store$.dispatch(new DeleteCourse(this.courses[id]));
     }
   }
 
   ngOnInit() {
+    this.coursesState$ = this.store$.select("courseState");
     this.findAllCourses();
   }
 

@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { Course } from "../../models/course";
 import { Subscription } from "rxjs";
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { UpdateCourse } from 'src/app/store/actions/courses.action';
 
 @Component({
   selector: "edit-course",
@@ -15,7 +18,7 @@ export class EditCourseComponent implements OnInit, OnDestroy {
   editSubscription: Subscription;
   findByIdSubscription: Subscription;
 
-  courseInput: Course = {
+  @Input()  courseInput: Course = {
     id: 0,
     name: "",
     description: "",
@@ -26,7 +29,8 @@ export class EditCourseComponent implements OnInit, OnDestroy {
 
   constructor(
     private coursesService: CoursesService,
-    private _router: Router
+    private _router: Router,
+    private store$: Store<AppState>
   ) {}
 
   ngOnInit() {
@@ -50,11 +54,11 @@ export class EditCourseComponent implements OnInit, OnDestroy {
       .editCourse(this.courseInput)
       .subscribe(course => {
         if (course) {
+          this.store$.dispatch(new UpdateCourse(course));
           this.messageClass = "alert alert-permit";
           this._router.navigate(["/courses"]);
         } else {
           this.message = "Вы ввели некорректные данные!";
-          alert("Вы ввели некорректные данные!");
           this.messageClass = "alert alert-danger";
         }
       });

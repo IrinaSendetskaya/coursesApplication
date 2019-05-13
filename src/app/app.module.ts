@@ -9,6 +9,7 @@ import { MatNativeDateModule } from "@angular/material";
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -21,6 +22,8 @@ import { APP_ROUTING } from "./routings/app.routing";
 import { CoursesService } from "./services/courses.service";
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 import { environment } from 'src/environments/environment.prod';
+import { coursesReducer } from './store/reducers/courses.reducer';
+
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { environment } from 'src/environments/environment.prod';
     BreadcrumbsModule,
     MatNativeDateModule,
     MatMomentDateModule,
-    //StoreRouterConnectingModule,
+    StoreModule.forRoot({courseState:coursesReducer}),
+    StoreRouterConnectingModule,
     environment.production?[]:StoreDevtoolsModule.instrument()
   ],
   providers: [UserService, AuthGuard, CoursesService],

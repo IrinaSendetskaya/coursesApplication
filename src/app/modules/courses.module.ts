@@ -23,6 +23,8 @@ import { AuthGuard } from "../services/auth.guard";
 import { COURSE_ROUTING } from "../routings/courses.routing";
 import { CoursesService } from "../services/courses.service";
 import { DurationPipe } from "../shared/duration.pipe";
+import { StoreModule } from '@ngrx/store';
+import { coursesReducer } from '../store/reducers/courses.reducer';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { DurationPipe } from "../shared/duration.pipe";
     MatFormFieldModule,
     MatInputModule,
     DragDropModule,
-    MatCardModule
+    MatCardModule,
+    StoreModule.forRoot({courseState:coursesReducer})
   ],
   providers: [AuthGuard, CoursesService],
   bootstrap: [AppComponent],

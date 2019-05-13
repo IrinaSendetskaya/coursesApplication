@@ -1,8 +1,11 @@
-import { Component,OnDestroy } from "@angular/core";
+import { Component, OnDestroy, Input } from "@angular/core";
 import { Course } from "../../models/course";
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/store/app.state";
+import { AddCourse } from "src/app/store/actions/courses.action";
 
 @Component({
   selector: "add-course",
@@ -14,18 +17,23 @@ export class AddCourseComponent implements OnDestroy {
   message: string;
   addSubscription: Subscription;
 
-  courseInput: Course = {
-    id: 0,
-    name: "",
-    description: "",
-    date:new Date(),
-    duration: 0,
-    authors: [{}]
-  };
+  initCourse(): Course {
+    return {
+      id: 0,
+      name: "",
+      description: "",
+      date: new Date(),
+      duration: 0,
+      authors: [{}]
+    };
+  }
+
+ @Input() courseInput: Course = this.initCourse();
 
   constructor(
     private coursesService: CoursesService,
-    private _router: Router
+    private _router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnDestroy() {
@@ -37,22 +45,18 @@ export class AddCourseComponent implements OnDestroy {
       .addNewCourses(this.courseInput)
       .subscribe(course => {
         if (course) {
+          this.store.dispatch(new AddCourse(course));
           this.messageClass = "alert alert-permit";
           this._router.navigate(["/courses"]);
         } else {
           this.message = "Вы ввели некорректные данные!";
-          alert("Вы ввели некорректные данные!");
           this.messageClass = "alert alert-danger";
-          this.courseInput.name = "";
-          this.courseInput.date = new Date();
-          this.courseInput.duration = 0;
-          this.courseInput.description = "";
-          this.courseInput.authors = [{}];
+          this.initCourse();
         }
       });
   }
 
-  showDate(date:Date){
+  showDate(date: Date) {
     this.courseInput.date = date;
   }
 
