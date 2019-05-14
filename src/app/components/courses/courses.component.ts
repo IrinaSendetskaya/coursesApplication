@@ -4,7 +4,10 @@ import { Course } from "../../models/course";
 import { Subscription, Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/states/app.state";
-import { DeleteCourse } from 'src/app/store/actions/courses.action';
+import {
+  DeleteCourse,
+  LoadCourses
+} from "src/app/store/actions/courses.action";
 
 @Component({
   selector: "app-courses",
@@ -28,7 +31,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
   findAllCourses() {
     this.findSubscription = this.coursesService
       .getAllCourses()
-      .subscribe(data => (this.courses = data["courses"]));
+      .subscribe(data => {
+        this.courses = data["courses"];
+        this.store$.dispatch(new LoadCourses(this.courses));
+      });
   }
 
   searchCourses(searchInput: string) {
@@ -38,8 +44,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
         data => (this.courses = data["courses"]),
         error => {
           if (error) {
-            this.courses=[];
-            this.message='По Вашему запросу ничего не найдено'
+            this.courses = [];
+            this.message = "По Вашему запросу ничего не найдено";
           }
         }
       );
@@ -48,7 +54,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   findCourseById(id: string) {
     this.findByIdSubscription = this.coursesService
       .getCourseById(id)
-      .subscribe(data => (this.courses = data["courses"]));
+      .subscribe(data => {
+        this.courses = data["courses"];
+      });
   }
 
   removeCourse(id: number) {
@@ -56,14 +64,16 @@ export class CoursesComponent implements OnInit, OnDestroy {
     if (responseUser) {
       this.removeSubscription = this.coursesService
         .deleteCourse(id)
-        .subscribe(data => (this.courses = data["courses"]));
-        this.store$.dispatch(new DeleteCourse(this.courses[id]));
+        .subscribe(data => {
+          this.store$.dispatch(new DeleteCourse(id));
+          this.courses = data["courses"];
+        });
     }
   }
 
   ngOnInit() {
-    this.coursesState$ = this.store$.select("courseState");
     this.findAllCourses();
+    this.coursesState$ = this.store$.select("courseState");
   }
 
   ngOnDestroy() {

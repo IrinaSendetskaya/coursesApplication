@@ -34,7 +34,7 @@
   </div>
   <div
     class="list__courses"
-    *ngFor="let course of courses"
+    *ngFor="let course of (coursesState$|async).courses"
   >
     <div class="course__item__description">
       <div class="course__item__description__header">

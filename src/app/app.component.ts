@@ -51,7 +51,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.store$.dispatch(new LogoutUser(isValidate));
         return (this.isValidate = isValidate);
       });
-
     if (this.isValidate) {
       this._router.navigate(["/courses"]);
     } else {

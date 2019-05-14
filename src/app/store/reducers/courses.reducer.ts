@@ -26,6 +26,11 @@ export function coursesReducer(
         currentUser:[JSON.parse(localStorage.getItem("user"))],
         isLogged: [action.payload]
       };
+      case COURSE_ACTION.LOAD_COURSES:
+      return {
+        ...state,
+        courses: [...action.payload]
+      };
     case COURSE_ACTION.ADD_COURSE:
       return {
         ...state,
@@ -35,7 +40,7 @@ export function coursesReducer(
       return {
         ...state,
         courses: [
-          ...state.courses.filter(course => course.id !== action.payload.id)
+          ...state.courses.filter(course => course.id !== action.payload)
         ]
       };
     case COURSE_ACTION.UPDATE_COURSE:
