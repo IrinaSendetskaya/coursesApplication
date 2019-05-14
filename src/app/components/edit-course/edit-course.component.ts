@@ -4,7 +4,7 @@ import { Subscription } from "rxjs";
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
+import { AppState } from 'src/app/store/states/app.state';
 import { UpdateCourse } from 'src/app/store/actions/courses.action';
 
 @Component({

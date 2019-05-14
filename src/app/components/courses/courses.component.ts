@@ -3,7 +3,7 @@ import { CoursesService } from "../../services/courses.service";
 import { Course } from "../../models/course";
 import { Subscription, Observable } from "rxjs";
 import { Store } from "@ngrx/store";
-import { AppState } from "src/app/store/app.state";
+import { AppState } from "src/app/store/states/app.state";
 import { DeleteCourse } from 'src/app/store/actions/courses.action';
 
 @Component({

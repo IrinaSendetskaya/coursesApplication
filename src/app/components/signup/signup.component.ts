@@ -3,6 +3,9 @@ import { UserService } from "../../services/user.service";
 import { User } from "../../models/user";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/store/states/app.state";
+import { AddUser } from 'src/app/store/actions/users.action';
 
 @Component({
   selector: "app-signup",
@@ -10,7 +13,11 @@ import { Subscription } from "rxjs";
   styleUrls: ["./signup.component.css"]
 })
 export class SignupComponent implements OnDestroy {
-  constructor(private userService: UserService, private _router: Router) {}
+  constructor(
+    private userService: UserService,
+    private _router: Router,
+    private store$: Store<AppState>
+  ) {}
 
   userInput: User = {
     id: 0,
@@ -25,6 +32,7 @@ export class SignupComponent implements OnDestroy {
     this.subscription = this.userService.addNewUsers(this.userInput).subscribe(
       user => {
         if (user) {
+          this.store$.dispatch(new AddUser(user));
           this._router.navigate(["/login"]);
         }
       },

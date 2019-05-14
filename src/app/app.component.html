@@ -23,7 +23,7 @@
       Регистрация
     </a>
     <div class="header__navbar_item" *ngIf="isValidate">
-      user: {{ userCurrentName }}
+      user: {{ (coursesState$|async).currentUser[0].login }}
     </div>
     <a class="header__navbar_item" *ngIf="isValidate" (click)="logoutUser()">
       Выход
