@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserService } from "./services/user.service";
 import { Router } from "@angular/router";
 import { Subscription, Observable } from "rxjs";
+import { Store } from "@ngrx/store";
+import { AppState } from "./store/states/app.state";
 import { User } from "./models/user";
-import { Store } from '@ngrx/store';
-import { AppState } from './store/states/app.state';
-import { LogoutUser } from './store/actions/login.action';
+import { LoadUsers } from "./store/actions/users.action";
+import { GetCurrentUser } from "./store/actions/login.action";
 
 @Component({
   selector: "my-app",
@@ -15,9 +16,10 @@ import { LogoutUser } from './store/actions/login.action';
 export class AppComponent implements OnInit, OnDestroy {
   title = "coursesApplication";
   isValidate: boolean;
-  public coursesState$: Observable<{}>;
-  userCurrentName: string = "";
+  users: User[] = [];
+  public coursesState$: Observable<any>;
   subscription: Subscription;
+  findUserSubscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -26,35 +28,44 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.findAllUsers();
     this.coursesState$ = this.store$.select("courseState");
     this.changeHeaderByValidationUser();
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-    }
+    this.unsubscribe(this.subscription);
+    this.unsubscribe(this.findUserSubscription);
   }
 
   logoutUser() {
     this.userService.logout();
     this.isValidate = false;
-    this.store$.dispatch(new LogoutUser(this.isValidate));
+    var user: User;
+    this.store$.dispatch(new GetCurrentUser(user));
     this._router.navigate(["/login"]);
   }
 
   changeHeaderByValidationUser() {
     this.subscription = this.userService
       .getUserInLocalStorage()
-      .subscribe(isValidate => {
-        this.store$.dispatch(new LogoutUser(isValidate));
-        return (this.isValidate = isValidate);
+      .subscribe(user => {
+        this.store$.dispatch(new GetCurrentUser(user));
+        return (this.isValidate = !!user);
       });
-    if (this.isValidate) {
-      this._router.navigate(["/courses"]);
-    } else {
-      this._router.navigate(["/login"]);
+  }
+  findAllUsers() {
+    this.findUserSubscription = this.userService
+      .getAllUsers()
+      .subscribe(data => {
+        this.users = data["users"];
+        this.store$.dispatch(new LoadUsers(this.users));
+      });
+  }
+  unsubscribe(subscription: Subscription) {
+    if (subscription) {
+      subscription.unsubscribe();
+      subscription = null;
     }
   }
 }

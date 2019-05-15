@@ -160,6 +160,17 @@ app.get("/api/authors", function(req, res) {
   }
 });
 
+app.get("/api/users", function(req, res) {
+  var content = fs.readFileSync(usersUrl, "utf8");
+  var parsedData = JSON.parse(content);
+
+  if (parsedData.users.length != 0) {
+    res.send(parsedData);
+  } else {
+    res.status(404).send("Нет пользователей!");
+  }
+});
+
 app.post("/api/users", jsonParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
 

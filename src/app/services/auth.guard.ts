@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 import { UserService } from "../services/user.service";
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/states/app.state';
-import { LogoutUser } from '../store/actions/login.action';
+import { GetCurrentUser } from '../store/actions/login.action';
 
 @Injectable({
   providedIn: "root"
@@ -27,9 +27,9 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this.userService.getUserInLocalStorage().subscribe(isValidate => {
-      this.store$.dispatch(new LogoutUser(isValidate));
-      return (this.isValidate = isValidate);
+    this.userService.getUserInLocalStorage().subscribe(currentUser => {
+      this.store$.dispatch(new GetCurrentUser(currentUser));
+      return (this.isValidate = !!currentUser);
     });
     return this.isValidate;
   }

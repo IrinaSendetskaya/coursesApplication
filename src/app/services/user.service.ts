@@ -14,18 +14,22 @@ export class UserService {
 
   serverUrl = "http://localhost:3000/api/";
 
-  setUserValidationState(validateUser: boolean): void {
+  setUserValidationState(validateUser: User): void {
     this.subject.next(validateUser);
   }
 
-  getUserInLocalStorage(): Observable<boolean> {
+  getUserInLocalStorage(): Observable<User> {
     const existingUser: User = JSON.parse(localStorage.getItem("user"));
-    this.setUserValidationState(!!existingUser);
+    this.setUserValidationState(existingUser);
     return this.subject.asObservable().pipe(share());
   }
 
   setUserInLocalStorage(user: User) {
     localStorage.setItem("user", JSON.stringify(user));
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.serverUrl + "users");
   }
 
   addNewUsers(userInput: User): Observable<any> {

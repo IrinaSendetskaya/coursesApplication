@@ -17,7 +17,7 @@ import {
 export class CoursesComponent implements OnInit, OnDestroy {
   message: string;
   public courses: Array<Course>;
-  public coursesState$: Observable<{}>;
+  public coursesState$: Observable<any>;
   findSubscription: Subscription;
   searchSubscription: Subscription;
   findByIdSubscription: Subscription;

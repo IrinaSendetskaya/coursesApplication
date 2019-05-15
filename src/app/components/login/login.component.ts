@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 import { User } from "src/app/models/user";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/states/app.state";
-import { LoginUser } from "src/app/store/actions/login.action";
+import { GetCurrentUser } from 'src/app/store/actions/login.action';
 
 @Component({
   selector: "app-login",
@@ -36,7 +36,6 @@ export class LoginComponent implements OnDestroy {
           if (user) {
             this.messageClass = "alert alert-permit";
             this.userService.setUserInLocalStorage(user);
-            this.store$.dispatch(new LoginUser(user));
             this._router.navigate(["/courses"]);
           }
         },

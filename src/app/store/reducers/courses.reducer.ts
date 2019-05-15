@@ -3,8 +3,7 @@ import { LoginActions, LOGIN_ACTION } from "../actions/login.action";
 import { UserActions, USER_ACTION } from "../actions/users.action";
 
 const initialState = {
-  isLogged: false,
-  currentUser:{},
+  currentUser: {},
   courses: [],
   users: []
 };
@@ -14,19 +13,12 @@ export function coursesReducer(
   action: CourseActions | LoginActions | UserActions
 ) {
   switch (action.type) {
-    case LOGIN_ACTION.LOGIN_USER:
+    case LOGIN_ACTION.GET_CURRENT_USER:
       return {
         ...state,
-        currentUser:[JSON.parse(localStorage.getItem("user"))],
-        isLogged:[!!action.payload]
+        currentUser: [action.payload]
       };
-      case LOGIN_ACTION.LOGOUT_USER:
-      return {
-        ...state,
-        currentUser:[JSON.parse(localStorage.getItem("user"))],
-        isLogged: [action.payload]
-      };
-      case COURSE_ACTION.LOAD_COURSES:
+    case COURSE_ACTION.LOAD_COURSES:
       return {
         ...state,
         courses: [...action.payload]
@@ -47,6 +39,11 @@ export function coursesReducer(
       return {
         ...state,
         courses: [...state.courses]
+      };
+    case USER_ACTION.LOAD_USERS:
+      return {
+        ...state,
+        users: [action.payload]
       };
     case USER_ACTION.ADD_USER:
       return {
