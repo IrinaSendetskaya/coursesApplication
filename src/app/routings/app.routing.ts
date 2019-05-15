@@ -4,6 +4,7 @@ import { LoginComponent } from "../components/login/login.component";
 import { CoursesComponent } from "../components/courses/courses.component";
 import { AuthGuard } from "../services/auth.guard";
 import { SignupComponent } from "../components/signup/signup.component";
+import { HeaderComponent } from '../components/header/header.component';
 
 export const APP_ROUTING: ModuleWithProviders = RouterModule.forRoot(
   [

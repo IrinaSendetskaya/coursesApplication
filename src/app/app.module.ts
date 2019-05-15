@@ -23,6 +23,7 @@ import { CoursesService } from "./services/courses.service";
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 import { environment } from 'src/environments/environment.prod';
 import { coursesReducer } from './store/reducers/courses.reducer';
+import { HeaderComponent } from './components/header/header.component';
 
 
 
@@ -32,7 +33,8 @@ import { coursesReducer } from './store/reducers/courses.reducer';
     LoginComponent,
     CoursesComponent,
     SignupComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

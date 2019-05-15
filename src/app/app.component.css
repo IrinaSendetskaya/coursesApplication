@@ -1,44 +1,4 @@
-.header__navbar nav{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    box-sizing: content-box;
-    border: 1px solid navy;
-    height: 100px;
+.header__navbar {
+  display: flex;
+  flex-direction: column;
 }
-.header__navbar nav img{
-    height: 100px;
-    width: 150px;
-    margin-left: 10px;
-}
-.header__navbar nav a.header__navbar_item,
-.header__navbar nav div.header__navbar_item {
-    display:flex;
-    align-self: center;
-    justify-self: center;
-    padding-left: 40px;
-    color: rgb(72, 106, 114);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 16px;
-    text-decoration: none;
-    box-sizing: content-box;
-    display:flex; 
-    flex-direction: column;
-    margin: 10px;
-}
-.header__navbar nav a.header__navbar_item.active {
-    color: rgb(95, 194, 240);
-}
-.header__navbar nav a.header__navbar_item:hover {
-    color: dimgrey;
-    text-decoration: none;
-  }
-  .header__navbar_item.breadcrumb{
-    display:flex;
-  }
-  .header__navbar_item.breadcrumb::content{
-    justify-content: space-between;
-    flex-direction: row;
-    align-self: center;
-    justify-self: center;
-  }

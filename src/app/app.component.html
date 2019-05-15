@@ -1,35 +1,5 @@
 <div class="header__navbar">
-  <nav>
-    <img class="header__navbar_item" src="../assets/images/logo.png" />
-    <a class="header__navbar_item">
-      <div class="header__navbar_item breadcrumb">
-        <app-breadcrumb></app-breadcrumb>
-      </div>
-    </a>
-    <a
-      class="header__navbar_item"
-      *ngIf="!isValidate"
-      routerLink="login"
-      routerLinkActive="active"
-    >
-      Вход
-    </a>
-    <a
-      class="header__navbar_item"
-      *ngIf="!isValidate"
-      routerLink="signup"
-      routerLinkActive="active"
-    >
-      Регистрация
-    </a>
-    <div class="header__navbar_item" *ngIf="isValidate">
-      user: {{ (coursesState$|async).currentUser[0].login }}
-    </div>
-    <a class="header__navbar_item" *ngIf="isValidate" (click)="logoutUser()">
-      Выход
-    </a>
-  </nav>
+  <app-header></app-header>
   <router-outlet></router-outlet>
 </div>
-
 <div class="footer"></div>
