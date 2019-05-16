@@ -1,27 +1,25 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { Course } from "../../models/course";
-import { Subscription, Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/states/app.state";
 import {
   DeleteCourse,
   LoadCourses
 } from "src/app/store/actions/courses.action";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-courses",
   templateUrl: "./courses.component.html",
-  styleUrls: ["./courses.component.css"]
+  styleUrls: ["./courses.component.scss"]
 })
 export class CoursesComponent implements OnInit, OnDestroy {
   message: string;
   public courses: Array<Course>;
   public coursesState$: Observable<any>;
-  findSubscription: Subscription;
-  searchSubscription: Subscription;
-  findByIdSubscription: Subscription;
-  removeSubscription: Subscription;
+  private componetDestroyed: Subject<any> = new Subject();
 
   constructor(
     private coursesService: CoursesService,
@@ -29,8 +27,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ) {}
 
   findAllCourses() {
-    this.findSubscription = this.coursesService
+    this.coursesService
       .getAllCourses()
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(data => {
         this.courses = data["courses"];
         this.store$.dispatch(new LoadCourses(this.courses));
@@ -38,8 +37,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   searchCourses(searchInput: string) {
-    this.searchSubscription = this.coursesService
+    this.coursesService
       .getCoursesByNameOrDate(searchInput)
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(
         data => (this.courses = data["courses"]),
         error => {
@@ -52,8 +52,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   findCourseById(id: string) {
-    this.findByIdSubscription = this.coursesService
+    this.coursesService
       .getCourseById(id)
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(data => {
         this.courses = data["courses"];
       });
@@ -62,8 +63,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   removeCourse(id: number) {
     var responseUser = confirm("Вы действительно хотите удалить этот курс?");
     if (responseUser) {
-      this.removeSubscription = this.coursesService
+      this.coursesService
         .deleteCourse(id)
+        .pipe(takeUntil<any>(this.componetDestroyed))
         .subscribe(data => {
           this.store$.dispatch(new DeleteCourse(id));
           this.courses = data["courses"];
@@ -77,16 +79,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe(this.findSubscription);
-    this.unsubscribe(this.searchSubscription);
-    this.unsubscribe(this.findByIdSubscription);
-    this.unsubscribe(this.removeSubscription);
-  }
-
-  unsubscribe(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-      subscription = null;
-    }
+    this.componetDestroyed.next();
+    this.componetDestroyed.complete();
   }
 }

@@ -1,24 +1,24 @@
 import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { Course } from "../../models/course";
-import { Subscription } from "rxjs";
+import { Subject } from "rxjs";
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/states/app.state';
-import { UpdateCourse } from 'src/app/store/actions/courses.action';
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/store/states/app.state";
+import { UpdateCourse } from "src/app/store/actions/courses.action";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "edit-course",
   templateUrl: "./edit-course.component.html",
-  styleUrls: ["./edit-course.component.css"]
+  styleUrls: ["./edit-course.component.scss"]
 })
 export class EditCourseComponent implements OnInit, OnDestroy {
   messageClass: string;
   message: string;
-  editSubscription: Subscription;
-  findByIdSubscription: Subscription;
+  private componetDestroyed: Subject<any> = new Subject();
 
-  @Input()  courseInput: Course = {
+  @Input() courseInput: Course = {
     id: 0,
     name: "",
     description: "",
@@ -39,19 +39,21 @@ export class EditCourseComponent implements OnInit, OnDestroy {
     );
   }
   ngOnDestroy() {
-    this.unsubscribe(this.editSubscription);
-    this.unsubscribe(this.findByIdSubscription);
+    this.componetDestroyed.next();
+    this.componetDestroyed.complete();
   }
 
   findCourseById(id: string) {
-    this.findByIdSubscription = this.findByIdSubscription = this.coursesService
+    this.coursesService
       .getCourseById(id)
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(data => (this.courseInput = data["courses"][0]));
   }
 
   editCourse() {
-    this.editSubscription = this.coursesService
+    this.coursesService
       .editCourse(this.courseInput)
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(course => {
         if (course) {
           this.store$.dispatch(new UpdateCourse(course));
@@ -70,12 +72,5 @@ export class EditCourseComponent implements OnInit, OnDestroy {
 
   cancelEditCourse() {
     this._router.navigate(["/courses"]);
-  }
-
-  unsubscribe(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-      subscription = null;
-    }
   }
 }

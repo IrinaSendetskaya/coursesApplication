@@ -9,7 +9,7 @@ import { LoadUsers } from "./store/actions/users.action";
 @Component({
   selector: "my-app",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = "coursesApplication";

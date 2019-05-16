@@ -1,0 +1,19 @@
+@import "../../shared/template.scss";
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .login-form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
+
+    .login-form-control {
+      margin: 5px;
+    }
+  }
+}

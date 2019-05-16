@@ -1,16 +1,16 @@
 <p>
   Edit Course
 </p>
-<div class="content__form__new__course" method="PUT">
-  <div class="form-group">
+<div class="edit-course-form" method="PUT">
+  <div class="edit-course-form-group">
     <div [class]="messageClass">
       {{ message }}
     </div>
   </div>
-  <div class="form-group">
+  <div class="edit-course-form-group">
     <label for="nameCourse">Название </label>
     <input
-      class="form-control"
+      class="edit-course-form-control"
       name="nameCourse"
       [(ngModel)]="courseInput.name"
       #nameCourse="ngModel"
@@ -24,10 +24,10 @@
       * введите
     </div>
   </div>
-  <div class="form-group">
+  <div class="edit-course-form-group">
     <label for="description">Описание </label>
     <textarea
-      class="form-control"
+      class="edit-course-form-control"
       name="description"
       [(ngModel)]="courseInput.description"
       #description="ngModel"
@@ -42,28 +42,28 @@
       * введите
     </div>
   </div>
-  <div class="form-group">
+  <div class="edit-course-form-group">
     <label for="date">Дата </label>
 
     <app-datepicker
       (dateOut)="showDate($event)"
       [(dateForParent)]="courseInput.date"
       #dateForParent
-      class="form-control"
+      class="edit-course-form-control"
       required
     ></app-datepicker>
   </div>
-  <div class="form-group">
+  <div class="edit-course-form-group">
     <label for="duration">Продолжительность </label>
     <input
-      class="form-control"
+      class="edit-course-form-control"
       name="duration"
       [(ngModel)]="courseInput.duration"
       #duration="ngModel"
       required
       pattern="[0-9]{1,4}"
     />
-    <div class="course__item__duration">
+    <div class="edit-course__item--duration">
       {{ courseInput?.duration | duration }}
     </div>
     <div
@@ -73,25 +73,25 @@
       * введите
     </div>
   </div>
-  <div class="form-group">
+  <div class="edit-course-form-group">
     <label for="authors">Список авторов </label>
     <app-drag-drop
       [(authorsConfirmList)]="courseInput.authors"
       #authors
-      class="form-control"
+      class="edit-course-form-control"
       required
     ></app-drag-drop>
   </div>
-  <div class="form-group">
+  <div class="edit-course-form-group">
     <button
       [disabled]="nameCourse.invalid || description.invalid || duration.invalid"
-      class="button buttonSubmit"
+      class="button button--submit"
       (click)="editCourse()"
     >
       Сохранить
     </button>
 
-    <button class="button buttonCancel" (click)="cancelEditCourse()">
+    <button class="button button--cancel" (click)="cancelEditCourse()">
       Отмена
     </button>
   </div>

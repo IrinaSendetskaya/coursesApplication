@@ -2,20 +2,21 @@ import { Component, OnDestroy, Input } from "@angular/core";
 import { Course } from "../../models/course";
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/states/app.state";
 import { AddCourse } from "src/app/store/actions/courses.action";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "add-course",
   templateUrl: "./add-course.component.html",
-  styleUrls: ["./add-course.component.css"]
+  styleUrls: ["./add-course.component.scss"]
 })
 export class AddCourseComponent implements OnDestroy {
   messageClass: string;
   message: string;
-  addSubscription: Subscription;
+  private componetDestroyed: Subject<any> = new Subject();
 
   initCourse(): Course {
     return {
@@ -28,7 +29,7 @@ export class AddCourseComponent implements OnDestroy {
     };
   }
 
- @Input() courseInput: Course = this.initCourse();
+  @Input() courseInput: Course = this.initCourse();
 
   constructor(
     private coursesService: CoursesService,
@@ -37,12 +38,14 @@ export class AddCourseComponent implements OnDestroy {
   ) {}
 
   ngOnDestroy() {
-    this.unsubscribe(this.addSubscription);
+    this.componetDestroyed.next();
+    this.componetDestroyed.complete();
   }
 
   addNewCourse() {
-    this.addSubscription = this.coursesService
+    this.coursesService
       .addNewCourses(this.courseInput)
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(course => {
         if (course) {
           this.store.dispatch(new AddCourse(course));
@@ -62,12 +65,5 @@ export class AddCourseComponent implements OnDestroy {
 
   cancelAddNewCourse() {
     this._router.navigate(["/courses"]);
-  }
-
-  unsubscribe(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-      subscription = null;
-    }
   }
 }

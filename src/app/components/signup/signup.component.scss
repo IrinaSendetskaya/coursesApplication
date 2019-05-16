@@ -1,0 +1,19 @@
+@import "../../shared/template.scss";
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .signup-form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
+
+    .signup-form-control {
+      margin: 5px;
+    }
+  }
+}

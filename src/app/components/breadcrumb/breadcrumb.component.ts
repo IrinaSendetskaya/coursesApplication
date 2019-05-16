@@ -1,14 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { filter, distinctUntilChanged } from "rxjs/operators";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { filter, distinctUntilChanged, takeUntil } from "rxjs/operators";
 import { Router, NavigationEnd, ActivatedRoute, Event } from "@angular/router";
+import { Subject } from "rxjs";
 
 @Component({
   selector: "app-breadcrumb",
   templateUrl: "./breadcrumb.component.html",
-  styleUrls: ["./breadcrumb.component.css"]
+  styleUrls: ["./breadcrumb.component.scss"]
 })
-export class BreadcrumbComponent implements OnInit {
+export class BreadcrumbComponent implements OnInit, OnDestroy {
   public finalBreadcrumbs: IBreadCrumb[];
+  private componetDestroyed: Subject<any> = new Subject();
 
   constructor(private _router: Router, private activatedRoute: ActivatedRoute) {
     this.finalBreadcrumbs = this.buildBreadCrumb(this.activatedRoute);
@@ -18,7 +20,8 @@ export class BreadcrumbComponent implements OnInit {
     this._router.events
       .pipe(
         filter((event: Event) => event instanceof NavigationEnd),
-        distinctUntilChanged()
+        distinctUntilChanged(),
+        takeUntil<any>(this.componetDestroyed)
       )
       .subscribe(() => {
         this.finalBreadcrumbs = this.buildBreadCrumb(this.activatedRoute);
@@ -40,7 +43,7 @@ export class BreadcrumbComponent implements OnInit {
       (lastRoutePart.startsWith(":") && !!route.snapshot) ||
       routeParts.length > 1
     ) {
-      newBreadcrumbs = this.findLabelIFDynamicPathAndReturnBreadcrumb(
+      newBreadcrumbs = this.findLabelIfDynamicPath(
         lastRoutePart,
         label,
         path,
@@ -101,7 +104,7 @@ export class BreadcrumbComponent implements OnInit {
     return newBreadcrumbs;
   }
 
-  findLabelIFDynamicPathAndReturnBreadcrumb(
+  findLabelIfDynamicPath(
     lastRoutePart: string,
     label: string,
     path: string,
@@ -119,6 +122,11 @@ export class BreadcrumbComponent implements OnInit {
     }
     var nextUrl = path ? `/${path}` : url;
     return this.fillBreadcrumbs(label, nextUrl, breadcrumbs);
+  }
+
+  ngOnDestroy() {
+    this.componetDestroyed.next();
+    this.componetDestroyed.complete();
   }
 }
 export interface IBreadCrumb {

@@ -1,6 +1,7 @@
+@import "../../shared/template.scss";
 .breadcrumb {
   background: none;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 16px;
   margin: 0;
   text-decoration: none;
@@ -23,7 +24,7 @@
 }
 .breadcrumb li::after {
   content: "->";
-  color:rgb(95, 194, 240);
+  color: rgb(95, 194, 240);
   text-decoration: none;
 }
 .breadcrumb li:last-child::after {

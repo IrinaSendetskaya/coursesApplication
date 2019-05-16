@@ -1,0 +1,17 @@
+@import "../../shared/template.scss";
+
+.edit-course-form-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 5px;
+  margin: 5px;
+}
+.edit-course-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.edit-course-form-control {
+  margin: 5px;
+}

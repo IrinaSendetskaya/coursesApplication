@@ -2,15 +2,16 @@ import { Component, OnDestroy } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { User } from "../../models/user";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/states/app.state";
-import { AddUser } from 'src/app/store/actions/users.action';
+import { AddUser } from "src/app/store/actions/users.action";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-signup",
   templateUrl: "./signup.component.html",
-  styleUrls: ["./signup.component.css"]
+  styleUrls: ["./signup.component.scss"]
 })
 export class SignupComponent implements OnDestroy {
   constructor(
@@ -26,31 +27,32 @@ export class SignupComponent implements OnDestroy {
   };
   message: string;
   messageClass: string;
-  subscription: Subscription;
+  private componetDestroyed: Subject<any> = new Subject();
 
   addNewUser() {
-    this.subscription = this.userService.addNewUsers(this.userInput).subscribe(
-      user => {
-        if (user) {
-          this.store$.dispatch(new AddUser(user));
-          this._router.navigate(["/login"]);
+    this.userService
+      .addNewUsers(this.userInput)
+      .pipe(takeUntil<any>(this.componetDestroyed))
+      .subscribe(
+        user => {
+          if (user) {
+            this.store$.dispatch(new AddUser(user));
+            this._router.navigate(["/login"]);
+          }
+        },
+        error => {
+          if (error) {
+            this.message = "Такой пользователь уже существует!";
+            this.messageClass = "message";
+            this.userInput.login = "";
+            this.userInput.password = "";
+          }
         }
-      },
-      error => {
-        if (error) {
-          this.message = "Такой пользователь уже существует!";
-          this.messageClass = "message";
-          this.userInput.login = "";
-          this.userInput.password = "";
-        }
-      }
-    );
+      );
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-    }
+    this.componetDestroyed.next();
+    this.componetDestroyed.complete();
   }
 }

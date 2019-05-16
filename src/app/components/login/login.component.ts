@@ -1,23 +1,17 @@
 import { Component, OnDestroy } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subject } from "rxjs";
 import { User } from "src/app/models/user";
-import { Store } from "@ngrx/store";
-import { AppState } from "src/app/store/states/app.state";
-import { GetCurrentUser } from 'src/app/store/actions/login.action';
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnDestroy {
-  constructor(
-    private userService: UserService,
-    private _router: Router,
-    private store$: Store<AppState>
-  ) {}
+  constructor(private userService: UserService, private _router: Router) {}
 
   userInput: User = {
     id: 0,
@@ -26,11 +20,12 @@ export class LoginComponent implements OnDestroy {
   };
   message: string;
   messageClass: string;
-  subscription: Subscription;
+  private componetDestroyed: Subject<any> = new Subject();
 
   checkUserByLoginAndPassword() {
-    this.subscription = this.userService
+    this.userService
       .getUsersByLoginAndPassword(this.userInput)
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(
         user => {
           if (user) {
@@ -50,9 +45,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-    }
+    this.componetDestroyed.next();
+    this.componetDestroyed.complete();
   }
 }

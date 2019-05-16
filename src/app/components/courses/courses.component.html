@@ -2,12 +2,12 @@
   Courses catalog
 </p>
 
-<div class="content__list__courses" method="GET">
-  <div class="options__courses">
-    <div class="search__courses">
+<div class="content-courses__list" method="GET">
+  <div class="courses__options">
+    <div class="courses__search">
       <input
         type="text"
-        class="search__input"
+        class="input--search"
         placeholder="фрагмент названия"
         (keydown.enter)="
           searchCourses($event.target.value); searchInput.value = ''
@@ -16,15 +16,15 @@
         #searchInput
       />
       <button
-        class="button__search"
+        class="button--search"
         (click)="searchCourses(searchInput.value); searchInput.value = ''"
       >
         найти
       </button>
     </div>
-    <div class="add__course">
+    <div class="course__add">
       <button
-        class="button__add__course"
+        class="button--add-course"
         [routerLink]="['/courses', 'new']"
         routerLinkActive="active"
       >
@@ -33,38 +33,38 @@
     </div>
   </div>
   <div
-    class="list__courses"
+    class="courses__list"
     *ngFor="let course of (coursesState$ | async).courses"
   >
-    <div class="course__item__description">
-      <div class="course__item__description__header">
-        <div class="course__item__description__header__main">
-          <div class="list__course__item__description">
+    <div class="course__item">
+      <div class="item__header">
+        <div class="item__header--main">
+          <div class="item__list">
             Видеокурс {{ course?.id }}
           </div>
-          <div class="list__course__item__description">{{ course?.name }}</div>
-          <div class="list__course__item__description">
+          <div class="item__list">{{ course?.name }}</div>
+          <div class="item__list">
             {{ course?.duration | duration }}
           </div>
         </div>
-        <div class="course__item__description__header__date">
+        <div class="item__header--date">
           {{ course?.date | date: "dd.MM.yyyy":"ru-RU" }}
         </div>
       </div>
-      <div clas="course__item__description">
+      <div clas="course__item">
         {{ course?.description }}
       </div>
     </div>
-    <div class="course__item__options">
+    <div class="course__options">
       <button
-        class="button__edit__course"
+        class="button--edit-course"
         (click)="findCourseById(course.name)"
         [routerLink]="['/courses', course?.name]"
         routerLinkActive="active"
       >
         Редактировать
       </button>
-      <button class="button__delete__course" (click)="removeCourse(course.id)">
+      <button class="button--delete-course" (click)="removeCourse(course.id)">
         Удалить
       </button>
     </div>

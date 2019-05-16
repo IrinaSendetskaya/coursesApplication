@@ -1,0 +1,82 @@
+$border: 1px solid navy;
+
+.content-courses__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: $border;
+}
+.content-courses__list {
+  .courses__options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: $border;
+    margin: 5px;
+    padding: 10px;
+  }
+  .courses__search {
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    padding: 5px;
+  }
+  .course__add {
+    padding: 5px;
+  }
+  input,
+  button {
+    margin: 5px;
+    padding: 3px;
+  }
+  .courses__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px;
+    border: $border;
+
+    .course__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+      padding: 5px;
+      margin: 5px;
+      width: 100%;
+
+      .item__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 5px;
+        width: 100%;
+        font-size: x-large;
+      }
+      .item__header--main {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding: 5px;
+      }
+      .item__list {
+        margin-right: 20px;
+        justify-self: stretch;
+      }
+      .item__header--date {
+        justify-self: flex-end;
+      }
+    }
+    .course__options {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      padding: 5px;
+      margin: 5px;
+    }
+  }
+}

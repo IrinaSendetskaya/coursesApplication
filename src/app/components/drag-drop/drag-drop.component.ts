@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subject } from "rxjs";
 import { Author } from "../../models/author";
 import { CoursesService } from "../../services/courses.service";
 import {
@@ -7,14 +7,15 @@ import {
   moveItemInArray,
   transferArrayItem
 } from "@angular/cdk/drag-drop";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-drag-drop",
   templateUrl: "./drag-drop.component.html",
-  styleUrls: ["./drag-drop.component.css"]
+  styleUrls: ["./drag-drop.component.scss"]
 })
 export class DragDropComponent implements OnInit, OnDestroy {
-  findAuthorsSubscription: Subscription;
+  private componetDestroyed: Subject<any> = new Subject();
   authorsOutputList: Author[] = [];
 
   @Input() authorsConfirmList: Author[] = [];
@@ -26,12 +27,14 @@ export class DragDropComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe(this.findAuthorsSubscription);
+    this.componetDestroyed.next();
+    this.componetDestroyed.complete();
   }
 
   findAllAuthors() {
-    this.findAuthorsSubscription = this.coursesService
+    this.coursesService
       .getAllAuthors()
+      .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(authors => {
         return (this.authorsOutputList = authors["authors"]);
       });
@@ -51,13 +54,6 @@ export class DragDropComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
-    }
-  }
-
-  unsubscribe(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-      subscription = null;
     }
   }
 }

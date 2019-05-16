@@ -1,0 +1,20 @@
+button {
+  margin: 10px;
+}
+
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-valid {
+  border: solid red 2px;
+}
+
+input.ng-touched.ng-valid,
+textarea.ng-touched.ng-valid {
+  border: solid green 2px;
+}
+
+.alert-danger {
+  color: red;
+}
+.alert-permit {
+  color: green;
+}
