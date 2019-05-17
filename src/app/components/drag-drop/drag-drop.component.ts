@@ -36,7 +36,7 @@ export class DragDropComponent implements OnInit, OnDestroy {
       .getAllAuthors()
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(authors => {
-        return (this.authorsOutputList = authors["authors"]);
+        return (this.authorsOutputList = authors);
       });
   }
 

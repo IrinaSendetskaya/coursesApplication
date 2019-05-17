@@ -37,14 +37,14 @@ app.get("/api/courses", function(req, res) {
   var parsedData = JSON.parse(content);
 
   if (!searchInput) {
-    res.send(parsedData);
+    res.send(parsedData.courses);
   } else {
     const coursesSearching = filterItemsBySearch(searchInput, parsedData);
     if (coursesSearching.length == 0) {
       res.status(404).send();
     } else {
       courses = sortCourses(coursesSearching);
-      res.send({ courses: courses });
+      res.send(courses);
     }
   }
 });
@@ -60,7 +60,7 @@ app.get("/api/courses/:id", function(req, res) {
   });
 
   if (courses.length != 0) {
-    res.send({ courses: courses });
+    res.send(courses);
   } else {
     res.status(404).send();
   }
@@ -95,7 +95,7 @@ app.post("/api/courses", jsonParser, function(req, res) {
   parsedData.courses.push(course);
   var data = JSON.stringify(parsedData);
   fs.writeFileSync(coursesUrl, data);
-  res.send({ courses: course });
+  res.send(course);
 });
 
 app.put("/api/courses", jsonParser, function(req, res) {
@@ -143,7 +143,7 @@ app.delete("/api/courses/:id", function(req, res) {
     var courseForDelete = parsedData.courses.splice(index, 1);
     var data = JSON.stringify({ courses: parsedData.courses });
     fs.writeFileSync(coursesUrl, data);
-    res.send(data);
+    res.send(courseForDelete);
   } else {
     res.status(404).send();
   }
@@ -154,7 +154,7 @@ app.get("/api/authors", function(req, res) {
   var parsedData = JSON.parse(content);
 
   if (parsedData.authors.length != 0) {
-    res.send(parsedData);
+    res.send(parsedData.authors);
   } else {
     res.status(404).send("Нет авторов!");
   }
@@ -165,7 +165,7 @@ app.get("/api/users", function(req, res) {
   var parsedData = JSON.parse(content);
 
   if (parsedData.users.length != 0) {
-    res.send(parsedData);
+    res.send(parsedData.users);
   } else {
     res.status(404).send("Нет пользователей!");
   }
@@ -181,7 +181,7 @@ app.post("/api/users", jsonParser, function(req, res) {
   var parsedData = JSON.parse(content);
 
   if (!userLogin) {
-    res.send(parsedData);
+    res.send(parsedData.users);
   } else {
     const userSearching = parsedData.users.find(user => {
       return user.login == userLogin && user.password == userPassword;

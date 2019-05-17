@@ -31,7 +31,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .getAllCourses()
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(data => {
-        this.courses = data["courses"];
+        this.courses = data;
         this.store$.dispatch(new LoadCourses(this.courses));
       });
   }
@@ -41,7 +41,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .getCoursesByNameOrDate(searchInput)
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(
-        data => (this.courses = data["courses"]),
+        data => (this.courses = data),
         error => {
           if (error) {
             this.courses = [];
@@ -56,7 +56,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .getCourseById(id)
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(data => {
-        this.courses = data["courses"];
+        this.courses = data;
       });
   }
 
@@ -68,7 +68,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         .pipe(takeUntil<any>(this.componetDestroyed))
         .subscribe(data => {
           this.store$.dispatch(new DeleteCourse(id));
-          this.courses = data["courses"];
+          this.courses = data;
         });
     }
   }

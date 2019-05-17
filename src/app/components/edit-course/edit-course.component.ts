@@ -47,7 +47,7 @@ export class EditCourseComponent implements OnInit, OnDestroy {
     this.coursesService
       .getCourseById(id)
       .pipe(takeUntil<any>(this.componetDestroyed))
-      .subscribe(data => (this.courseInput = data["courses"][0]));
+      .subscribe(data => (this.courseInput = data[0]));
   }
 
   editCourse() {
