@@ -123,7 +123,7 @@ app.put("/api/courses", jsonParser, function(req, res) {
     course.authors = courseAuthors;
     var data = JSON.stringify(parsedData);
     fs.writeFileSync(coursesUrl, data);
-    res.send({ courses: course });
+    res.send( course );
   } else {
     res.status(404).send("Курс не был изменен");
   }

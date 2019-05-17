@@ -38,7 +38,11 @@ export function coursesReducer(
     case COURSE_ACTION.UPDATE_COURSE:
       return {
         ...state,
-        courses: [...state.courses]
+        courses: [
+          ...state.courses.map(course=>{
+           return (course.id === action.payload.id)?action.payload:course
+          })
+        ]
       };
     case USER_ACTION.LOAD_USERS:
       return {
