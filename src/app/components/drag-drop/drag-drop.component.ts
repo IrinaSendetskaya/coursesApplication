@@ -17,7 +17,6 @@ import { takeUntil } from "rxjs/operators";
 export class DragDropComponent implements OnInit, OnDestroy {
   private componetDestroyed: Subject<any> = new Subject();
   authorsOutputList: Author[] = [];
-
   @Input() authorsConfirmList: Author[] = [];
 
   constructor(private coursesService: CoursesService) {}
