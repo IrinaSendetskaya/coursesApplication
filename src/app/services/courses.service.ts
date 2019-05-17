@@ -12,20 +12,20 @@ export class CoursesService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAllCourses(): Observable< Course[]> {
-    return this.httpClient.get< Course[]>(this.serverUrl + "courses");
+  getAllCourses(): Observable<Course[]> {
+    return this.httpClient.get<Course[]>(this.serverUrl + "courses");
   }
 
-  getCoursesByNameOrDate(searchInput: string): Observable< Course[]> {
+  getCoursesByNameOrDate(searchInput: string): Observable<Course[]> {
     searchInput = searchInput.trim();
     const options = searchInput
       ? { params: new HttpParams().set("searchInput", searchInput) }
       : {};
-    return this.httpClient.get< Course[]>(this.serverUrl + "courses", options);
+    return this.httpClient.get<Course[]>(this.serverUrl + "courses", options);
   }
 
-  getCourseById(id: string): Observable< Course[]> {
-    return this.httpClient.get< Course[]>(this.serverUrl + "courses/" + id);
+  getCourseById(id: string): Observable<Course[]> {
+    return this.httpClient.get<Course[]>(this.serverUrl + "courses/" + id);
   }
   deleteCourse(id: number): Observable<any> {
     return this.httpClient.delete(this.serverUrl + "courses/" + id);

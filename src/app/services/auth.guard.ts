@@ -7,9 +7,9 @@ import {
 } from "@angular/router";
 import { Observable } from "rxjs";
 import { UserService } from "../services/user.service";
-import { Store } from '@ngrx/store';
-import { AppState } from '../store/states/app.state';
-import { GetCurrentUser } from '../store/actions/login.action';
+import { Store } from "@ngrx/store";
+import { AppState } from "../store/states/app.state";
+import { GetCurrentUser } from "../store/actions/login.action";
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +17,10 @@ import { GetCurrentUser } from '../store/actions/login.action';
 export class AuthGuard implements CanActivate {
   isValidate: boolean;
 
-  constructor(private userService: UserService, private store$: Store<AppState>) {}
+  constructor(
+    private userService: UserService,
+    private store$: Store<AppState>
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
