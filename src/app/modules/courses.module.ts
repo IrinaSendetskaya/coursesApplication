@@ -22,7 +22,7 @@ import { DragDropComponent } from "../components/drag-drop/drag-drop.component";
 import { AuthGuard } from "../services/auth.guard";
 import { COURSE_ROUTING } from "../routings/courses.routing";
 import { CoursesService } from "../services/courses.service";
-import { DurationPipe } from "../shared/duration.pipe";
+import { DurationPipe } from "../components/pipes/duration.pipe";
 import { StoreModule } from '@ngrx/store';
 import { coursesReducer } from '../store/reducers/courses.reducer';
 

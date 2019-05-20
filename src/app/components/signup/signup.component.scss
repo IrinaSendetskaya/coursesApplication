@@ -1,14 +1,11 @@
 @import "../../shared/template.scss";
+@import "../../shared/flex.center.mixin.scss";
 
 .signup-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include flex-content-direction(center, column);
 
   .signup-form-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    @include flex-content-direction(center, row);
     padding: 5px;
     margin: 5px;
 

@@ -1,10 +1,8 @@
 @import "../../shared/template.scss";
+@import "../../shared/font-nav.mixin.scss";
 .breadcrumb {
   background: none;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  font-size: 16px;
-  margin: 0;
-  text-decoration: none;
+  @include font-nav(0);
 }
 .breadcrumb a {
   color: rgb(95, 194, 240);

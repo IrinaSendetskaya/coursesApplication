@@ -1,0 +1,6 @@
+@mixin font-nav($margin) {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 16px;
+  margin: $margin;
+  text-decoration: none;
+}

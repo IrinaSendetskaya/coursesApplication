@@ -1,8 +1,8 @@
 @import "../../shared/template.scss";
+@import "../../shared/flex.center.mixin.scss";
+@import "../../shared/font-nav.mixin.scss";
 nav.header__navbar {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  @include flex-content-direction(space-between, row);
   box-sizing: content-box;
   border: 1px solid navy;
   height: 100px;
@@ -19,11 +19,8 @@ nav {
     align-self: center;
     padding-left: 40px;
     color: rgb(72, 106, 114);
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-size: 16px;
-    text-decoration: none;
+    @include font-nav(10px);
     box-sizing: content-box;
-    margin: 10px;
   }
   a.navbar__item.active {
     color: rgb(95, 194, 240);

@@ -1,24 +1,19 @@
 $border: 1px solid navy;
+@import "../../shared/flex.center.mixin.scss";
 
 .content-courses__list {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  @include flex-content-direction(space-around, column);
   border: $border;
 }
 .content-courses__list {
   .courses__options {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-content-direction(space-between, row);
     border: $border;
     margin: 5px;
     padding: 10px;
   }
   .courses__search {
-    display: flex;
-    flex-direction: row;
-    justify-content: baseline;
+    @include flex-content-direction(baseline, row);
     padding: 5px;
   }
   .course__add {
@@ -30,35 +25,27 @@ $border: 1px solid navy;
     padding: 3px;
   }
   .courses__list {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-content-direction(space-between, row);
     padding: 10px;
     margin: 10px;
     border: $border;
 
     .course__item {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      @include flex-content-direction(space-between, column);
       align-items: stretch;
       padding: 5px;
       margin: 5px;
       width: 100%;
 
       .item__header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        @include flex-content-direction(space-between, row);
         align-items: flex-start;
         padding: 5px;
         width: 100%;
         font-size: x-large;
       }
       .item__header--main {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        @include flex-content-direction(space-around, row);
         align-items: flex-start;
         padding: 5px;
       }
@@ -71,9 +58,7 @@ $border: 1px solid navy;
       }
     }
     .course__options {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      @include flex-content-direction(flex-start, column);
       align-items: stretch;
       padding: 5px;
       margin: 5px;

@@ -1,14 +1,11 @@
 @import "../../shared/template.scss";
+@import "../../shared/flex.center.mixin.scss";
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include flex-content-direction(center, column);
 
   .login-form-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    @include flex-content-direction(center, row);
     padding: 5px;
     margin: 5px;
 

@@ -1,14 +1,22 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
 
 describe('AppComponent', () => {
+  let headerComponent: HeaderComponent;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports:[HeaderComponent]
     }).compileComponents();
   }));
+
+  beforeEach(() => {
+    headerComponent = TestBed.get(HeaderComponent);
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
