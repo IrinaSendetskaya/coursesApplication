@@ -1,0 +1,31 @@
+@import "../../shared/template.scss";
+@import "../../shared/flex.center.mixin.scss";
+@import "../../shared/font-nav.mixin.scss";
+
+.navbar {
+  @include flex-content-direction(space-between, row);
+  box-sizing: content-box;
+  border: 1px solid navy;
+  height: 100px;
+
+  img.navbar__item {
+    height: 100px;
+    width: 150px;
+    margin-left: 10px;
+  }
+  a.navbar__item,
+  div.navbar__item {
+    display: flex;
+    align-self: center;
+    padding-left: 40px;
+    color: rgb(72, 106, 114);
+    @include font-nav(10px);
+    box-sizing: content-box;
+  }
+  a.navbar__item.active {
+    color: rgb(95, 194, 240);
+  }
+  .navbar__item--breadcrumb {
+    display: flex;
+  }
+}

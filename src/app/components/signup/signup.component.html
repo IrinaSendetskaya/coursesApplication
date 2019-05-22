@@ -1,0 +1,55 @@
+<p>
+  Signup page
+</p>
+<div class="signup-form">
+  <div class="signup__items">
+    <div [hidden]="nameLogin.valid && pass.valid" class="alert-danger">
+      Логин и пароль должны содержать цифры и буквы, 1 символ в верхнем регистре
+    </div>
+  </div>
+  <div class="signup__items">
+    <label
+      >Логин
+      <input
+        [class]="itemClass"
+        name="nameLogin"
+        [(ngModel)]="userInput.login"
+        #nameLogin="ngModel"
+        required
+        pattern="[a-zA-Z\d]{1,12}"
+      />
+    </label>
+    <div [hidden]="nameLogin.untouched || nameLogin.valid" class="alert-danger">
+      * введите
+    </div>
+  </div>
+  <div class="signup__items">
+    <label
+      >Пароль
+      <input
+        [class]="itemClass"
+        name="pass"
+        [(ngModel)]="userInput.password"
+        #pass="ngModel"
+        required
+        pattern="(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}"
+      />
+    </label>
+    <div [hidden]="pass.untouched || pass.valid" class="alert-danger">
+      * введите
+    </div>
+  </div>
+  <div class="signup__items">
+    <button
+      [disabled]="nameLogin.invalid || pass.invalid"
+      class="control-button signup__button--submit"
+      (click)="addNewUser()"
+    >
+      Зарегистрироваться
+    </button>
+  </div>
+
+  <div [class]="messageClass">
+    {{ message }}
+  </div>
+</div>

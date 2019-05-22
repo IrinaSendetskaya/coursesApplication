@@ -1,0 +1,5 @@
+<mat-form-field>
+  <input matInput [matDatepicker]="datepicker" placeholder="dd.MM.yyyy" [formControl] ="date" [value]="dateForParent">
+  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+  <mat-datepicker #datepicker ></mat-datepicker>
+</mat-form-field>

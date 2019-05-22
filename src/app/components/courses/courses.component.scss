@@ -1,0 +1,66 @@
+$border: 1px solid navy;
+@import "../../shared/flex.center.mixin.scss";
+@import "../../shared/template.scss";
+
+.courses {
+  @include flex-content-direction(space-around, column);
+  border: $border;
+
+  .courses__options {
+    @include flex-content-direction(space-between, row);
+    border: $border;
+    margin: 5px;
+    padding: 10px;
+  }
+  .courses__wrapper-search {
+    @include flex-content-direction(baseline, row);
+    padding: 5px;
+  }
+  .courses__add {
+    padding: 5px;
+  }
+  .courses__input--search {
+    margin: 5px;
+    padding: 3px;
+  }
+  .courses__items {
+    @include flex-content-direction(space-between, row);
+    padding: 10px;
+    margin: 10px;
+    border: $border;
+
+    .courses__item {
+      @include flex-content-direction(space-between, column);
+      align-items: stretch;
+      padding: 5px;
+      margin: 5px;
+      width: 100%;
+
+      .courses__details {
+        @include flex-content-direction(space-between, row);
+        align-items: flex-start;
+        padding: 5px;
+        width: 100%;
+        font-size: x-large;
+      }
+      .courses__parameters {
+        @include flex-content-direction(space-around, row);
+        align-items: flex-start;
+        padding: 5px;
+      }
+      .courses__parameter {
+        margin-right: 20px;
+        justify-self: stretch;
+      }
+      .courses__date {
+        justify-self: flex-end;
+      }
+    }
+    .courses__controls {
+      @include flex-content-direction(flex-start, column);
+      align-items: stretch;
+      padding: 5px;
+      margin: 5px;
+    }
+  }
+}

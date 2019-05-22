@@ -1,0 +1,30 @@
+@import "../../shared/template.scss";
+@import "../../shared/font-nav.mixin.scss";
+.breadcrumb {
+  background: none;
+  @include font-nav(0);
+}
+.breadcrumb .breadcrumb__item {
+  color: rgb(95, 194, 240);
+  text-decoration: none;
+}
+.breadcrumb .breadcrumb__item:hover {
+  color: dimgrey;
+  text-decoration: none;
+}
+.breadcrumb .breadcrumb__items {
+  list-style: none;
+  float: left;
+  margin: 5px;
+}
+.breadcrumb .breadcrumb__items:last-child {
+  margin-right: 20px;
+}
+.breadcrumb .breadcrumb__items::after {
+  content: "->";
+  color: rgb(95, 194, 240);
+  text-decoration: none;
+}
+.breadcrumb .breadcrumb__items:last-child::after {
+  content: "";
+}

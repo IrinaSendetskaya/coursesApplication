@@ -1,0 +1,31 @@
+<nav class="navbar">
+  <img class="navbar__item" src="../assets/images/logo.png" />
+  <a class="navbar__item">
+    <div class="navbar__item--breadcrumb">
+      <app-breadcrumb></app-breadcrumb>
+    </div>
+  </a>
+  <a
+    class="navbar__item"
+    *ngIf="!isValidate"
+    routerLink="login"
+    routerLinkActive="active"
+  >
+    Вход
+  </a>
+  <a
+    class="navbar__item"
+    *ngIf="!isValidate"
+    routerLink="signup"
+    routerLinkActive="active"
+  >
+    Регистрация
+  </a>
+  <div class="navbar__item" *ngIf="isValidate">
+    user: {{ (coursesState$ | async).currentUser[0].login }}
+  </div>
+  <a class="navbar__item" *ngIf="isValidate" (click)="logoutUser()">
+    Выход
+  </a>
+</nav>
+<router-outlet></router-outlet>

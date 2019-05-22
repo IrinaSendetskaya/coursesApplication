@@ -1,0 +1,54 @@
+<p>
+  Login page
+</p>
+<div class="login-form">
+  <div class="login__items">
+    <div [hidden]="nameLogin.valid && pass.valid" class="alert-danger">
+      Неправильный логин или пароль
+    </div>
+    <div [class]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  <div class="login__items">
+    <label
+      >Логин
+      <input
+        [class]="itemClass"
+        name="nameLogin"
+        [(ngModel)]="userInput.login"
+        #nameLogin="ngModel"
+        required
+        pattern="[a-zA-Z0-9]{1,12}"
+      />
+    </label>
+    <div [hidden]="nameLogin.untouched || nameLogin.valid" class="alert-danger">
+      * введите
+    </div>
+  </div>
+  <div class="login__items">
+    <label
+      >Пароль
+      <input
+        [class]="itemClass"
+        name="pass"
+        [(ngModel)]="userInput.password"
+        #pass="ngModel"
+        required
+        pattern="[a-zA-Z0-9]{1,12}"
+      />
+    </label>
+    <div [hidden]="pass.untouched || pass.valid" class="alert-danger">
+      * введите
+    </div>
+  </div>
+  <div class="login__items">
+    <button
+      [disabled]="nameLogin.invalid || pass.invalid"
+      class="control-button login__button--submit"
+      (click)="checkUserByLoginAndPassword()"
+    >
+      Войти
+    </button>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<p>
+  Courses catalog
+</p>
+
+<div class="courses" method="GET">
+  <div class="courses__options">
+    <div class="courses__wrapper-search">
+      <input
+        type="text"
+        class="courses__input--search"
+        placeholder="фрагмент названия"
+        (keydown.enter)="
+          searchCourses($event.target.value); searchInput.value = ''
+        "
+        id="searchInput"
+        #searchInput
+      />
+      <button
+        class="control-button courses__button--search-course"
+        (click)="searchCourses(searchInput.value); searchInput.value = ''"
+      >
+        найти
+      </button>
+    </div>
+    <div class="courses__add">
+      <button
+        class="control-button courses__button--add-course"
+        [routerLink]="['/courses', 'new']"
+        routerLinkActive="active"
+      >
+        Добавить курс
+      </button>
+    </div>
+  </div>
+  <div
+    class="courses__items"
+    *ngFor="let course of (coursesState$ | async).courses"
+  >
+    <div class="courses__item">
+      <div class="courses__details">
+        <div class="courses__parameters">
+          <div class="courses__parameter">Видеокурс {{ course?.id }}</div>
+          <div class="courses__parameter">{{ course?.name }}</div>
+          <div class="courses__parameter">
+            {{ course?.duration | duration }}
+          </div>
+        </div>
+        <div class="courses__date">
+          {{ course?.date | date: "dd.MM.yyyy":"ru-RU" }}
+        </div>
+      </div>
+      <div clas="courses__description">
+        {{ course?.description }}
+      </div>
+    </div>
+    <div class="courses__controls">
+      <button
+        class="control-button courses__button--edit-course"
+        (click)="findCourseById(course.name)"
+        [routerLink]="['/courses', course?.name]"
+        routerLinkActive="active"
+      >
+        Редактировать
+      </button>
+      <button
+        class="control-button courses__button--delete-course"
+        (click)="removeCourse(course.id)"
+      >
+        Удалить
+      </button>
+    </div>
+  </div>
+</div>
+<div class="messageClass">
+  {{ message }}
+</div>

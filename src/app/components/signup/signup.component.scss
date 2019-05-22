@@ -1,0 +1,12 @@
+@import "../../shared/template.scss";
+@import "../../shared/flex.center.mixin.scss";
+
+.signup-form {
+  @include flex-content-direction(center, column);
+
+  .signup__items {
+    @include flex-content-direction(center, row);
+    padding: 5px;
+    margin: 5px;
+  }
+}
