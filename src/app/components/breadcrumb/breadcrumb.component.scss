@@ -4,27 +4,27 @@
   background: none;
   @include font-nav(0);
 }
-.breadcrumb a {
+.breadcrumb .breadcrumb__item {
   color: rgb(95, 194, 240);
   text-decoration: none;
 }
-.breadcrumb a:hover {
+.breadcrumb .breadcrumb__item:hover {
   color: dimgrey;
   text-decoration: none;
 }
-.breadcrumb li {
+.breadcrumb .breadcrumb__items {
   list-style: none;
   float: left;
   margin: 5px;
 }
-.breadcrumb li:last-child {
+.breadcrumb .breadcrumb__items:last-child {
   margin-right: 20px;
 }
-.breadcrumb li::after {
+.breadcrumb .breadcrumb__items::after {
   content: "->";
   color: rgb(95, 194, 240);
   text-decoration: none;
 }
-.breadcrumb li:last-child::after {
+.breadcrumb .breadcrumb__items:last-child::after {
   content: "";
 }

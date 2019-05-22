@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserService } from "./services/user.service";
-import { Subscription, Observable, Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "./store/states/app.state";
 import { User } from "./models/user";

@@ -15,6 +15,7 @@ import { takeUntil } from "rxjs/operators";
 })
 export class AddCourseComponent implements OnDestroy {
   messageClass: string;
+  itemClass: string;
   message: string;
   private componetDestroyed: Subject<any> = new Subject();
 
@@ -49,11 +50,13 @@ export class AddCourseComponent implements OnDestroy {
       .subscribe(course => {
         if (course) {
           this.store.dispatch(new AddCourse(course));
-          this.messageClass = "alert alert-permit";
+          this.messageClass = "alert-permit";
+          this.itemClass = "border-permit";
           this._router.navigate(["/courses"]);
         } else {
           this.message = "Вы ввели некорректные данные!";
-          this.messageClass = "alert alert-danger";
+          this.messageClass = "alert-danger";
+          this.itemClass = "border-danger";
           this.initCourse();
         }
       });

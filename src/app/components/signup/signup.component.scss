@@ -4,13 +4,9 @@
 .signup-form {
   @include flex-content-direction(center, column);
 
-  .signup-form-group {
+  .signup__items {
     @include flex-content-direction(center, row);
     padding: 5px;
     margin: 5px;
-
-    .signup-form-control {
-      margin: 5px;
-    }
   }
 }

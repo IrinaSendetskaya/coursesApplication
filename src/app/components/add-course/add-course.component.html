@@ -1,97 +1,105 @@
 <p>
   New Course
 </p>
-<div class="new-course-form" method="POST">
-  <div class="new-course-form-group">
+<div class="add-course-form" method="POST">
+  <div class="add-course__items">
     <div [class]="messageClass">
       {{ message }}
     </div>
   </div>
-  <div class="new-course-form-group">
-    <label for="nameCourse">Название </label>
-    <input
-      class="new-course-form-control"
-      name="nameCourse"
-      [(ngModel)]="courseInput.name"
-      #nameCourse="ngModel"
-      required
-      pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
-    />
+  <div class="add-course__items">
+    <label class="control-label"
+      >Название
+      <input
+        [class]="itemClass"
+        name="nameCourse"
+        [(ngModel)]="courseInput.name"
+        #nameCourse="ngModel"
+        required
+        pattern="[a-zA-ZА-Яа-я0-9]{1,10}"
+      />
+    </label>
     <div
       [hidden]="nameCourse.untouched || nameCourse.valid"
-      class="alert alert-danger alert__nullString"
+      class="alert-danger"
     >
       * введите
     </div>
   </div>
-  <div class="new-course-form-group">
-    <label for="description">Описание </label>
-    <textarea
-      class="new-course-form-control"
-      name="description"
-      [(ngModel)]="courseInput.description"
-      #description="ngModel"
-      required
-      pattern="[a-zA-ZА-Яа-я0-9,.]{1,20}"
-    >
-    </textarea>
+  <div class="add-course__items">
+    <label class="control-label"
+      >Описание
+      <textarea
+        [class]="itemClass"
+        name="description"
+        [(ngModel)]="courseInput.description"
+        #description="ngModel"
+        required
+        pattern="[a-zA-ZА-Яа-я0-9,.]{1,20}"
+      >
+      </textarea>
+    </label>
     <div
       [hidden]="description.untouched || description.valid"
-      class="alert alert-danger alert__nullString"
+      class="alert-danger"
     >
       * введите
     </div>
   </div>
-  <div class="new-course-form-group">
-    <label for="date">Дата </label>
-
-    <app-datepicker
-      (dateOut)="showDate($event)"
-      [(dateForParent)]="courseInput.date"
-      #dateForParent
-      class="new-course-form-control"
-      required
-    ></app-datepicker>
+  <div class="add-course__items">
+    <label class="control-label"
+      >Дата
+      <app-datepicker
+        (dateOut)="showDate($event)"
+        [(dateForParent)]="courseInput.date"
+        #dateForParent
+        [class]="itemClass"
+        required
+      ></app-datepicker>
+    </label>
   </div>
-  <div class="new-course-form-group">
-    <label for="duration">Продолжительность </label>
-    <input
-      class="new-course-form-control"
-      name="duration"
-      [(ngModel)]="courseInput.duration"
-      #duration="ngModel"
-      required
-      pattern="[0-9]{1,4}"
-    />
-    <div class="course-duration__item">
+  <div class="add-course__items">
+    <label class="control-label"
+      >Продолжительность
+      <input
+        [class]="itemClass"
+        name="duration"
+        [(ngModel)]="courseInput.duration"
+        #duration="ngModel"
+        required
+        pattern="[0-9]{1,4}"
+      />
+    </label>
+    <div class="add-course__pipe">
       {{ courseInput?.duration | duration }}
     </div>
-    <div
-      [hidden]="duration.untouched || duration.valid"
-      class="alert alert-danger alert__nullString"
-    >
+    <div [hidden]="duration.untouched || duration.valid" class="alert-danger">
       * введите
     </div>
   </div>
-  <div class="new-course-form-group">
-    <label for="authors">Список авторов </label>
-    <app-drag-drop
-      [(authorsConfirmList)]="courseInput.authors"
-      #authors
-      class="new-course-form-control"
-      required
-    ></app-drag-drop>
+  <div class="add-course__items">
+    <label class="control-label"
+      >Список авторов
+      <app-drag-drop
+        [(authorsConfirmList)]="courseInput.authors"
+        #authors
+        [class]="itemClass"
+        required
+      ></app-drag-drop>
+    </label>
   </div>
-  <div class="new-course-form-group">
+  <div class="add-course__items">
     <button
       [disabled]="nameCourse.invalid || description.invalid || duration.invalid"
-      class="button button_submit"
+      class="control-button add-course__button--submit"
       (click)="addNewCourse()"
     >
       Сохранить
     </button>
-
-    <button class="button button_cancel" (click)="cancelAddNewCourse()">
+    <button
+      class="control-button add-course__button--cancel"
+      (click)="cancelAddNewCourse()"
+    >
       Отмена
     </button>
   </div>

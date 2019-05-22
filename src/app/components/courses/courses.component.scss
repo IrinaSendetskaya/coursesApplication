@@ -1,63 +1,62 @@
 $border: 1px solid navy;
 @import "../../shared/flex.center.mixin.scss";
+@import "../../shared/template.scss";
 
-.content-courses__list {
+.courses {
   @include flex-content-direction(space-around, column);
   border: $border;
-}
-.content-courses__list {
+
   .courses__options {
     @include flex-content-direction(space-between, row);
     border: $border;
     margin: 5px;
     padding: 10px;
   }
-  .courses__search {
+  .courses__wrapper-search {
     @include flex-content-direction(baseline, row);
     padding: 5px;
   }
-  .course__add {
+  .courses__add {
     padding: 5px;
   }
-  input,
-  button {
+  .courses__input--search {
     margin: 5px;
     padding: 3px;
   }
-  .courses__list {
+  .courses__items {
     @include flex-content-direction(space-between, row);
     padding: 10px;
     margin: 10px;
     border: $border;
 
-    .course__item {
+    .courses__item {
       @include flex-content-direction(space-between, column);
       align-items: stretch;
       padding: 5px;
       margin: 5px;
       width: 100%;
 
-      .item__header {
+      .courses__details {
         @include flex-content-direction(space-between, row);
         align-items: flex-start;
         padding: 5px;
         width: 100%;
         font-size: x-large;
       }
-      .item__header--main {
+      .courses__parameters {
         @include flex-content-direction(space-around, row);
         align-items: flex-start;
         padding: 5px;
       }
-      .item__list {
+      .courses__parameter {
         margin-right: 20px;
         justify-self: stretch;
       }
-      .item__header--date {
+      .courses__date {
         justify-self: flex-end;
       }
     }
-    .course__options {
+    .courses__controls {
       @include flex-content-direction(flex-start, column);
       align-items: stretch;
       padding: 5px;

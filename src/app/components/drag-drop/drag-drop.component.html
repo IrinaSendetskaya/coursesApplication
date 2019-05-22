@@ -1,23 +1,29 @@
-<div class="container"> 
+<div class="wrapper">
   <div
     cdkDropList
     #allList="cdkDropList"
     [cdkDropListData]="authorsOutputList"
     [cdkDropListConnectedTo]="[confirmList]"
     class="authors__list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="authors__box" *ngFor="let item of authorsOutputList" cdkDrag>{{item.name}}</div>
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="authors__box" *ngFor="let item of authorsOutputList" cdkDrag>
+      {{ item.name }}
+    </div>
   </div>
 </div>
 
-<div class="container">
+<div class="wrapper">
   <div
     cdkDropList
     #confirmList="cdkDropList"
     [cdkDropListData]="authorsConfirmList"
     [cdkDropListConnectedTo]="[allList]"
     class="authors__list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="authors__box" *ngFor="let item of authorsConfirmList" cdkDrag>{{item?.name}}</div>
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="authors__box" *ngFor="let item of authorsConfirmList" cdkDrag>
+      {{ item?.name }}
+    </div>
   </div>
 </div>

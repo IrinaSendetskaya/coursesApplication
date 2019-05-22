@@ -4,13 +4,9 @@
 .login-form {
   @include flex-content-direction(center, column);
 
-  .login-form-group {
+  .login__items {
     @include flex-content-direction(center, row);
     padding: 5px;
     margin: 5px;
-
-    .login-form-control {
-      margin: 5px;
-    }
   }
 }

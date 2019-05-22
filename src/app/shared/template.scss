@@ -1,20 +1,20 @@
-button {
+.control-button {
   margin: 10px;
+  padding: 3px;
 }
 
-input.ng-touched.ng-invalid,
-textarea.ng-touched.ng-valid {
+.border-danger {
   border: solid red 2px;
 }
 
-input.ng-touched.ng-valid,
-textarea.ng-touched.ng-valid {
+.border-permit {
   border: solid green 2px;
 }
 
 .alert-danger {
   color: red;
 }
+
 .alert-permit {
   color: green;
 }

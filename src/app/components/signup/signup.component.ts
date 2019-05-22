@@ -27,6 +27,7 @@ export class SignupComponent implements OnDestroy {
   };
   message: string;
   messageClass: string;
+  itemClass: string;
   private componetDestroyed: Subject<any> = new Subject();
 
   addNewUser() {
@@ -36,6 +37,7 @@ export class SignupComponent implements OnDestroy {
       .subscribe(
         user => {
           if (user) {
+            this.itemClass = "border-permit";
             this.store$.dispatch(new AddUser(user));
             this._router.navigate(["/login"]);
           }
@@ -43,7 +45,8 @@ export class SignupComponent implements OnDestroy {
         error => {
           if (error) {
             this.message = "Такой пользователь уже существует!";
-            this.messageClass = "message";
+            this.messageClass = "border-danger";
+            this.itemClass = "border-danger";
             this.userInput.login = "";
             this.userInput.password = "";
           }

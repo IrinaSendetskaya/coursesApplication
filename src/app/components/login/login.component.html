@@ -2,52 +2,50 @@
   Login page
 </p>
 <div class="login-form">
-  <div class="login-form-group">
-    <div [hidden]="nameLogin.valid && pass.valid" class="alert alert-danger">
+  <div class="login__items">
+    <div [hidden]="nameLogin.valid && pass.valid" class="alert-danger">
       Неправильный логин или пароль
     </div>
     <div [class]="messageClass">
       {{ message }}
     </div>
   </div>
-  <div class="login-form-group">
-    <label for="#nameLogin">Логин </label>
-    <input
-      class="login-form-control"
-      name="nameLogin"
-      [(ngModel)]="userInput.login"
-      #nameLogin="ngModel"
-      required
-      pattern="[a-zA-Z0-9]{1,12}"
-    />
-    <div
-      [hidden]="nameLogin.untouched || nameLogin.valid"
-      class="alert alert-danger alert__nullString"
-    >
+  <div class="login__items">
+    <label
+      >Логин
+      <input
+        [class]="itemClass"
+        name="nameLogin"
+        [(ngModel)]="userInput.login"
+        #nameLogin="ngModel"
+        required
+        pattern="[a-zA-Z0-9]{1,12}"
+      />
+    </label>
+    <div [hidden]="nameLogin.untouched || nameLogin.valid" class="alert-danger">
       * введите
     </div>
   </div>
-  <div class="login-form-group">
-    <label for="#pass">Пароль </label>
-    <input
-      class="login-form-control"
-      name="pass"
-      [(ngModel)]="userInput.password"
-      #pass="ngModel"
-      required
-      pattern="[a-zA-Z0-9]{1,12}"
-    />
-    <div
-      [hidden]="pass.untouched || pass.valid"
-      class="alert alert-danger alert__nullString"
-    >
+  <div class="login__items">
+    <label
+      >Пароль
+      <input
+        [class]="itemClass"
+        name="pass"
+        [(ngModel)]="userInput.password"
+        #pass="ngModel"
+        required
+        pattern="[a-zA-Z0-9]{1,12}"
+      />
+    </label>
+    <div [hidden]="pass.untouched || pass.valid" class="alert-danger">
       * введите
     </div>
   </div>
-  <div class="login-form-group">
+  <div class="login__items">
     <button
       [disabled]="nameLogin.invalid || pass.invalid"
-      class="button button--submit"
+      class="control-button login__button--submit"
       (click)="checkUserByLoginAndPassword()"
     >
       Войти

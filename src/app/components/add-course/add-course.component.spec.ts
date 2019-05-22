@@ -21,14 +21,14 @@ describe("AddCourseComponent", () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(AddCourseComponent);
     component = fixture.componentInstance;
     coursesService = TestBed.get(CoursesService);
     router = TestBed.get(Router);
     store = TestBed.get(Store);
     fixture.detectChanges();
-  });
+  }));
 
   it("should create", () => {
     expect(component).toBeTruthy;

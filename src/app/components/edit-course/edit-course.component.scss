@@ -1,14 +1,11 @@
 @import "../../shared/template.scss";
 @import "../../shared/flex.center.mixin.scss";
 
-.edit-course-form-group {
+.edit-course__items {
   @include flex-content-direction(center, row);
   padding: 5px;
   margin: 5px;
 }
 .edit-course-form {
   @include flex-content-direction(center, column);
-}
-.edit-course-form-control {
-  margin: 5px;
 }

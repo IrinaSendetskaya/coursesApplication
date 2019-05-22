@@ -20,6 +20,7 @@ export class LoginComponent implements OnDestroy {
   };
   message: string;
   messageClass: string;
+  itemClass: string;
   private componetDestroyed: Subject<any> = new Subject();
 
   checkUserByLoginAndPassword() {
@@ -29,14 +30,16 @@ export class LoginComponent implements OnDestroy {
       .subscribe(
         user => {
           if (user) {
-            this.messageClass = "alert alert-permit";
+            this.messageClass = "alert-permit";
+            this.itemClass = "border-permit";
             this.userService.setUserInLocalStorage(user);
             this._router.navigate(["/courses"]);
           }
         },
         error => {
           if (error) {
-            this.messageClass = "alert alert-danger";
+            this.messageClass = "border-danger";
+            this.itemClass = "border-danger";
             this.userInput.password = "";
             localStorage.clear();
           }

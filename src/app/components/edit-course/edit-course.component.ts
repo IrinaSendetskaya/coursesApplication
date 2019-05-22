@@ -15,6 +15,7 @@ import { takeUntil } from "rxjs/operators";
 })
 export class EditCourseComponent implements OnInit, OnDestroy {
   messageClass: string;
+  itemClass: string;
   message: string;
   private componetDestroyed: Subject<any> = new Subject();
 
@@ -57,11 +58,13 @@ export class EditCourseComponent implements OnInit, OnDestroy {
       .subscribe(course => {
         if (course) {
           this.store$.dispatch(new UpdateCourse(course));
-          this.messageClass = "alert alert-permit";
+          this.messageClass = "alert-permit";
+          this.itemClass = "border-permit";
           this._router.navigate(["/courses"]);
         } else {
           this.message = "Вы ввели некорректные данные!";
-          this.messageClass = "alert alert-danger";
+          this.messageClass = "alert-danger";
+          this.itemClass = "border-danger";
         }
       });
   }

@@ -1,13 +1,13 @@
 @import "../../shared/template.scss";
 @import "../../shared/flex.center.mixin.scss";
 @import "../../shared/font-nav.mixin.scss";
-nav.header__navbar {
+
+.navbar {
   @include flex-content-direction(space-between, row);
   box-sizing: content-box;
   border: 1px solid navy;
   height: 100px;
-}
-nav {
+
   img.navbar__item {
     height: 100px;
     width: 150px;
