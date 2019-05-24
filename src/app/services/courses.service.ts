@@ -8,11 +8,11 @@ import { Author } from "../models/author";
   providedIn: "root"
 })
 export class CoursesService {
-  serverUrl = "http://localhost:3000/api/";
+  public serverUrl = "http://localhost:3000/api/";
 
   constructor(private httpClient: HttpClient) {}
 
-  getCourses(): Observable<Course[]> {
+  public getCourses(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.serverUrl + "courses");
   }
 

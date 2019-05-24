@@ -1,12 +1,21 @@
-import { TestBed } from '@angular/core/testing';
-
+import { TestBed, async } from '@angular/core/testing';
 import { UserService } from './user.service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CoursesService } from './courses.service';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UserService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let mockHttp:HttpTestingController;
+  let userService:UserService;
+  
+  beforeEach(async(() => TestBed.configureTestingModule({
+    imports:[HttpClientTestingModule],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [{ provide: CoursesService}]
+  })));
 
   it('should be created', () => {
-    const service: UserService = TestBed.get(UserService);
-    expect(service).toBeTruthy();
+    userService = TestBed.get(UserService);
+    expect(userService).toBeTruthy();
   });
 });
