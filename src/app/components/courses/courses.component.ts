@@ -26,9 +26,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
     private store$: Store<AppState>
   ) {}
 
-  findAllCourses() {
+  public getCourses() {
     this.coursesService
-      .getAllCourses()
+      .getCourses()
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(data => {
         this.courses = data;
@@ -36,9 +36,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
       });
   }
 
-  searchCourses(searchInput: string) {
+  public searchCourses(searchInput: string) {
     this.coursesService
-      .getCoursesByNameOrDate(searchInput)
+      .getCoursesByName(searchInput)
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(
         data => (this.courses = data),
@@ -51,7 +51,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       );
   }
 
-  findCourseById(id: string) {
+  public getCourseById(id: number) {
     this.coursesService
       .getCourseById(id)
       .pipe(takeUntil<any>(this.componetDestroyed))
@@ -60,7 +60,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       });
   }
 
-  removeCourse(id: number) {
+  public removeCourse(id: number) {
     var responseUser = confirm("Вы действительно хотите удалить этот курс?");
     if (responseUser) {
       this.coursesService
@@ -73,12 +73,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {
-    this.findAllCourses();
+ public ngOnInit() {
+    this.getCourses();
     this.coursesState$ = this.store$.select("courseState");
   }
 
-  ngOnDestroy() {
+ public ngOnDestroy() {
     this.componetDestroyed.next();
     this.componetDestroyed.complete();
   }

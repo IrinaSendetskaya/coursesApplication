@@ -16,27 +16,27 @@ export class AppComponent implements OnInit, OnDestroy {
   title = "coursesApplication";
   users: User[] = [];
   public coursesState$: Observable<any>;
-  private componetDestroyed: Subject<any> = new Subject();
+  private componentDestroyed: Subject<any> = new Subject();
 
   constructor(
     private userService: UserService,
     private store$: Store<AppState>
   ) {}
 
-  ngOnInit() {
-    this.findAllUsers();
+  public ngOnInit() {
+    this.getUsers();
     this.coursesState$ = this.store$.select("courseState");
   }
 
-  ngOnDestroy() {
-    this.componetDestroyed.next();
-    this.componetDestroyed.complete();
+  public ngOnDestroy() {
+    this.componentDestroyed.next();
+    this.componentDestroyed.complete();
   }
 
-  findAllUsers() {
+  public getUsers() {
     this.userService
-      .getAllUsers()
-      .pipe(takeUntil<any>(this.componetDestroyed))
+      .getUsers()
+      .pipe(takeUntil<any>(this.componentDestroyed))
       .subscribe(data => {
         this.users = data;
         this.store$.dispatch(new LoadUsers(this.users));

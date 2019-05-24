@@ -28,11 +28,11 @@ export class UserService {
     localStorage.setItem("user", JSON.stringify(user));
   }
 
-  getAllUsers(): Observable<User[]> {
+  getUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.serverUrl + "users");
   }
 
-  addNewUsers(userInput: User): Observable<any> {
+  addUser(userInput: User): Observable<any> {
     return this.httpClient.post(this.serverUrl + "user", userInput);
   }
 

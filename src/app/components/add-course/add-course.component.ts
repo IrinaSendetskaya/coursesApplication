@@ -45,7 +45,7 @@ export class AddCourseComponent implements OnDestroy {
 
   addNewCourse() {
     this.coursesService
-      .addNewCourses(this.courseInput)
+      .addCourse(this.courseInput)
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(course => {
         if (course) {

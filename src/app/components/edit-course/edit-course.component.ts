@@ -44,7 +44,7 @@ export class EditCourseComponent implements OnInit, OnDestroy {
     this.componetDestroyed.complete();
   }
 
-  findCourseById(id: string) {
+  findCourseById(id: number) {
     this.coursesService
       .getCourseById(id)
       .pipe(takeUntil<any>(this.componetDestroyed))
