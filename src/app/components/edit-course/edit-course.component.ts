@@ -36,7 +36,7 @@ export class EditCourseComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.findCourseById(
-      this._router.routerState.snapshot.root.children[0].params.id
+      this._router.routerState.snapshot.root.firstChild.params.id
     );
   }
   ngOnDestroy() {
@@ -44,7 +44,7 @@ export class EditCourseComponent implements OnInit, OnDestroy {
     this.componetDestroyed.complete();
   }
 
-  findCourseById(id: number) {
+  findCourseById(id: string) {
     this.coursesService
       .getCourseById(id)
       .pipe(takeUntil<any>(this.componetDestroyed))

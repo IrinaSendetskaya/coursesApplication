@@ -56,8 +56,7 @@
     <div class="courses__controls">
       <button
         class="control-button courses__button--edit-course"
-        (click)="findCourseById(course.name)"
-        [routerLink]="['/courses', course?.name]"
+        [routerLink]="['/courses', course.name]"
         routerLinkActive="active"
       >
         Редактировать

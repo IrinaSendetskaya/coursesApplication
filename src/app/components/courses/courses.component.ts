@@ -51,15 +51,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
       );
   }
 
-  public getCourseById(id: number) {
-    this.coursesService
-      .getCourseById(id)
-      .pipe(takeUntil<any>(this.componetDestroyed))
-      .subscribe(data => {
-        this.courses = data;
-      });
-  }
-
   public removeCourse(id: number) {
     var responseUser = confirm("Вы действительно хотите удалить этот курс?");
     if (responseUser) {
@@ -73,12 +64,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
   }
 
- public ngOnInit() {
+  public ngOnInit() {
     this.getCourses();
     this.coursesState$ = this.store$.select("courseState");
   }
 
- public ngOnDestroy() {
+  public ngOnDestroy() {
     this.componetDestroyed.next();
     this.componetDestroyed.complete();
   }

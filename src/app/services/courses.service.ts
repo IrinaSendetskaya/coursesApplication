@@ -24,7 +24,7 @@ export class CoursesService {
     return this.httpClient.get<Course[]>(this.serverUrl + "courses", options);
   }
 
-  getCourseById(id: number): Observable<Course[]> {
+  getCourseById(id: string): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.serverUrl + "courses/" + id);
   }
   deleteCourse(id: number): Observable<any> {

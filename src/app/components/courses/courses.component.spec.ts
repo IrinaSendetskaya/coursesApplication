@@ -82,13 +82,6 @@ describe("CoursesComponent", () => {
     expect(component.message).toEqual("По Вашему запросу ничего не найдено");
   }));
 
-  it("should call getCourseById and return value", async(() => {
-    spyOn(courseService, "getCourseById").and.returnValue(of(mockCourses));
-    component.getCourseById(1);
-    fixture.detectChanges();
-    expect(component.courses).toEqual(mockCourses);
-  }));
-
   it("should call removeCourse and not return this value", async(() => {
     spyOn(courseService, "deleteCourse").and.returnValue(of(undefined));
     component.removeCourse(1);
