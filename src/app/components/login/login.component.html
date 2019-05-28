@@ -5,7 +5,8 @@
   <div class="login__items">
     <div
       [hidden]="
-        nameLogin.valid && pass.valid && nameLogin.untouched || pass.untouched
+        (nameLogin.untouched || nameLogin.valid) &&
+        (pass.untouched || pass.valid)
       "
       class="alert-danger"
     >
