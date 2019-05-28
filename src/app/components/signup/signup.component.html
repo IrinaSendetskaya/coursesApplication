@@ -3,7 +3,12 @@
 </p>
 <div class="signup-form">
   <div class="signup__items">
-    <div [hidden]="nameLogin.valid && pass.valid" class="alert-danger">
+    <div
+      [hidden]="
+        (nameLogin.valid && pass.valid && nameLogin.untouched) || pass.untouched
+      "
+      class="alert-danger"
+    >
       Логин и пароль должны содержать цифры и буквы, 1 символ в верхнем регистре
     </div>
   </div>
