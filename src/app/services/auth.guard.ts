@@ -15,14 +15,14 @@ import { GetCurrentUser } from "../store/actions/login.action";
   providedIn: "root"
 })
 export class AuthGuard implements CanActivate {
-  isValidate: boolean;
+  isAuthentificated: boolean;
 
   constructor(
     private userService: UserService,
     private store$: Store<AppState>
   ) {}
 
-  canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
@@ -32,8 +32,8 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     this.userService.getUserInLocalStorage().subscribe(currentUser => {
       this.store$.dispatch(new GetCurrentUser(currentUser));
-      return (this.isValidate = !!currentUser);
+      this.isAuthentificated = currentUser ? true : false;
     });
-    return this.isValidate;
+    return this.isAuthentificated;
   }
 }

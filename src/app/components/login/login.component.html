@@ -3,7 +3,13 @@
 </p>
 <div class="login-form">
   <div class="login__items">
-    <div [hidden]="nameLogin.valid && pass.valid" class="alert-danger">
+    <div
+      [hidden]="
+        (nameLogin.untouched || nameLogin.valid) &&
+        (pass.untouched || pass.valid)
+      "
+      class="alert-danger"
+    >
       Неправильный логин или пароль
     </div>
     <div [class]="messageClass">

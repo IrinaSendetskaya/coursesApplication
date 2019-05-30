@@ -32,7 +32,7 @@ export class SignupComponent implements OnDestroy {
 
   addNewUser() {
     this.userService
-      .addNewUsers(this.userInput)
+      .addUser(this.userInput)
       .pipe(takeUntil<any>(this.componetDestroyed))
       .subscribe(
         user => {

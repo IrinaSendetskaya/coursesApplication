@@ -8,15 +8,15 @@ import { Author } from "../models/author";
   providedIn: "root"
 })
 export class CoursesService {
-  serverUrl = "http://localhost:3000/api/";
+  public serverUrl = "http://localhost:3000/api/";
 
   constructor(private httpClient: HttpClient) {}
 
-  getAllCourses(): Observable<Course[]> {
+  public getCourses(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.serverUrl + "courses");
   }
 
-  getCoursesByNameOrDate(searchInput: string): Observable<Course[]> {
+  getCoursesByName(searchInput: string): Observable<Course[]> {
     searchInput = searchInput.trim();
     const options = searchInput
       ? { params: new HttpParams().set("searchInput", searchInput) }
@@ -30,14 +30,14 @@ export class CoursesService {
   deleteCourse(id: number): Observable<any> {
     return this.httpClient.delete(this.serverUrl + "courses/" + id);
   }
-  addNewCourses(courseInput: Course): Observable<any> {
+  addCourse(courseInput: Course): Observable<any> {
     return this.httpClient.post(this.serverUrl + "courses", courseInput);
   }
   editCourse(courseInput: Course): Observable<any> {
     return this.httpClient.put(this.serverUrl + "courses", courseInput);
   }
 
-  getAllAuthors(): Observable<Author[]> {
+  getAuthors(): Observable<Author[]> {
     return this.httpClient.get<Author[]>(this.serverUrl + "authors");
   }
 }
