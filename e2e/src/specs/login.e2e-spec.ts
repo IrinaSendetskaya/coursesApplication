@@ -5,6 +5,13 @@ import "zone.js/dist/async-test.js";
 import "zone.js/dist/proxy.js";
 import "zone.js/dist/sync-test";
 import "zone.js/dist/jasmine-patch";
+import { inject, TestBed } from "@angular/core/testing";
+import { Router } from "@angular/router";
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from "@angular/platform-browser-dynamic/testing";
+import "core-js/es7/reflect";
 
 describe("Login tests", () => {
   let page: LoginPage;
@@ -13,6 +20,13 @@ describe("Login tests", () => {
   beforeEach(() => {
     page = new LoginPage();
     page.navigateTo();
+  });
+  beforeAll(() => {
+    TestBed.resetTestEnvironment();
+    TestBed.initTestEnvironment(
+      BrowserDynamicTestingModule,
+      platformBrowserDynamicTesting()
+    );
   });
 
   it("Login form should be valid", () => {
@@ -51,7 +65,7 @@ describe("Login tests", () => {
     expect(button).toBeTruthy;
   });
 
-  it("should be header login", () => {
+  it("should be display the login tab in the header", () => {
     let loginLink = page
       .getTableHeader()
       .get(1)
@@ -59,7 +73,7 @@ describe("Login tests", () => {
     expect(loginLink).toContain("Вход");
   });
 
-  it("should be header signup", () => {
+  it("should be display the signup tab in the header", () => {
     let signupLink = page
       .getTableHeader()
       .get(2)
@@ -67,7 +81,7 @@ describe("Login tests", () => {
     expect(signupLink).toContain("Регистрация");
   });
 
-  it("should not be header logout", () => {
+  it("should not be display the logout tab in the header if isn't logged", () => {
     let logoutLink = page.getTableHeader().getText();
     expect(logoutLink).not.toContain("Выход");
   });
@@ -87,7 +101,6 @@ describe("Login tests", () => {
     page.getPasswordInputText().sendKeys("");
     page.clickSubmit();
     let button = page.getButtonSubmit().isSelected();
-
     expect(button).toBeFalsy();
     done();
   });

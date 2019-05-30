@@ -8,10 +8,10 @@ import {
 } from "protractor";
 
 export class LoginPage {
-  navigateTo(): promise.Promise<any> {
-    return browser.get("/#/login");
+  async navigateTo() {
+    return await browser.get("/#/login");
   }
-  async navigateToCourses(): promise.Promise<any> {
+  async navigateToCourses() {
     return await browser.get("/#/courses");
   }
   async getUserInLocalStorage() {
@@ -19,8 +19,8 @@ export class LoginPage {
       "return window.localStorage.getItem('user');"
     );
   }
-  clickSubmit() {
-    return element(by.buttonText("Войти")).click();
+  async clickSubmit() {
+    return await element(by.buttonText("Войти")).click();
   }
   getForm(): ElementFinder {
     return element(by.className("login__items"));
