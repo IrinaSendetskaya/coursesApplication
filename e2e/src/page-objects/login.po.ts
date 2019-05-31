@@ -3,7 +3,6 @@ import {
   element,
   by,
   ElementFinder,
-  promise,
   ElementArrayFinder
 } from "protractor";
 
