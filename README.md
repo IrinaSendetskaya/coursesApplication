@@ -8,16 +8,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Prerequisites
 
--- JS
--- TS
--- Node.js
--- Angular
+* JS
+* TS
+* Node.js
+* Angular
 
 ## Standard Installation
 
 1. Make sure all the prerequisites are installed.
 2. Fork dev.to repository, ie. https://github.com/IrinaSendetskaya/coursesApplication/fork
-3. Clone your forked repository, ie. git clone https://github.com/<your-username>/coursesApplication.git
+3. Clone your forked repository, ie. git clone https://github.com/\[your-username\]/coursesApplication.git
 4. Set up your environment.
 5. Run bin/setup.
 
