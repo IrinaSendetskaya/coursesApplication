@@ -3,30 +3,36 @@
 </p>
 <div class="login-form">
   <div class="login__items">
-    <div [hidden]="nameLogin.valid && pass.valid" class="alert-danger">
+    <div
+      [hidden]="
+        (login.untouched || login.valid) &&
+        (pass.untouched || pass.valid)
+      "
+      class="alert-danger"
+    >
       Неправильный логин или пароль
     </div>
     <div [class]="messageClass">
       {{ message }}
     </div>
   </div>
-  <div class="login__items">
+  <div class="login__items-login">
     <label
       >Логин
       <input
         [class]="itemClass"
-        name="nameLogin"
+        name="login"
         [(ngModel)]="userInput.login"
-        #nameLogin="ngModel"
+        #login="ngModel"
         required
         pattern="[a-zA-Z0-9]{1,12}"
       />
     </label>
-    <div [hidden]="nameLogin.untouched || nameLogin.valid" class="alert-danger">
+    <div [hidden]="login.untouched || login.valid" class="alert-danger">
       * введите
     </div>
   </div>
-  <div class="login__items">
+  <div class="login__items-password">
     <label
       >Пароль
       <input
@@ -44,7 +50,7 @@
   </div>
   <div class="login__items">
     <button
-      [disabled]="nameLogin.invalid || pass.invalid"
+      [disabled]="login.invalid || pass.invalid"
       class="control-button login__button--submit"
       (click)="checkUserByLoginAndPassword()"
     >

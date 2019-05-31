@@ -4,7 +4,7 @@
 .login-form {
   @include flex-content-direction(center, column);
 
-  .login__items {
+  .login__items, .login__items-login, .login__items-password{
     @include flex-content-direction(center, row);
     padding: 5px;
     margin: 5px;
