@@ -28,7 +28,7 @@
     "@ngrx/store-devtools": "^7.4.0",
     "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
     "mysql": "^2.16.0",
